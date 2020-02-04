@@ -1,0 +1,28 @@
+<!--pages/location/location.wxml-->
+<view >
+ <view class="location-view">
+ <picker bindchange="bindPickerSale" value="{{pickerListIdx}}" range="{{pickerList}}" range-key="projectName" >
+       项目名称 
+ <text>{{addname}}</text> 
+           <view class="picker">
+
+            <!-- <text class="monomer-input" style="margin-top:0">{{addname}}</text> -->
+ 
+           </view>
+          
+        </picker>
+
+ </view>
+ <view class="location-view" bindtap="ditu">项目位置 <text>{{locationposition}}</text> </view>
+
+
+
+
+
+<view class="location-view2">
+  <view class="location-bottom" bindtap="yes">确 认</view>
+ 
+</view>
+
+
+</view>

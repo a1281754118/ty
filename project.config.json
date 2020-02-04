@@ -1,0 +1,180 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": false,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.4",
+	"appid": "wxddee2b19133d17e7",
+	"projectname": "%E5%A4%A9%E5%85%83%E9%A1%B9%E7%9B%AE%E6%96%BD%E5%B7%A5%E7%AE%A1%E7%90%86",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 4,
+			"list": [
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "租赁",
+					"pathName": "pages/lease/lease",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "设备明细",
+					"pathName": "pages/Equipment details/Equipment details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "材料明细",
+					"pathName": "pages/Material details/Material details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "进场",
+					"pathName": "pages/entry/entry",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "退场管理",
+					"pathName": "pages/exit/exit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "进场明细",
+					"pathName": "pages/entry/entry detailed/entry detailed",
+					"query": "display='block'&id=1",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "退场明细",
+					"pathName": "pages/exit/exit detailed/exit detailed",
+					"query": "display='block'&id=1",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "调拨明细",
+					"pathName": "pages/allocation/allocation detailed/allocation detailed",
+					"query": "display='block'&id=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "丢失明细",
+					"pathName": "pages/lose/lose detailed/lose detailed",
+					"query": "display='block'",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "项目调拨",
+					"pathName": "pages/allocation/allocation",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "项目丢失",
+					"pathName": "pages/lose/lose",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/mine/mine",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "项目定位",
+					"pathName": "pages/location/location",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "单体管理",
+					"pathName": "pages/monomer/monomer",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "单体新增",
+					"pathName": "pages/monomer/addmonomer/addmonomer",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "单体更新",
+					"pathName": "pages/monomer/monomer-details/monomer-update/monomer-update",
+					"scene": null
+				}
+			]
+		}
+	}
+}

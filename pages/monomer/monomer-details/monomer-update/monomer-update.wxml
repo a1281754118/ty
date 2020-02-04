@@ -1,0 +1,31 @@
+<view class="detailed-page">
+  <view class='contract-detailed-1'>
+    <view style='margin-top: 30rpx;'>
+      <view class='contract-detailed-2' style="height:100%">
+        <h1>进度描述</h1> ：
+       
+         <input value="{{updatevalue}}" placeholder="请输入任务描述" bindinput="updatevalue"></input>
+        
+        </view>
+      <view class='contract-detailed-2'>
+        <h1>进度更新时间</h1> ： {{time}}</view>
+      <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+        <h1>进度图片</h1> ： </view>
+      <view class="weui-uploader">
+        <view class="img-v weui-uploader__bd" style="width: 90%;margin: 0 auto;">
+          <view class='pic' wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+            <image class='weui-uploader__img ' src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+              <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
+            </image>
+          </view>
+          <view class="weui-uploader__input-box pic" bindtap="chooseImg"> </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="monomer-update-view2">
+      <view class="monomer-update-bottom" bindtap="update">确 认 更 新</view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,71 @@
+<view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2' >
+          <h1>项目名称 ：</h1>
+          <picker bindchange="bindPickerSale" value="{{pickerListIdx}}" range="{{pickerList}}" range-key="projectName" >
+
+           <view class="picker">
+
+            <text class="monomer-input" style="margin-top:0">{{addname}}</text>
+ 
+           </view>
+          
+        </picker>
+          
+          </view>
+        <view class='contract-detailed-2'>
+          <h1>单体名称 ：</h1>
+          <input class="monomer-input"  value="{{mononmername}}" 
+          bindinput="mononmername"
+           placeholder="---"></input>
+          </view>
+        <view class='contract-detailed-2'>
+          <h1>单体面积 ： </h1>
+          <input class="monomer-input"  value="{{mononmerm2}}" 
+          placeholder="---"
+           type="number" bindinput="mononmerm2"></input>
+          单位/平方米
+          </view>
+        <view class='contract-detailed-2'>
+          <h1>单体高度 ： </h1>
+          <input class="monomer-input"  value="{{mononmerheight}}"
+          placeholder="---"
+           bindinput="mononmerheight" type="number"></input>
+          单位/米
+          </view>
+        <view class='contract-detailed-2'>
+          <h1>单体层数 ： </h1>
+          <input class="monomer-input"  value="{{mononmernumber}}"
+          placeholder="---"
+           bindinput="mononmernumber" type="number"></input>
+          单位/层
+          </view>
+        <view class='contract-detailed-2'>
+          <h1>单体层高 ： </h1>
+          <input class="monomer-input"  value="{{mononmernumberheight}}"
+          placeholder="---"
+           bindinput="mononmernumberheight" type="number"></input>
+          单位/米
+          </view>
+          <view class='contract-detailed-2'>
+          <h1>单层面积 ： </h1>
+          <input class="monomer-input"  value="{{area}}"
+          placeholder="---"
+           bindinput="area" type="number"></input>
+          单位/平方米
+          </view>
+     
+       
+        
+        
+      </view>
+    </view>
+
+
+  <view class="addmonomer-view2">
+  <view class="addmonomer-bottom" bindtap="add">确 认 新 增</view>
+ 
+</view>
+
+  </view>

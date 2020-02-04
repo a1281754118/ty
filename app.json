@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/lease/lease",
+    "pages/Material details/Material details",
+    "pages/Equipment details/Equipment details",
+    "pages/exit/exit",
+    "pages/entry/entry",
+    "pages/allocation/allocation",
+    "pages/lose/lose",
+    "pages/entry/entry detailed/entry detailed",
+    "pages/exit/exit detailed/exit detailed",
+    "pages/allocation/allocation detailed/allocation detailed",
+    "pages/lose/lose detailed/lose detailed",
+    "pages/mine/mine",
+    "pages/location/location",
+    "pages/monomer/monomer",
+    "pages/monomer/addmonomer/addmonomer",
+    "pages/monomer/monomer-details/monomer-details",
+    "pages/monomer/monomer-details/monomer-update/monomer-update"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#5781ED",
+    "navigationBarTitleText": "项目施工管理",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#5F7CE8",
+    "borderStyle": "black",
+    "list": [
+      {
+        "selectedIconPath": "pages/img/tubiao115xuanzhong.png",
+        "iconPath": "pages/img//tubiao115.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "pages/img/xiazaixuanzhong.png",
+        "iconPath": "pages/img/xiazai.png",
+        "pagePath": "pages/mine/mine",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

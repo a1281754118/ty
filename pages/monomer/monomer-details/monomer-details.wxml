@@ -1,0 +1,42 @@
+<view class="detailed-page">
+  <view class='contract-detailed-1'>
+    <view style='margin-top: 30rpx;'>
+      <view class='contract-detailed-2'>
+        <h1>项目名称</h1> ： {{arr.projectName}}</view>
+      <view class='contract-detailed-2'>
+        <h1>单体名称</h1> ： {{arr.singleName}}</view>
+      <view class='contract-detailed-2'>
+        <h1>单体面积</h1> ： {{arr.area}}</view>
+      <view class='contract-detailed-2'>
+        <h1>单体高度</h1> ： {{arr.high}}</view>
+      <view class='contract-detailed-2'>
+        <h1>单体层数</h1> ： {{arr.layerNum}}</view>
+      <view class='contract-detailed-2'>
+        <h1>单体层高</h1> ： {{arr.layerHigh}}</view>
+      <view class='contract-detailed-2'>
+        <h1>单层面积</h1> ： {{arr.layerArea}}</view>
+      <view class='contract-detailed-2'>
+        <h1>进度描述</h1> ： {{arr.remark}}</view>
+      <view class='contract-detailed-2'>
+        <h1>进度更新时间</h1> ： {{arr.updateDate}}</view>
+
+      <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+        <h1>进度图片</h1> ： </view>
+      <view class="weui-uploader">
+        <view class="img-v weui-uploader__bd" style="width: 90%;margin: 0 auto;">
+          <view class='pic' wx:for="{{arr.fileAttachesList}}" wx:for-item="item" wx:key="*this">
+            <image class='weui-uploader__img ' src="{{item}}"
+             data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+              <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
+            </image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="monomer-details-view2">
+      <view class="monomer-details-bottom" bindtap="update">进 度 更 新</view>
+    </view>
+  </view>
+
+</view>

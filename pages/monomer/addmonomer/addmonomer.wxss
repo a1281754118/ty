@@ -1,0 +1,18 @@
+/* pages/monomer/addmonomer/addmonomer.wxss */
+.addmonomer-view2{
+  position: absolute;
+  width: 100%;
+  bottom: 40rpx;
+}
+.addmonomer-bottom{
+  width: 90%;
+  margin: 0 auto;
+  background: #2FC1FD;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #fff;
+  font-size: 32rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  
+}

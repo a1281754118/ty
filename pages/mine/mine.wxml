@@ -1,0 +1,37 @@
+<!--pages/mine/mine.wxml-->
+<view class="mine-boss">
+
+<view class="product-list">
+ <!--条件选择-->
+ <view class="choice-bar">
+
+  <view bindtap="opens" data-item="1" class="chioce-item" hover-class="click-once-opaque">
+   <image class="icon-yonghu" src="../img/yonghuguanli.png"></image>
+      用户管理:{{start}}
+   <image class="icon-chioce" src="{{!isstart?openimg: offimg}}"></image>
+  </view>
+  <view class="sorting-list{{!isstart?' chioce-list-hide':' chioce-list-show'}}">
+   <view  bindtap="switchUser"  class="sorting-item" hover-class="click-once"  >
+   <text style="margin-left:20rpx">切换用户</text>  <image src="../img/web-icon-.png"></image></view>
+   <view  bindtap="logout"  class="sorting-item" hover-class="click-once"  >
+   <text style="margin-left:20rpx">退出登录</text> <image src="../img/tuichu.png"></image></view>
+  </view>
+ </view>
+
+ <!-- <view class="choice-bar" style="margin-top:10rpx;">
+  <view  class="chioce-item" >
+   后续功能往这加
+  </view>
+ </view>
+
+<view class="choice-bar" style="margin-top:10rpx;">
+  <view  class="chioce-item" >
+   后续功能往这加
+  </view>
+ </view> -->
+ 
+</view>
+
+
+
+</view>

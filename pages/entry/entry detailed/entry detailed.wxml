@@ -1,0 +1,179 @@
+<block wx:if="{{display=='block'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>合同编号</h1> ： {{arr.DETAIL_NO}}</view>
+        <view class='contract-detailed-2'>
+          <h1>项目名称</h1> ： {{arr.materialsPackage.projectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>出租单编号</h1> ： {{arr.materialsPackage.packageSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>租入仓库</h1> ： {{arr.materialsPackage.storeName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>进场时间</h1> ： {{arr.materialsPackage.dispatchAuditorDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>装车时间</h1> ： {{arr.materialsPackage.packageDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.materialsPackage.vehicleNum}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>装车费</h1> ： {{arr.materialsPackage.handingCharge}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>包车费</h1> ： {{arr.materialsPackage.packAmount}}</view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>进场清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格型号</view>
+            <view class="th">进场数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.materialsPackage.packageDetailSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.materialsPackage.packageDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>费用清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">收费类型</view>
+            <view class="th">收费单位</view>
+            <view class="th">收费金额</view>
+          </view>
+          <view  class="scrollTbody" style="height:{{arr.materialsPackage.costDetailSet.length>5 ? '100%' : '400rpx'}}">
+          <block wx:for="{{arr.materialsPackage.costDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
+              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
+              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+
+
+  </view>
+</block>
+
+
+
+<block wx:if="{{display=='none'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>合同编号</h1> ： {{arr.contractSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>项目名称</h1> ： {{arr.projectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>出租单编号</h1> ： {{arr.packageSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>租入仓库</h1> ： {{arr.storeName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>进场时间</h1> ： {{arr.dispatchAuditorDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>装车时间</h1> ： {{arr.packageDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.vehicleNum}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>装车费</h1> ： {{arr.handingCharge}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>包车费</h1> ： {{arr.packAmount}}</view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>进场清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格型号</view>
+            <view class="th">进场数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussPackDetailSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.bussPackDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>费用清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">收费类型</view>
+            <view class="th">收费单位</view>
+            <view class="th">收费金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussCostDetailSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussCostDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
+              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
+              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+
+
+  </view>
+</block>

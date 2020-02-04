@@ -1,0 +1,41 @@
+<!--pages/Material details/Material details.wxml-->
+<view style='background: #fff; width:100%;min-height:100%;position: absolute;'>
+ <view class='contract-detailed-1'>
+  <view style='margin-top: 30rpx;'>
+     <view class='contract-detailed-2'><h1>合同编号</h1> ： {{listData.commercialNo}}</view>
+    <view class='contract-detailed-2'><h1>项目名称</h1> ： {{listData.projectName}}</view>
+    <view class='contract-detailed-2' style='padding-left:70rpx;'><h1>承租方</h1> ： {{listData.paEntName}}</view>
+    <view class='contract-detailed-2' style='padding-left:70rpx;'><h1>出租方</h1> ： {{listData.pbEntName}}</view>
+    <view class='contract-detailed-2'><h1>签订日期</h1> ： {{listData.signDate}}</view>
+    <view class='contract-detailed-2'><h1>合同类别</h1> ： {{listData.commercialType}}</view>
+    <view class='contract-detailed-2'><h1>资产属性</h1> ： {{listData.assetsPropertyName}}</view>
+    <view class='contract-detailed-2'><h1>适用税率</h1> ： {{listData.chargeModeName}}</view>
+    <view class='contract-detailed-2'><h1>计税方式</h1> ： {{listData.taxModeName}}</view>
+    <view class='contract-detailed-2'><h1>计费方式</h1> ： {{listData.chargeModeName}}</view>
+    <view class='contract-detailed-2' style='margin-bottom:20rpx;'><h1>合同签订的内容</h1> ： </view>
+    <view class="table">
+  <view class="tr bg-w">
+    <view class="th">品名</view>
+    <view class="th">计费单位</view>
+    <view class="th">出租量</view>
+  </view>
+  <view class="scrollTbody" style="height:{{listData.commercialMaterialsSet.length>5 ? '400rpx' : '100%'}}">
+  <block wx:for="{{listData.commercialMaterialsSet}}" wx:key="{{code}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">{{item.commodity}}</view>
+      <view class="td">{{item.caculateUnit ? item.caculateUnit:'-'}}</view>
+      <view class="td">{{item.planLease ? item.planLease:'-'}}</view>
+    </view>
+    <view class="tr" wx:else>
+      <view class="td">{{item.commodity}}</view>
+      <view class="td">{{item.caculateUnit ? item.caculateUnit:'-'}}</view>
+      <view class="td">{{item.planLease ? item.planLease:'-'}}</view>
+    </view>
+  </block>
+  </view>
+  
+</view>
+    </view>
+  </view>
+
+</view>

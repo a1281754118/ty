@@ -1,0 +1,266 @@
+@import './weui/weui.wxss';
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.table {
+  /* border: 1px solid darkgray; */
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  font-size: 28rpx;
+  border: 1rpx solid rgba(214, 212, 212, 0.7);
+  margin-bottom: 120rpx;
+}
+
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  align-items: center;
+  font-size: 25rpx;
+  color: rgb(48, 49, 51);
+  
+}
+
+.td {
+  width: 40%;
+  height: 90rpx;
+  line-height: 90rpx;
+  justify-content: center;
+  text-align: center;
+  border-top: 1rpx solid rgba(214, 212, 212, 0.7);
+  border-right: 1rpx solid rgba(214, 212, 212, 0.7);
+  /* border: 1rpx solid rgba(214, 212, 212, 0.7); */
+  margin-right: -1rpx;
+  display: flex;
+  z-index: 20;
+  overflow:hidden; 
+  font-size: 22rpx;
+
+}
+
+.scrollTbody {
+  display: block;
+  /* height: 400rpx; */
+  overflow-y:scroll ;
+  width: 100%;
+  overflow-x: hidden;
+}
+.scrollTbody::-webkit-scrollbar {display:none}
+.bg-w {
+  background: snow;
+}
+
+.bg-g {
+  background: #e6f3f9;
+}
+
+.th{
+  
+  width: 40%;
+  justify-content: center;
+  background: #f2f7ff;
+  color: #000;
+  display: flex;
+  height: 90rpx;
+  align-items: center;
+  z-index: 20
+}
+
+.boss {
+  background: #e4e7ec;
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.bottom {
+  position: fixed;
+  width: 150rpx;
+  height: 150rpx;
+  background: #199ed8;
+  color: #fff;
+  bottom: 30rpx;
+  right: 20rpx;
+  border-radius: 120rpx;
+  line-height: 150rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+/* 管理 */
+
+view.search {
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 40rpx;
+  width: 100%;
+  height: 100rpx;
+  background: #e4e7ec;
+  position: fixed;
+  top: 0;
+}
+
+view.searchItem {
+  display: flex;
+  width: 95%;
+  height: 60rpx;
+  background: #fff;
+  flex-direction: row;
+  border-radius: 40rpx;
+  margin: 0 auto;
+  border: 1rpx rgb(179, 174, 174) solid;
+}
+
+view.searchItem image {
+  height: 42rpx;
+  width: 42rpx;
+  align-self: center;
+  margin-left: 10rpx;
+  margin-right: 20rpx;
+}
+
+view.searchItem input {
+  flex: 1;
+  font-size: 25rpx;
+  height: 60rpx;
+}
+
+view.contract {
+  width: 95%;
+  height: 80%;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+view.contract-1 {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  height: 300rpx;
+  border-radius: 10rpx;
+  border: 1px silver solid;
+  background: #fff;
+}
+
+view.contract-2 {
+  width: 90%;
+  height: 60rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 60rpx;
+  margin: 0 auto;
+  color: #666;
+  font-size: 28rpx;
+}
+
+view.contract-2 h1 {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #474747;
+}
+
+view.wx-fixed {
+  width: 100%;
+  height: 1%;
+  position: fixed;
+  bottom: 0;
+}
+
+view.wx-fixed button {
+  position: fixed;
+  height: 160rpx;
+  width: 160rpx;
+  border-radius: 200rpx;
+  background: #f93;
+  color: white;
+  padding: 0rpx 50rpx;
+  line-height: 160rpx;
+  font-size: 30rpx;
+  right: 20rpx;
+  bottom: 40rpx;
+}
+
+.tips {
+  width: 95%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+  color: #7f7f7f;
+}
+
+/* 明细 */
+
+view.contract-detailed-1 {
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+}
+
+view.contract-detailed-2 {
+  width: 90%;
+  height: 60rpx;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 60rpx;
+  color: rgb(144, 144, 145);
+  font-size: 28rpx;
+}
+
+view.contract-detailed-2 h1 {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #474747;
+  float: left;
+}
+
+/* //明细底部 */
+
+.detailed-bottom {
+  width: 100%;
+  height: 100rpx;
+  background: #5f7ce8;
+  position: fixed;
+  bottom: 0;
+  font-size: 28rpx;
+  z-index: 21
+}
+
+.detailed-bottom view {
+  width: 49.5%;
+  height: 100rpx;
+  /* background: #000; */
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  line-height: 100rpx;
+}
+
+.detailed-page {
+  background: #fff;
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+ 
+}
+/* //单体新增 */
+.monomer-input{
+  width: 150rpx;
+  /* border-bottom: 1rpx slategrey solid; */
+  float: left;
+  margin-top: 10rpx;
+  text-align: center;
+}

@@ -1,0 +1,415 @@
+<block wx:if="{{display=='block'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>合同编号</h1> ： {{arr.recycleManage.contractMaterials.contractSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>项目名称</h1> ： {{arr.recycleManage.contractMaterials.projectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>回收单编号</h1> ： {{arr.recycleManage.recycleSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>退回仓库</h1> ： {{arr.recycleManage.baseDepot.depotName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>回收时间</h1> ： {{arr.recycleDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.recycleManage.transportNumber}}</view>
+        <view class='contract-detailed-2'>
+          <h1>损坏赔偿费</h1> ： {{arr.recycleManage.damage}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>卸车费</h1> ： {{arr.recycleManage.handingCharge}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>包装费</h1> ： {{arr.recycleManage.packageCharge}}</view>
+          <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>退租标准</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">品名</view>
+            <view class="th">规格</view>
+            <view class="th">数量</view>
+            <view class="th">辅助数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.recycleManage.surrenderRentNormSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.recycleManage.surrenderRentNormSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.supplementQuantity ? item.supplementQuantity:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.supplementQuantity ? item.supplementQuantity:'-'}}</view>
+            </view>
+          </block>
+          </view>
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>过磅称重</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">皮重</view>
+            <view class="th">毛重</view>
+            <view class="th">净重</view>
+            <view class="th">理论重量</view>
+            <view class="th">重量偏差</view>
+            <view class="th">偏差率</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.recycleManage.recycleWeighSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.recycleManage.recycleWeighSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.tareWeight}}</view>
+              <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+              <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+              <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+              <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+              <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.tareWeight}}</view>
+              <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+              <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+              <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+              <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+              <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>回收清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格型号</view>
+            <view class="th">回收数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.recycleManage.recycleManageDetailSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.recycleManage.recycleManageDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.inputCount ? item.inputCount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.inputCount ? item.inputCount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>暂存清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格型号</view>
+            <view class="th">暂存数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.recycleManage.temporaryStorageSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.recycleManage.temporaryStorageSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.temporaryQuantity ? item.temporaryQuantity:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.temporaryQuantity ? item.temporaryQuantity:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>损坏赔偿</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">损坏类型</view>
+            <view class="th">损坏单价</view>
+            <view class="th">损坏数量</view>
+            <view class="th">赔偿金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.recycleManage.compensationDamageSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.recycleManage.compensationDamageSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.damageType ? item.damageType:'-'}}</view>
+              <view class="td">{{item.damageUnitPrice ? item.damageUnitPrice:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.damageAmount ? item.damageAmount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.damageType ? item.damageType:'-'}}</view>
+              <view class="td">{{item.damageUnitPrice ? item.damageUnitPrice:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.damageAmount ? item.damageAmount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>费用清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">收费类型</view>
+            <view class="th">收费单价</view>
+            <view class="th">收费金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.recycleManage.recycleManageFeeSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.recycleManage.recycleManageFeeSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.chargeType ? item.chargeType:'-'}}</view>
+              <view class="td">{{item.chargePrice ? item.chargePrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.chargeType ? item.chargeType:'-'}}</view>
+              <view class="td">{{item.chargePrice ? item.chargePrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+
+      </view>
+    </view>
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+  </view>
+</block>
+
+
+
+
+
+<block wx:if="{{display=='none'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>合同编号</h1> ： {{arr.commercialNo}}</view>
+        <view class='contract-detailed-2'>
+          <h1>项目名称</h1> ： {{arr.projectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>回收单编号</h1> ： {{arr.recycleSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>退回仓库</h1> ： {{arr.baseDepot.depotName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>回收时间</h1> ： {{arr.recycleDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.transportNumber}}</view>
+        <view class='contract-detailed-2'>
+          <h1>损坏赔偿费</h1> ： {{arr.damage}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>卸车费</h1> ： {{arr.handingCharge}}</view>
+        <view class='contract-detailed-2' style='padding-left:70rpx;'>
+          <h1>包装费</h1> ： {{arr.packageCharge}}</view>
+          <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>退租标准</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">品名</view>
+            <view class="th">规格</view>
+            <view class="th">数量</view>
+            <view class="th">辅助数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussSurrenderNormSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussSurrenderNormSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.supplementQuantity ? item.supplementQuantity:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.supplementQuantity ? item.supplementQuantity:'-'}}</view>
+            </view>
+          </block>
+          </view>
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>过磅称重</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">皮重</view>
+            <view class="th">毛重</view>
+            <view class="th">净重</view>
+            <view class="th">理论重量</view>
+            <view class="th">重量偏差</view>
+            <view class="th">偏差率</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussRecycleWeighSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussRecycleWeighSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.tareWeight}}</view>
+              <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+              <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+              <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+              <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+              <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.tareWeight}}</view>
+              <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+              <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+              <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+              <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+              <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>回收清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格型号</view>
+            <view class="th">回收数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussRecycleDetailSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussRecycleDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.inputCount ? item.inputCount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.inputCount ? item.inputCount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>暂存清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格型号</view>
+            <view class="th">暂存数量</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussTemporarySet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussTemporarySet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.temporaryQuantity ? item.temporaryQuantity:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.temporaryQuantity ? item.temporaryQuantity:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>损坏赔偿</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">损坏类型</view>
+            <view class="th">损坏单价</view>
+            <view class="th">损坏数量</view>
+            <view class="th">赔偿金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussCompensationSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussCompensationSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.damageType ? item.damageType:'-'}}</view>
+              <view class="td">{{item.damageUnitPrice ? item.damageUnitPrice:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.damageAmount ? item.damageAmount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.damageType ? item.damageType:'-'}}</view>
+              <view class="td">{{item.damageUnitPrice ? item.damageUnitPrice:'-'}}</view>
+              <view class="td">{{item.quantity ? item.quantity:'-'}}</view>
+              <view class="td">{{item.damageAmount ? item.damageAmount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>费用清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">收费类型</view>
+            <view class="th">收费单价</view>
+            <view class="th">收费金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussRecycleFeeSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussRecycleFeeSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.chargeType ? item.chargeType:'-'}}</view>
+              <view class="td">{{item.chargePrice ? item.chargePrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.chargeType ? item.chargeType:'-'}}</view>
+              <view class="td">{{item.chargePrice ? item.chargePrice:'-'}}</view>
+              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+
+
+  </view>
+</block>

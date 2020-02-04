@@ -1,0 +1,145 @@
+<block wx:if="{{display=='block'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>合同编号</h1> ： {{arr.lostCompensation.contractSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>项目名称</h1> ： {{arr.lostCompensation.projectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>赔偿单编号</h1> ： {{arr.lostCompensation.lostSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>丢失时间</h1> ： {{arr.lostCompensation.compensationDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.lostCompensation.taxModeName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>赔偿金额</h1> ： {{arr.lostCompensation.totalCompensation}}</view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>丢失清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格</view>
+            <view class="th">丢失数量</view>
+            <view class="th">赔偿单价</view>
+            <view class="th">赔偿金额</view>
+            <view class="th">九折金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.lostCompensation.lostCompensationDetailSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.lostCompensation.lostCompensationDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+               <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.lostQuantity ? item.lostQuantity:'-'}}</view>
+             
+              <view class="td">{{item.compensationCosts ? item.compensationCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.totalCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.jiuzhe:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+               <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.lostQuantity ? item.lostQuantity:'-'}}</view>
+             
+              <view class="td">{{item.compensationCosts ? item.compensationCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.totalCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.jiuzhe:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+
+
+
+
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+
+
+  </view>
+</block>
+
+
+<block wx:if="{{display=='none'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='padding-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>合同编号</h1> ： {{arr.contractSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>项目名称</h1> ： {{arr.projectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>赔偿单编号</h1> ： {{arr.lostSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>丢失时间</h1> ： {{arr.compensationDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.taxModeName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>赔偿金额</h1> ： {{arr.totalCompensation}}</view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>丢失清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">设备名称</view>
+            <view class="th">规格</view>
+            <view class="th">丢失数量</view>
+            <view class="th">赔偿单价</view>
+            <view class="th">赔偿金额</view>
+            <view class="th">九折金额</view>
+            
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussLostCompenDetailSet.length>5 ? '400rpx' : '100%'}}">
+          <block wx:for="{{arr.bussLostCompenDetailSet}}" wx:key="{{code}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.lostQuantity ? item.lostQuantity:'-'}}</view>
+              
+              <view class="td">{{item.compensationCosts ? item.compensationCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.totalCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.jiuzhe:'-'}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.commodity}}</view>
+              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+              <view class="td">{{item.lostQuantity ? item.lostQuantity:'-'}}</view>
+              
+              <view class="td">{{item.compensationCosts ? item.compensationCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.totalCosts:'-'}}</view>
+              <view class="td">{{item.totalCosts ? item.jiuzhe:'-'}}</view>
+            </view>
+          </block>
+          </view>
+          
+        </view>
+
+
+
+
+
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+
+
+  </view>
+</block>

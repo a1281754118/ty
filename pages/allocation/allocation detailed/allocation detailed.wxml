@@ -1,0 +1,181 @@
+<block wx:if="{{display=='block'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>调出项目</h1> ： {{arr.bussAllocationProject.outProjectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>调入项目</h1> ： {{arr.bussAllocationProject.inProjectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>调拨单编号</h1> ： {{arr.bussAllocationProject.allocationSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>调拨时间</h1> ： {{arr.bussAllocationProject.allocationDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.bussAllocationProject.vehicleNum}}</view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>调拨清单</h1> ： <text style="color:#000" bindtap="add">新增</text></view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">品名</view>
+            <view class="th">规格型号</view>
+            <!-- <view class="th">项目库存</view> -->
+            <view class="th">接收数量</view>
+            <view class="th">操作</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussAllocationProject.bussAllocationDetailSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.bussAllocationProject.bussAllocationDetailSet}}" wx:key="{{code}}">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
+                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
+                <view class="td">
+                  {{item.allocationCounts ? item.allocationCounts:'-'}}
+                </view>
+                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
+                <view class="td" data-index="{{index}}" bindtap="toggleDialog">
+                  修改
+                </view>
+
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
+                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
+                <view class="td">
+                  {{item.allocationCounts ? item.allocationCounts:'-'}}
+                </view>
+                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
+                <view class="td" data-index="{{index}}" bindtap="toggleDialog">
+                  修改
+                </view>
+              </view>
+            </block>
+          </view>
+
+        </view>
+
+
+
+
+
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog wx:if="{{duang=='queding'}}" title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+    <mp-dialog wx:if="{{duang=='xiugai'}}" title="接收数量" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view><input type="number" bindinput="receivinginput" placeholder="请输入接收数量" value="{{receivingQuantity}}"></input></view>
+    </mp-dialog>
+
+    <mp-dialog wx:if="{{duang=='xinzheng'}}" title="新增订单" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view bindtap="togg">-选择品名- <text>-选择规格-</text></view>
+      <view> <input placeholder="请输入接收数量"></input></view>
+    </mp-dialog>
+  
+    
+
+
+
+  </view>
+</block>
+
+
+<block wx:if="{{display=='none'}}">
+  <view class="detailed-page">
+    <view class='contract-detailed-1'>
+      <view style='margin-top: 30rpx;'>
+        <view class='contract-detailed-2'>
+          <h1>调出项目</h1> ： {{arr.outProjectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>调入项目</h1> ： {{arr.inProjectName}}</view>
+        <view class='contract-detailed-2'>
+          <h1>调拨单编号</h1> ： {{arr.allocationSerial}}</view>
+        <view class='contract-detailed-2'>
+          <h1>调拨时间</h1> ： {{arr.allocationDate}}</view>
+        <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.vehicleNum}}</view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>调拨清单</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">品名</view>
+            <view class="th">规格型号</view>
+            <!-- <view class="th">项目库存</view> -->
+            <view class="th">调拨数量</view>
+            <!-- <view class="th">操作</view> -->
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussAllocationDetailSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.bussAllocationDetailSet}}" wx:key="{{code}}">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
+                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
+                <view class="td">{{item.allocationCounts ? item.allocationCounts:'-'}}</view>
+                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
+                <!-- <view class="td">修改</view> -->
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
+                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
+                <view class="td">{{item.allocationCounts ? item.allocationCounts:'-'}}</view>
+                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
+                <!-- <view class="td">修改</view> -->
+              </view>
+            </block>
+          </view>
+
+        </view>
+
+
+
+
+
+      </view>
+    </view>
+
+    <view style="display:{{display}}" class="detailed-bottom">
+      <view bindtap="goback">返回</view>
+      <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
+    </view>
+
+    <mp-dialog title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+    </mp-dialog>
+
+
+  </view>
+</block>
+
+<!-- 弹窗选择 -->
+<view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
+                    <view class="free-dialog__mask" bindtap="toggleDialog" />
+                    <view class="free-dialog__container">
+                      <view style="padding: 5% 5% 15%;">
+                        <form bindsubmit='submit' bindreset="reset">
+                          <view bindtap='freetoBack' class="free-button free-dialog-reset">品名</view>
+                          <view bindtap='freeBack' class="free-button free-dialog-submit">规格型号</view>
+                          <view class="free-gunlun">
+                          <radio-group class='free-radios' bindchange="radioChange">
+                            <label class="free-radio" bindtap="click" wx:for="{{pickerList}}" 
+                            wx:key="{{pickerList}}" data-id="{{index}}" 
+                            style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}">
+                              <radio value="{{item}}" name="{{item}}"></radio>
+                              <label class="free-text">
+                              <text>{{item.materialsCommodity.commodity}}</text>
+                              <text>{{item.specifications}}</text></label>
+                              
+                            </label>
+                          </radio-group>
+                          </view>
+                        </form>
+
+                      </view>
+                    </view>
+</view>

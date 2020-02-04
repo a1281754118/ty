@@ -1,0 +1,90 @@
+page{
+background: #e4e7ec;
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.mine-boss{
+  width: 95%;
+  margin: 0 auto;
+  
+}
+.product-list {
+ margin-top: 20rpx;
+ width: 95%;
+ box-sizing: border-box;
+  
+}
+  
+  
+.choice-bar {
+
+ width: 100%;
+ font-size: 28rpx;
+ background-color: #fff;
+ /**z-index: 0;**/
+}
+.chioce-item {
+ background-color: #fff;
+
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 20rpx;
+ width: 100%;
+ height: 80rpx;
+ line-height: 80rpx;
+ 
+ /* border-top: 1rpx solid #ddd;
+ border-bottom: 1rpx solid #ddd;
+ border-left: 1rpx solid #ddd; */
+ border-bottom: 1rpx solid #ddd;
+}
+  
+.icon-chioce {
+  position: absolute;
+  right: 40rpx;
+  top: 45rpx;
+ height: 30rpx;
+ width: 30rpx;
+}
+.icon-yonghu{
+  height: 40rpx;
+ width: 40rpx;
+ right: 10rpx;
+}
+.district-list,.sorting-list,.filter-list {
+ margin-top: 2rpx;
+ top: 100rpx;
+ width: 100%;
+ margin: 0 auto;
+ background-color: #fff;
+ z-index: 2;
+ font-size: 25rpx;
+ border-bottom: 1rpx solid #ddd;
+}
+.chioce-list-hide {
+ display: none !important;
+}
+.chioce-list-show {
+ /**top: 80rpx;**/
+ animation: slide 500ms;
+}
+  
+.sorting-item {
+  position: relative;
+  width: 100%;
+ height: 80rpx;
+ background: #fff;
+ line-height: 80rpx;
+ padding: 0 40rpx 0 0;
+ border-bottom: 1rpx solid #ddd;
+}
+.sorting-item image{
+  position: absolute;
+  right: 40rpx;
+  top: 20rpx;
+  width: 40rpx;
+  height:40rpx;
+  
+}

@@ -1,0 +1,37 @@
+<view class='boss'>
+  <view class=" search">
+    <view style='margin-top: 20rpx;'>
+      <view class='searchItem'>
+        <image src='/pages/img/weibiaoti-.png' />
+        <input type='text' placeholder='请输入关键字搜索' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
+        <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
+      </view>
+    </view>
+
+  </view>
+  <view style='margin-top: 90rpx;'>
+    <view class='contract'>
+
+      <view class='contract-1' bindtap='detailed' style="height:200rpx;"
+      data-id='{{item.singleId}}' wx:for="{{arr}}" wx:key="{{item.singleId}}">
+        <view style='margin-top: 30rpx;'>
+          <view class='contract-2'>
+            <h1>项目单体</h1> ： {{item.singleName}}</view>
+          <view class='contract-2'>
+            <h1>项目名称</h1> ： {{item.projectName}}</view>
+          
+        </view>
+      </view>
+
+      <view class='tips'>
+        <block class='tips' wx:if="{{arr==''}}">---没有找到数据---</block>
+        <block class='tips' wx:if="{{request==true}}">---没有数据了---</block>
+      </view>
+
+    </view>
+  </view>
+
+  <view class='bottom' bindtap='camera'>
+    <text>新增单体</text>
+  </view>
+</view>

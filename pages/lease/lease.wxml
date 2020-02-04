@@ -1,0 +1,43 @@
+<!--pages/lease/lease.wxml-->
+<view class='boss'>
+  <view class=" search">
+    <view style='margin-top: 20rpx;'>
+      <view class='searchItem'>
+        <image src='/pages/img/weibiaoti-.png' />
+        <input type='text' placeholder='合同编号/合同名称/资产属性' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
+        <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
+      </view>
+    </view>
+
+  </view>
+  <view style='margin-top: 90rpx;'>
+    <view class='contract'>
+
+      <view class='contract-1' bindtap='detailed' data-id='{{item.commercialId}}' wx:for="{{arr}}" wx:key="{{item.commercialId}}" data-type='{{item.commercialType}}'>
+        <view style='margin-top: 30rpx;'>
+          <view class='contract-2'>
+            <h1>合同编号</h1> ： {{item.commercialNo}}</view>
+          <view class='contract-2'>
+            <h1>合同名称</h1> ： {{item.projectName}}</view>
+          <view class='contract-2'>
+            <h1>资产属性</h1> ： {{item.assetsPropertyName}}</view>
+          <view class='contract-2'>
+            <h1>合同类别</h1> ： {{item.commercialType}}</view>
+        </view>
+      </view>
+
+      <view class='tips'>
+        <block class='tips' wx:if="{{arr==''}}">---没有找到数据---</block>
+        <block class='tips' wx:if="{{request==true}}">---没有数据了---</block>
+      </view>
+
+    </view>
+  </view>
+
+
+
+  <!-- <view class='wx-fixed'>
+  <button bindtap='increase'>新增合同</button>
+</view> -->
+
+</view>

@@ -1,0 +1,19 @@
+<!--zujian/login/login.wxml-->
+<view wx:if="{{needShow}}"  style="position:fixed;background:rgba(0,0,0,0.5);top:0;bottom:0;left:0;right:0;z-index:99999">
+<view style="margin-top: 320rpx;">
+  <view class="view-style">
+  <text class="text1">天元项目</text>
+  <view class="view-style-1">
+  <image src="/img/01.jpg"  mode="aspectFill"></image>
+  </view>
+  <view class='view-style-2'>
+    <text>申请获取以下权限</text>
+    <text>获得你的公开信息(昵称，头像等)</text>
+  </view>
+  <view class="view-style-3">
+  <button class="button1" lang="zh_CN" open-type="getUserInfo" bindgetuserinfo="getuserinfo" >授权登录</button>
+  </view>
+
+  </view>
+  </view>
+</view>

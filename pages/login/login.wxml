@@ -1,0 +1,49 @@
+<!--pages/login/login.wxml-->
+<view class='boss'>
+  <image class='boss' src='../img/bg.jpg' style='z-index: -1;'></image>
+  <view class='wx-logo'>
+    <view class='suibian'>
+      <image src='/pages/img/logo.png' />
+      <view class='wx-logp-1'>
+        项目租赁管理系统
+      </view>
+    </view>
+
+  </view>
+  <view class='wx-form'>
+
+
+    <view style='margin-top: 40%;'>
+      <view class='search-login'>
+        <view class='searchItem-login'>
+          <image src='/pages/img/zhanghao.png' />
+          <input placeholder-class="place-holder" placeholder='请输入用户名' hold-keyboard='true' bindblur='hide' bindfocus='display' maxlength="20" bindinput='mobile' value='{{mobile}}'></input>
+          <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
+        </view>
+      </view>
+      <view class='search-login'>
+        <view class='searchItem-login'>
+          <image src='/pages/img/mima.png' />
+          <input placeholder-class="place-holder" placeholder='请输入密码' hold-keyboard='true' password maxlength="30" bindinput='password'  value="{{password}}"></input>
+        </view>
+      </view>
+    </view>
+
+    <view class="Checklist">
+    <checkbox-group bindchange="checkboxChange">
+  <label  >
+    <checkbox value="password"  checked="{{checkedPassword}}"/>记住密码
+  </label>
+  <label class="checkbox" >
+    <checkbox value="login"  checked="{{checkedLogin}}"/>自动登录
+  </label>
+</checkbox-group>
+    </view>
+
+
+    <button class='wx-denglu' bindtap='denglu'>登 录</button>
+  </view>
+
+
+
+</view>
