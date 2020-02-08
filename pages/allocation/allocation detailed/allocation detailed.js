@@ -1,36 +1,42 @@
 Page({
   data: {
     showDialog: false,
-    duang:'',//判断是确定还是修改
-    receivingQuantity:'',//接收数量
-    specificationsId:'',//修改id
+    duang: '', //判断是确定还是修改
+    receivingQuantity: '', //接收数量
+    specificationsId: '', //修改id
     // id:'',//判断修改成什么型号
-    equipment:{},//得到选中的设备
-    modificationitem:'',//一开始修改的项
+    equipment: {}, //得到选中的设备
+    modificationitem: '', //一开始修改的项
     relateId: '',
-    pickerList: [],//设备清单
+    pickerList: [], //设备清单
     pickerListIdx: 0,
     arr: [],
     display: 'none',
     dialogShow: false,
-    buttons: [{ text: '取消' }, { text: '确定' }],
-    cookies: decodeURIComponent(wx.getStorageSync('cookies')),//解码cookie
-    url: 'terminal/bussAllocationDetailAppProject.do?',//接口url路径
-    addurl: 'terminal/bussAllocationCreateAppProject.do?'//扫描新增加接口
+    buttons: [{
+      text: '取消'
+    }, {
+      text: '确定'
+    }],
+    addvalue:'',
+    cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
+    url: 'terminal/bussAllocationDetailAppProject.do?', //接口url路径
+    addurl: 'terminal/bussAllocationCreateAppProject.do?' //扫描新增加接口
   },
   //新增单子
-  add(){
+  add() {
     this.setData({
-      duang:'xinzheng',
-      dialogShow:true
+      duang: 'xinzheng',
+      dialogShow: true
 
     })
+    console.log(this.data.equipment)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   //判断点击修改第几个数据
-  click: function (e) {
+  click: function(e) {
     console.log(e)
     var id = e.currentTarget.dataset.id
     for (var i = 0; i < this.data.pickerList.length; i++) {
@@ -38,29 +44,39 @@ Page({
       if (this.data.pickerList[i].index == id) {
         //得到选中的设备规格
         this.setData({
-          equipment:this.data.pickerList[i]
+          equipment: this.data.pickerList[i]
         })
         console.log(this.data.pickerList[i])
       }
     }
-    this.setData({
-      id: id,
-      duang: 'xiugai',
-      dialogShow: true
-    })
-  
+    if (this.data.duang == 'xinzheng') {
+      console.log(this.data.equipment)
+      this.setData({
+        showDialog: false,
+      })
+
+    } else {
+      this.setData({
+        id: id,
+        duang: 'xiugai',
+        dialogShow: true,
+        showDialog: false,
+      })
+    }
+
+
   },
-  
-  radioChange: function (e) {
+
+  radioChange: function(e) {
     console.log(e)
     var that = this
     that.setData({
       value: e.detail.value
     })
-   
+
   },
   //选择品名与规格
-  togg(){
+  togg() {
     this.setData({
       duang: 'xinzheng',
       showDialog: true
@@ -70,11 +86,12 @@ Page({
   toggleDialog(e) {
     console.log(e)
     this.setData({
+      duang:'xiugai',
       showDialog: !this.data.showDialog,
-      modificationitem:e.currentTarget.dataset.index
+      modificationitem: e.currentTarget.dataset.index
     });
   },
-  freeBack: function () {
+  freeBack: function() {
     var that = this
     if (this.data.value == 'show') {
       wx.showModal({
@@ -86,7 +103,7 @@ Page({
       showDialog: !this.data.showDialog
     })
   },
-  freetoBack: function () {
+  freetoBack: function() {
     var that = this
     wx.showModal({
       title: '提示',
@@ -98,7 +115,7 @@ Page({
       checked: false,
     })
   },
-  bindPickerSale: function (e) {
+  bindPickerSale: function(e) {
     console.log(e)
     console.log(this.data.arr)
     this.setData({
@@ -106,26 +123,26 @@ Page({
       pickerListIdx: e.detail.value
 
     });
-  }, 
+  },
 
-  onLoad: function (options) {
-  
+  onLoad: function(options) {
+
     this.setData({
       value: 'show'
     })
     if (options.id) {
       this.setData({
         relateId: options.id,
-        cookies: decodeURIComponent(wx.getStorageSync('cookies')),//解码cookie
+        cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
       })
-      this.getallocationdetailed() 
+      this.getallocationdetailed()
     }
     //判断是不是扫描出来的数据
     if (options.display) {
       this.setData({
         display: options.display,
         arr: JSON.parse(options.arr),
-        cookies: decodeURIComponent(wx.getStorageSync('cookies')),//解码cookie
+        cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
         relateId: options.relateId,
       })
     }
@@ -154,49 +171,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   confirm() {
@@ -208,16 +225,16 @@ Page({
   tapDialogButton(e) {
     console.log(e.detail.item.text)
     if (e.detail.item.text == '确定') {
-      if(this.data.duang=='queding'){
+      if (this.data.duang == 'queding') {
         var that = this
-        getApp().globalData.utils.scanning(that)//调用扫描后确认录入函数
+        getApp().globalData.utils.scanning(that) //调用扫描后确认录入函数
         this.setData({
           dialogShow: false,
-          
+
           receivingQuantity: ''
         })
-      }else{
-        if(this.data.receivingQuantity!=''){
+      } else if (this.data.duang == 'xiugai') {
+        if (this.data.receivingQuantity != '') {
           var list = this.data.arr
           console.log(list)
           var listarr = list.bussAllocationProject.bussAllocationDetailSet
@@ -228,9 +245,10 @@ Page({
               listarr[i].commodity = this.data.equipment.materialsCommodity.commodity
               listarr[i].specfications = this.data.equipment.specifications
               listarr[i].allocationCounts = this.data.receivingQuantity
-              listarr[i].auxiliaryQuantity = 
-                parseInt(listarr[i].allocationCounts) * 
-              parseInt(listarr[i].secondConvertedQuantity)
+              listarr[i].secondConvertedQuantity = this.data.equipment.secondConvertedQuantity
+              listarr[i].auxiliaryQuantity =
+                parseInt(listarr[i].allocationCounts) *
+                listarr[i].secondConvertedQuantity
               listarr[i].auxiliaryQuantity = listarr[i].auxiliaryQuantity.toString()
               listarr[i].specificationsId = this.data.equipment.specificationsId
               list.bussAllocationProject.bussAllocationDetailSet = listarr
@@ -244,48 +262,104 @@ Page({
           }
           this.setData({
             dialogShow: false,
-            showDialog: !this.data.showDialog,
-            receivingQuantity: ''
+            showDialog: false,
+            receivingQuantity: '',
+            equipment: {}
+          })
+        }
+
+      } else if (this.data.duang == 'xinzheng') {
+        if(this.data.addvalue!=''&&this.data.equipment!="{}"){
+          console.log(111111111)
+          var equipment = this.data.equipment
+          var list = this.data.arr
+          var listarr = list.bussAllocationProject.bussAllocationDetailSet
+          console.log(this.data.addvalue)
+          var zongshu = parseInt(this.data.addvalue) *
+            equipment.secondConvertedQuantity
+          console.log(zongshu)
+          console.log(parseInt(equipment.secondConvertedQuantity))
+          var arr = {
+            allocationCounts: this.data.addvalue,
+            auxiliaryQuantity: "" + zongshu,
+            busscatId: listarr[0].busscatId,
+            commodity: equipment.materialsCommodity.commodity,
+            commodityId: equipment.materialsCommodity.commodityId,
+            measurementUnit: equipment.firstUnitConversion,
+            mnemonicCode: equipment.mnemonics,
+            projectId: listarr[0].projectId,
+            secondConvertedQuantity: equipment.secondConvertedQuantity,
+            secondUnitConversion: equipment.secondUnitConversion,
+            specfications: equipment.specifications,
+            specficationsId: equipment.specificationsId,
+          }
+          listarr.push(arr)
+          console.log(listarr)
+          console.log(arr)
+          this.setData({
+            arr: list,
+            dialogShow: false,
+            showDialog: false,
+            addvalue: '',
+            equipment: {}
           })
         }
         
       }
-    
-    }else{
-      this.setData({
-        dialogShow: false,
-        receivingQuantity: ''
-      })
+
+    } else {
+      if (this.data.duang == 'xiugai') {
+        this.setData({
+          dialogShow: false,
+          receivingQuantity: '',
+          showDialog: true,
+          equipment: {},
+        })
+      } else if (this.data.duang == 'xinzheng') {
+        this.setData({
+          showDialog: false,
+          dialogShow: false,
+          receivingQuantity: '',
+          equipment: {},
+          addvalue:''
+        })
+      }
+
     }
-    
+
   },
   //接收input、
-  receivinginput(e){
+  addvalue(e) {
     this.setData({
-      receivingQuantity:e.detail.value
+      addvalue: e.detail.value
+    })
+  },
+  receivinginput(e) {
+    this.setData({
+      receivingQuantity: e.detail.value
     })
   },
   goback() {
     wx.navigateBack({
-      delta: 1//向上返回一级
+      delta: 1 //向上返回一级
     })
   },
   getallocationdetailed() {
     var that = this
-    getApp().globalData.utils.projectdetailed(that)//调用项目明细函数
+    getApp().globalData.utils.projectdetailed(that) //调用项目明细函数
   },
-  modify(e){
-    console.log( e.currentTarget.dataset.arr.commodity)
-    
-    
+  modify(e) {
+    console.log(e.currentTarget.dataset.arr.commodity)
+
+
     console.log(this.data.pickerList)
   },
-  yesmodify(e){
+  yesmodify(e) {
     console.log(e.detail.item.text)
-    
+
     if (e.detail.item.text == '确定') {
       console.log('你确定了修改')
-     
+
     }
     this.setData({
       dialogShow: false

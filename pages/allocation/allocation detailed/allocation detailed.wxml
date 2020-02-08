@@ -74,8 +74,12 @@
     </mp-dialog>
 
     <mp-dialog wx:if="{{duang=='xinzheng'}}" title="新增订单" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-      <view bindtap="togg">-选择品名- <text>-选择规格-</text></view>
-      <view> <input placeholder="请输入接收数量"></input></view>
+    <view bindtap="togg" style="height:60rpx;" >
+      <text>-{{equipment.materialsCommodity ? equipment.materialsCommodity.commodity:'选择品名'}}- -{{equipment.specifications ? equipment.specifications:'选择规格'}}-</text></view>
+       <!-- <view bindtap="togg" style="height:60rpx;" else if="{{!equipment.materialsCommodity}}"><text>-选择品名- -选择规格-</text></view> -->
+      <view> <input placeholder="请输入接收数量" value="{{addvalue}}" bindinput="addvalue"></input></view>
+     
+      
     </mp-dialog>
   
     
