@@ -6,7 +6,7 @@ Page({
     arr: {},
     cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
     // url: 'http://192.168.0.242:8081/emms_SDTY/', //数据路径
-    url: 'https://www.jjaq.com.cn/sdty/',
+    url: getApp().globalData.utils.baseUrl,
   },
   
   /**
@@ -33,7 +33,7 @@ Page({
   load(){
     console.log(parseInt(this.data.relateId))
     wx.request({
-      url: this.data.url + 'terminal/scheduleDetailAppProject.do',
+      url: getApp().globalData.utils.baseUrl + 'terminal/scheduleDetailAppProject.do',
       data: {
         tmessage: {
           "query": {
@@ -51,7 +51,7 @@ Page({
           var imgs = res.data.data[0].fileAttachesList;
           
           for (var i = 0; i < imgs.length; i++) {
-            imgs[i] = 'https://www.jjaq.com.cn/sdty/' + imgs[i]
+            imgs[i] = 'https://www.jjaq.com.cn/sdty' + imgs[i]
             
           }
           this.setData({

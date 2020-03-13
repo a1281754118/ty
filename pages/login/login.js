@@ -1,6 +1,7 @@
 // pages/login/login.js
 const md5 = require('../../utils/md5.js')
 const base64 = require('../../utils/base64.js')
+
 Page({
 
   /**
@@ -19,7 +20,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.getLocation({
+      isHighAccuracy: true,
+      success: (res) => {
+        console.log(res)
+      },
+    })
     this.setData({
       checkedPassword: wx.getStorageSync('RememberPassword'),
       checkedLogin: wx.getStorageSync('login')
@@ -93,6 +99,7 @@ Page({
 
   },
   denglu: function (e) {
+    
     wx.hideKeyboard()
     wx.showLoading({
       title: '登录中...',

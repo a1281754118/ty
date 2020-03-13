@@ -12,7 +12,7 @@
  position: fixed;
  left: 0;
  bottom: 0;
- height: 500rpx;
+ height: 800rpx;
  
  width: 100%;
  background: white;
@@ -21,12 +21,20 @@
  z-index: 9999999;
 }
 .free-gunlun{
-  height: 500rpx;
+  margin-top: 120rpx;
+  height: 650rpx;
  
  width: 100%;
 text-align: center;
  overflow-y: scroll;
+ overflow-x: hidden;
 }
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
 .free-dialog--show .free-dialog__container {
  transform: translateY(0);
 }
@@ -42,7 +50,7 @@ text-align: center;
  text-align: center;
  font-size:30rpx;
  color:#030202;
- background: #F2F6FF
+ background: #F2F6FF;
 }
 .free-dialog-submit{
  float: right;
@@ -84,4 +92,23 @@ radio-group label .free-text{
  text-align: center;
  font-size:26rpx;
  color:#000;
+}
+.pattern-view{
+  position: absolute;
+  margin-top: 90rpx;
+  background: #F2F6FF;
+  z-index: 999;
+  padding: 10rpx;
+}
+.pattern-view view{
+  padding: 5rpx;
+  height: 40rpx;
+  font-size: 25rpx;
+  display: flex;
+  line-height: 40rpx;
+  border-bottom: 1px solid #ccc;
+}
+.pattern-input{
+  margin-top: 25rpx;
+  font-size: 25rpx;
 }

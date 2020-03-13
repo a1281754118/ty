@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    
+  },
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "设备外租计划"
+}

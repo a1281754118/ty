@@ -1,0 +1,173 @@
+<view class="approvalresult-view">
+  <view class="approvalresult-view-1">
+    <text class="approvalresult-view-text">项目名称 : </text>
+    <text class="approvalresult-view-text1">{{text1 ? text1.projectName:'请关联项目名称'}}</text>
+    <picker class="picker" bindchange="bindPickerChange1" value="{{index}}" range="{{array1}}" range-key="projectName">
+      <text>查询</text>
+    </picker>
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">工程区域 :</text>
+  <text class="approvalresult-view-text1">{{text2 ? text2[1]:''}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+    <text class="approvalresult-view-text">计划类型 : </text>
+    <text class="approvalresult-view-text1">{{text3 ? text3[1]:'请选择计划类型'}}</text>
+    <picker class="picker" bindchange="bindPickerChange3" value="{{index}}" range="{{array3}}">
+      <text>选择</text>
+    </picker>
+  </view>
+  <!-- <view class="approvalresult-view-1">
+    <text class="approvalresult-view-text">资产属性 : </text>
+    <text class="approvalresult-view-text1">{{text7 ? text7[1]:'请选择资产属性'}}</text>
+    <picker class="picker" bindchange="bindPickerChange7" value="{{index}}" range="{{array7}}">
+      <text>选择</text>
+    </picker>
+  </view> -->
+  <view class="approvalresult-view-1">
+    <text class="approvalresult-view-text">工程类别 : </text>
+    <text class="approvalresult-view-text1">{{text4 ? text4[1]:'请选择工程类别'}}</text>
+    <picker class="picker" bindchange="bindPickerChange4" value="{{index}}" range="{{array4}}">
+      <text>选择</text>
+    </picker>
+  </view>
+
+
+</view>
+
+<view class="approvalresult-view2">
+  <view style="padding:10rpx">周材详情:
+    <text class="xianqingxinzeng" bindtap="confirm">新增</text>
+  </view>
+  <view style="background:#F2F2F2;width:100%;margin-top:10rpx" wx:for="{{arr}}">
+    <view class="xiangqingshanchu">
+      <text class="xiangqingshanchu-text" bindtap="delt" data-index="{{item.index}}">删除</text>
+    </view>
+    <view class="approvalresult-view-1">
+      <text>品名 :</text>
+      <text class="approvalresult-view-1-text1">{{item.commodity}}</text>
+    </view>
+    <view class="approvalresult-view-1">
+      <text>规格 :</text>
+      <text class="approvalresult-view-1-text1">{{item.specifications}}</text>
+    </view>
+    <view class="approvalresult-view-1">
+      <view class="approvalresult-view-1-1">
+        <text>单位 :</text>
+        <text class="approvalresult-view-1-text1">{{item.unit}}</text>
+      </view>
+      <view class="approvalresult-view-1-1">
+        <text>需求数量 :</text>
+        <text class="approvalresult-view-1-text1">{{item.demandNum}}</text>
+      </view>
+    </view>
+    <view class="approvalresult-view-1">
+      <view class="approvalresult-view-1-1">
+        <text>预计进场 :</text>
+        <text class="approvalresult-view-1-text1">{{item.startDate}}</text>
+      </view>
+      <view class="approvalresult-view-1-1">
+        <text>辅助数量 :</text>
+        <text class="approvalresult-view-1-text1">{{item.auxiliaryNum}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<button class="selectionlist-botton" bindtap="tijiao">提交</button>
+<mp-dialog wx:if="{{duang=='xinzeng'}}" title="新增周材计划" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view class="approvalresult-view2">
+    <view style="background:#F2F2F2;width:100%;font-size:22rpx;">
+      <view class="xiangqingshanchu"></view>
+      <view class="approvalresult-view-1">
+        <text class="approvalresult-view-text">品名 : </text>
+        <text class="approvalresult-view-text11" bindtap="togg">{{text5 ? text5.commodity:'请选择品名'}}</text>
+      </view>
+      <!-- <view class="approvalresult-view-1">
+        <text class="approvalresult-view-text">规格 : </text>
+        <text class="approvalresult-view-text11">{{text5 ? text5.specifications:'请关联规格'}}</text>
+      </view> -->
+      <view class="approvalresult-view-1" wx:if="{{array6}}">
+    <text class="approvalresult-view-text">规格 : </text>
+    <picker class="picker" style="float: left;" bindchange="bindPickerChange6" value="{{index}}" range="{{array6}}" 
+    range-key="specifications">
+      <h1 style="magrin-left:10rpx">{{text6.specifications ? text6.specifications:'请选择规格'}}</h1>
+    </picker>
+  </view>
+  <view class="approvalresult-view-1" wx:else>
+    <text class="approvalresult-view-text">规格 : </text>
+      <h1 style="magrin-left:10rpx;float:left">未选择品名</h1>
+  </view>
+      <view class="approvalresult-view-1">
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">单位 :</text>
+          <input class="approvalresult-view-1-input11" placeholder="单位" value="{{text6.firstUnitConversion}}" bindinput="value2"></input>
+        </view>
+        <view class="approvalresult-view-1-1" wx:if="{{text6}}">
+          <text class="approvalresult-view-text">需求数量 :</text>
+          <input class="approvalresult-view-1-input11" placeholder="需求数量" 
+          type="number" value="{{value3}}" bindinput="value3">{{item.unit}}</input>
+        </view>
+        <view class="approvalresult-view-1-1" wx:else>
+          <text class="approvalresult-view-text">需求数量 :</text>
+          <text>未选择规格</text>
+        </view>
+      </view>
+      <view class="approvalresult-view-1">
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">预计进场 :</text>
+          <picker class="rollselection" style="width: 55%;font-size:22rpx" mode="date" value="{{startdate}}" bindchange="bindDateChange">
+            <view>{{startdate? startdate:'进场日期'}}</view>
+          </picker>
+        </view>
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">辅助数量 :</text>
+          <text>{{value4}}</text>
+        </view>
+      </view>
+
+
+    </view>
+
+  </view>
+</mp-dialog>
+
+<mp-dialog wx:if="{{duang=='tijiao'}}" title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view>请仔细核对信息无误！</view>
+</mp-dialog>
+
+<!-- 弹窗选择品名 -->
+<view  class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
+  <view class="free-dialog__mask" bindtap="toggleDialog" />
+  <view class="free-dialog__container">
+  <view class=" search" >
+          <view style='margin-top: 10rpx;margin-bottom: 10rpx;'>
+            <view class='searchItem'>
+              <image src='/pages/img/weibiaoti-.png' />
+              <input type='text' placeholder='输入品名' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
+              <image style='display: {{display1}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt1'></image>
+            </view>
+          </view>
+        
+        <view bindtap='freetoBack' class="free-button free-dialog-reset">品名</view>
+        </view>
+    <view style="padding: 5% 5% 15%;">
+      <form bindsubmit='submit' bindreset="reset">
+        
+        <view class="free-gunlun">
+          <radio-group class='free-radios' bindchange="radioChange">
+            <label class="free-radio" bindtap="click" wx:for="{{pickerList}}" wx:key="pickerList" data-id="{{index}}" style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}">
+              <radio value="{{item}}" name="{{item}}"></radio>
+              <label class="free-text">
+                <text>{{item.commodity}}</text>
+              </label>
+
+            </label>
+          </radio-group>
+        </view>
+      </form>
+
+    </view>
+  </view>
+</view>

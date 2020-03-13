@@ -2,5 +2,5 @@
   "usingComponents": {
     "mp-dialog": "../components/dialog/dialog"
   },
-  "navigationBarTitleText": "退场明细"
+  "navigationBarTitleText": "项目退场明细"
 }

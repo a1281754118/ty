@@ -20,7 +20,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // wx.request({
+    //   url: this.data.baseUrl + 'system/listCode.do?',
+    //   data: {
+       
+    //       'codeId': "equipSpecific" 
+         
+    //   },
+    //   header: {
+    //     cookie: this.data.cookies
+    //   },
+    //   method: 'get',
+    //   success: (result) => {
+    //     console.log(result)
 
+    //   }
+
+    // })
 
   },
 

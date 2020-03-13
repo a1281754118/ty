@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+   "mp-dialog": "../../../components/dialog/dialog"
+  },
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "设备需求计划"
+}

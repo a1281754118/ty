@@ -1,7 +1,37 @@
-// const baseUrl ='http://192.168.0.242:8081/emms_SDTY/'//本地
+// const baseUrl ='http://192.168.0.237:8095/emms_SDTY/'//本地
 const baseUrl = 'https://www.jjaq.com.cn/sdty/' //测试
 var cookies = decodeURIComponent(wx.getStorageSync('cookies')) //解码cookie
+//获取地理位置
+const position= ()=>{
+  wx.getLocation({
+    isHighAccuracy: true,
+    success: (res) => {
+      console.log(res)
+      wx.getLocation({
+        isHighAccuracy: true,
+        success: (res) => {
+          console.log(res)
+          this.setData({
+            latitude: res.latitude,//维度
+            longitude: res.longitude//经度
+          })
+          var myAmapFun = new amapFile.AMapWX({ key: '5f6088c04bd6ed321f5b5f8def5d9e28' } );
+          myAmapFun.getRegeo({
+            location: '' + res.longitude + ',' + res.latitude + '',//location的格式为'经度,纬度'
+            success: (data) => {
+              console.log(data[0]);
+            },
+            fail: (err) => {
+              console.log(err)
+            }
+          });
 
+
+        },
+      })
+    },
+  })
+}
 //触底事件
 const touchbottom = (that) => {
   if (that.data.request == false) {
@@ -25,7 +55,8 @@ const touchbottom = (that) => {
         }
       },
       header: {
-        cookie: that.data.cookies
+        cookie: that.data.cookies,
+        
       },
       method: 'get',
       success: (result) => {
@@ -188,7 +219,8 @@ const camera = (e, load, that) => {
       if (relateModule == e) {
         var cookies = decodeURIComponent(wx.getStorageSync('cookies')) //解码cookies
         //判断是不是调拨
-        if (e =='BUSS_ALLOCATION_PROJECT') {
+        if (e == 'BUSS_ALLOCATION_PROJECT' || e == 'ALLOCATION_PROJECT') {
+          console.log('这是调拨的' + relateModule)
           wx.request({
             url: baseUrl + 'terminal/projectQrcodeAppProject.do',
             data: {
@@ -217,7 +249,7 @@ const camera = (e, load, that) => {
                   })
                 } else {
                   //判断该订单是否已确认新增过
-                  if (res.data.info.result[0].nike == "false") {
+                  if (res.data.info.result[0].nike == false) {
                     wx.showToast({
                       title: '该订单已确认,请勿重复扫描',
                       icon: 'none',
@@ -230,7 +262,8 @@ const camera = (e, load, that) => {
                     if (list.materialsPackage && (list.materialsPackage.applyforState) == '3' ||
                       list.bussAllocationProject && (list.bussAllocationProject.applyforState) == '3' ||
                       list.recycleManage && (list.recycleManage.applyforState) == '3' ||
-                      list.lostCompensation && (list.lostCompensation.applyforState) == '3') {
+                      list.lostCompensation && (list.lostCompensation.applyforState) == '3' ||
+                      list.allocationProject && (list.allocationProject.applyforState) == '3' ) {
                       if (res.data.info.result[0].lostCompensationDetailSet) {
                         var arr = res.data.info.result[0].lostCompensationDetailSet
                         for (var i = 0; i < arr.length; i++) {
@@ -250,7 +283,14 @@ const camera = (e, load, that) => {
                       that.setData({
                         relateId: relateId
                       })
-                      load(res.data.info.result[0])
+                      if (relateModule == 'ALLOCATION_PROJECT'){
+                        console.log('你扫描了周材调拨')
+                        load(res.data.info.result[0], relateModule)
+                      }else{
+                        console.log('你扫描了普通调拨')
+                        load(res.data.info.result[0])
+                      }
+                      
                       wx.hideLoading()
                       wx.showToast({
                         title: '加载成功',
@@ -421,7 +461,7 @@ const camera = (e, load, that) => {
   })
 }
 //扫码确定 函数调用
-const scanning = (that) => {
+const scanning = (that,obj) => {
   wx.showLoading({
     title: '数据加载中',
     mask: true,
@@ -431,18 +471,18 @@ const scanning = (that) => {
     wx.request({
       url: baseUrl + that.data.addurl,
       data: {
-        tmessage: {
-          "query": {
-            "relateId": parseInt(that.data.relateId),
+       
+        "relateId": parseInt(that.data.relateId),
             // "relateId": 7,//本地
-            "bussAllocationDetailSet": that.data.arr.bussAllocationProject.bussAllocationDetailSet
-          }
-        }
+        "bussAllocationDetailSet": JSON.stringify(that.data.arr.bussAllocationProject.bussAllocationDetailSet),
+        "bussAllocationChargeSet": JSON.stringify(obj)
+      
       },
       header: {
-        cookie: that.data.cookies
+        cookie: that.data.cookies,
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       },
-      method: 'get',
+      method: 'post',
       success: (res) => {
         wx.hideLoading()
         if (res.data.masg == "操作成功。") {

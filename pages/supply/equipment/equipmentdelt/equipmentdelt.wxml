@@ -1,0 +1,109 @@
+<view class="approvalresult-view">
+  <view class="approvalresult-view-1" bindtap="jieguo" >
+  <text>项目名称 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.projectName}}</text>
+  <!-- <image class="approvalresult-img" src="../../../img/jiantou.png"></image> -->
+  </view>
+  <view class="approvalresult-view-1">
+  <text>工程区域 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.belongToAreaName ? equipmentdelt.belongToAreaName:'暂无工程区域'}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>计划类型 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.planTypeName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>需求数量 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.quantity}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>工程类别 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.providedDate ? equipmentdelt.projectName:'-'}} 天</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>工程地址 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.projectName}}</text>
+  </view>
+
+
+</view>
+
+<view class="approvalresult-view2">
+<view style="padding:10rpx">设备详情:</view>
+<view style="background:#F2F2F2;width:100%;margin-top:10rpx" wx:for="{{equipmentdelt.bussEquipDetailSet}}">
+  <view class="approvalresult-view-1">
+  <text>设备类别 :</text>
+  <text class="approvalresult-view-1-text1">{{item.equipGenericName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>设备型号 :</text>
+  <text class="approvalresult-view-1-text1">{{item.equipSpecificName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>设备单位 :</text>
+  <text class="approvalresult-view-1-text1">{{item.unit}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>需求数量 :</text>
+  <text class="approvalresult-view-1-text1">{{item.number}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>预计进场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.startDate}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>预计退场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.endDate}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>单体名称 :</text>
+  <text class="approvalresult-view-1-text1">{{item.singleName}}</text>
+  </view>
+  <view class='contract-detailed-2' style='margin-bottom:20rpx;' wx:if="{{item.attachName}}">
+        <h1 style="font-size:24rpx">上传图片</h1></view>
+      <view class="weui-uploader">
+        <view class="img-v weui-uploader__bd" style="width: 90%;margin: 0 auto;" wx:if="{{item.attachName}}">
+          <!-- <view class='pic' wx:for="{{item.attachName}}" wx:for-item="item" wx:key="*this"> -->
+            <image class='weui-uploader__img ' src="{{item.attachName}}" 
+            data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+              <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
+            </image>
+          <!-- </view> -->
+  
+        </view>
+      </view>
+
+</view>
+ 
+</view>
+
+<view class="approvalresult-view2">
+<view style="background:#D7D7D7;width:100%" >
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>确认人 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.approver}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>核准人 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.confirmingPerson}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>确认日期 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.confirmationDate}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>核准日期 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.approvalDate}}</text>
+  </view>
+  </view>
+
+</view>
+ 
+</view>

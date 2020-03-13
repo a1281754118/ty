@@ -1,0 +1,190 @@
+<view class="approvalresult-view">
+  <view class="approvalresult-view-1">
+    <text class="approvalresult-view-text">项目名称 : </text>
+    <text class="approvalresult-view-text1">{{text1 ? text1.projectName:'请关联项目名称'}}</text>
+    <picker class="picker" bindchange="bindPickerChange1" value="{{index}}" range="{{array1}}" range-key="projectName">
+      <text>查询</text>
+    </picker>
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">工程区域 :</text>
+  <text class="approvalresult-view-text1">{{text2 ? text2[1]:''}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">外租单位 :</text>
+  <input class="approvalresult-view-input" placeholder="请输入外租单位"
+  value="{{value2}}"  bindinput="value2"></input>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.quantity}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">单位地址 :</text>
+  <input class="approvalresult-view-input" placeholder="请输入单位地址" 
+  value="{{value4}}"  bindinput="value4"></input>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.quantity}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">联系方式 :</text>
+  <input class="approvalresult-view-input" placeholder="请输入联系方式" type="number"
+  value="{{value1}}"  bindinput="value1"></input>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.quantity}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">项目地址 :</text>
+  <text class="approvalresult-view-text1">{{text1 ? text1.address:''}}</text>
+  </view>
+
+</view>
+
+<view class="approvalresult-view2">
+  <view style="padding:10rpx">需求明细:
+    <text class="xianqingxinzeng" bindtap="confirm">新增</text>
+  </view>
+  <view style="background:#F2F2F2;width:100%;margin-top:10rpx" wx:for="{{arr}}">
+    <view class="xiangqingshanchu">
+      <text class="xiangqingshanchu-text" bindtap="delt" data-index="{{item.index}}">删除</text>
+    </view>
+    <view class="approvalresult-view-1">
+      <text>设备类别 :</text>
+      <text class="approvalresult-view-1-text1">{{item.equipGenericName}}</text>
+    </view>
+    <view class="approvalresult-view-1">
+      <text>设备型号 :</text>
+      <text class="approvalresult-view-1-text1">{{item.equipSpecificName}}</text>
+    </view>
+    <view class="approvalresult-view-1">
+      <view class="approvalresult-view-1-1">
+        <text>设备单位 :</text>
+        <text class="approvalresult-view-1-text1">{{item.unit}}</text>
+      </view>
+      <view class="approvalresult-view-1-1">
+        <text>需求数量 :</text>
+        <text class="approvalresult-view-1-text1">{{item.quantity}}</text>
+      </view>
+    </view>
+    <view class="approvalresult-view-1">
+      <view class="approvalresult-view-1-1">
+        <text>日租金 :</text>
+        <text class="approvalresult-view-1-text1">{{item.dailyRent}}</text>
+      </view>
+      <view class="approvalresult-view-1-1">
+        <text>设备备案号 :</text>
+        <text class="approvalresult-view-1-text1">{{item.recordId}}</text>
+      </view>
+    </view>
+    <view class="approvalresult-view-1">
+      <view class="approvalresult-view-1-1">
+        <text>预计进场 :</text>
+        <text class="approvalresult-view-1-text1">{{item.startDate}}</text>
+      </view>
+      <view class="approvalresult-view-1-1">
+        <text>预计退场 :</text>
+        <text class="approvalresult-view-1-text1">{{item.endDate}}</text>
+      </view>
+    </view>
+    <view class="approvalresult-view-1">
+  <text>单体名称 :</text>
+  <text class="approvalresult-view-1-text1">{{item.singleName}}</text>
+  </view>
+  </view>
+  
+
+</view>
+
+<button class="selectionlist-botton" bindtap="tijiao">提交</button>
+<mp-dialog wx:if="{{duang=='xinzeng'}}" title="新增设备外租计划" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view class="approvalresult-view2">
+    <view style="background:#F2F2F2;width:100%;font-size:22rpx;">
+      <view class="xiangqingshanchu"></view>
+      <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">设备类别 : </text>
+  <text class="approvalresult-view-text11">{{text5 ? text5[1]:'请关联设备类型'}}</text>
+  <picker class="picker" bindchange="bindPickerChange5" value="{{index}}" range="{{array5}}">
+    <text>选择</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">设备型号 : </text>
+  <text class="approvalresult-view-text11">{{text6 ? text6[1]:'请关联设备型号'}}</text>
+  <picker class="picker" bindchange="bindPickerChange6" value="{{index}}" range="{{array6}}">
+    <text>选择</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text class="approvalresult-view-text">设备单位 :</text>
+  <input class="approvalresult-view-1-input11" placeholder="请输入设备单位"
+  value="{{value6}}"  bindinput="value6">{{item.unit}}</input>
+  </view>
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">需求数量 :</text>
+          <input class="approvalresult-view-1-input11" type="number"
+           placeholder="先选择类别" value="{{value3}}" bindinput="value3">{{item.unit}}</input>
+        </view>
+      </view>
+      <view class="approvalresult-view-1">
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">日租金 :</text>
+          <input class="approvalresult-view-1-input11" type="number"
+          placeholder="输入日租金" value="{{value5}}" bindinput="value5">{{item.unit}}</input>
+        </view>
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">备案号 :</text>
+          <input class="approvalresult-view-1-input11" type="number"
+          placeholder="设备备案号" value="{{value7}}" bindinput="value7">{{item.unit}}</input>
+        </view>
+      </view>
+      <view class="approvalresult-view-1">
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">预计进场 :</text>
+          <picker class="rollselection" style="width: 55%;font-size:22rpx" mode="date" value="{{startdate}}" bindchange="bindDateChange">
+            <view>{{startdate}}</view>
+          </picker>
+        </view>
+        <view class="approvalresult-view-1-1">
+          <text class="approvalresult-view-text">预计退场 :</text>
+          <picker class="rollselection" style="width: 55%;font-size:22rpx" mode="date" value="{{enddate}}" bindchange="bindDateChangeEnd">
+            <view>{{enddate}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">单体名称 : </text>
+  <text class="approvalresult-view-text11">{{text7 ? text7.singleName:'请关联单体名称'}}</text>
+  <picker class="picker" bindchange="bindPickerChange7" value="{{index}}" range="{{array7}}" wx:if="{{text1!=''}}" range-key="singleName">
+    <text>选择</text>
+  </picker> 
+  </view>
+
+    </view>
+
+  </view>
+</mp-dialog>
+
+<mp-dialog wx:if="{{duang=='tijiao'}}" title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view>请仔细核对信息无误！</view>
+</mp-dialog>
+
+<view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
+  <view class="free-dialog__mask" bindtap="toggleDialog" />
+  <view class="free-dialog__container">
+    <view style="padding: 5% 5% 15%;">
+      <form bindsubmit='submit' bindreset="reset">
+        <view bindtap='freetoBack' class="free-button free-dialog-reset">品名</view>
+        <view bindtap='freeBack' class="free-button free-dialog-submit">规格型号</view>
+        <view class="free-gunlun">
+          <radio-group class='free-radios' bindchange="radioChange">
+            <label class="free-radio" bindtap="click" wx:for="{{pickerList}}" wx:key="{{pickerList}}" data-id="{{index}}" style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}">
+              <radio value="{{item}}" name="{{item}}"></radio>
+              <label class="free-text">
+                <text>{{item.materialsCommodity.commodity}}</text>
+                <text>{{item.specifications}}</text>
+              </label>
+
+            </label>
+          </radio-group>
+        </view>
+      </form>
+
+    </view>
+  </view>
+</view>

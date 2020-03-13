@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "mp-dialog": "../components/dialog/dialog"
+  },
+  "navigationBarTitleText": "设备外租计划修改"
+}

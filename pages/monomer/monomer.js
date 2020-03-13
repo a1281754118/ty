@@ -1,3 +1,4 @@
+
 Page({
   data: {
     arr: [],
@@ -15,7 +16,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      request: false,
+      cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
+    })
+    this.search()
   },
 
   /**
@@ -29,11 +34,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      request: false,
-      cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
-    })
-    this.search()
+    
 
   },
 
@@ -75,7 +76,7 @@ Page({
       })
       console.log('1111')
       wx.request({
-        url: this.data.baseUrl + 'terminal/singleListAppProject.do',
+        url: getApp().globalData.utils.baseUrl + 'terminal/singleListAppProject.do',
         data: {
           tmessage: { "query": { "start": this.data.start, "pageSize": this.data.pageSize, "keyword": this.data.adTitle } }
         },
@@ -160,7 +161,7 @@ Page({
   //获取数据
   load() {
     wx.request({
-      url: this.data.url +'terminal/singleListAppProject.do',
+      url: getApp().globalData.utils.baseUrl +'terminal/singleListAppProject.do',
       data: {
         tmessage: {
           "query": {

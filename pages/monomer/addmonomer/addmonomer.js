@@ -19,8 +19,10 @@ Page({
     mononmernumberheight: '',
     //单层面积
     area: '',
+    start: '0',//起始条数（从第几条开始显示）
+    pageSize: '15',//显示条数
     // url:'http://192.168.0.242:8081/emms_SDTY/',
-    url:'https://www.jjaq.com.cn/sdty/',
+    url: getApp().globalData.utils.baseUrl,
     cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
     pickerListIdx: 0,
     pickerList:[],
@@ -79,7 +81,7 @@ Page({
                 success: () => {
                   setTimeout(() => {
                     wx.redirectTo({
-                      url: '../monomer'
+                      url: '../supply'
                     })
                   }, 1000)
                 }
@@ -147,6 +149,9 @@ Page({
     wx.request({
       url: this.data.url + 'terminal/permissionProjectAppProject.do',
       method: 'get',
+      data: {
+        tmessage: { "query": { "start": this.data.start, "pageSize": this.data.pageSize, } }
+      },
       header: {
         cookie: this.data.cookies
       },

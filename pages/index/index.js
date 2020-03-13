@@ -123,6 +123,12 @@ Page({
       url: '../lose/lose',
     })
   },
+  //供需管理
+  supply() {
+    wx.navigateTo({
+      url: '../supply/supply',
+    })
+  },
   load() {
     wx.request({
       url: this.data.baseUrl + 'terminal/userProjectNumberAppProject.do',

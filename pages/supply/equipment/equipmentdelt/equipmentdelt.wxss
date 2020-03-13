@@ -1,0 +1,21 @@
+/* pages/supply/equipment/equipmentdelt/equipmentdelt.wxss */
+.fixed-botton{
+  position: fixed;
+  bottom: 30rpx;
+  right: 30rpx;
+  background: #FE8103;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 150rpx;
+  color: #fff;
+  font-size: 25rpx;
+  text-align: center;
+}
+.fixed-botton image{
+  width: 50rpx;
+  height: 50rpx;
+  padding-top: 20rpx;
+  padding-bottom: 10rpx;
+  margin: 0 auto;
+  display: block;
+}

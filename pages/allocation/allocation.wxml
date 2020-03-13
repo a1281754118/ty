@@ -1,39 +1,98 @@
-<view class='boss'>
-  <view class=" search">
-    <view style='margin-top: 20rpx;'>
-      <view class='searchItem'>
-        <image src='/pages/img/weibiaoti-.png' />
-        <input type='text' placeholder='调拨编号/调出项目/调入项目' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
-        <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
-      </view>
+<view class="boss">
+  <view class="dingwei">
+    <view class="nav bc_white">
+      <view class="{{selected?'red':'default'}}" bindtap="selected">调出项目</view>
+      <view class="{{selected1?'red':'default'}}" bindtap="selected1">调入项目</view>
     </view>
-
-  </view>
-  <view style='margin-top: 90rpx;'>
-    <view class='contract'>
-
-      <view class='contract-1' bindtap='detailed' data-id='{{item.busscatID}}' wx:for="{{arr}}" wx:key="{{index}}">
-        <view style='margin-top: 30rpx;'>
-          <view class='contract-2'>
-            <h1>调拨编号</h1> ： {{item.allocationSerial}}</view>
-          <view class='contract-2'>
-            <h1>调出项目</h1> ： {{item.outProjectName}}</view>
-          <view class='contract-2'>
-            <h1>调入项目</h1> ： {{item.inProjectName}}</view>
-          <view class='contract-2'>
-            <h1>调拨时间</h1> ： {{item.allocationDate}}</view>
+    <view class=" search" style="margin-bottom: 0rpx;position:relative ;padding-top:15rpx;height:80rpx;">
+      <view>
+        <view class='searchItem'>
+          <image src='/pages/img/weibiaoti-.png' />
+          <input type='text' placeholder='调拨编号/调出项目/调入项目' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
+          <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
         </view>
       </view>
 
-      <view class='tips'>
-        <block class='tips' wx:if="{{arr==''}}">---没有找到数据---</block>
-        <block class='tips' wx:if="{{request==true}}">---没有数据了---</block>
-      </view>
+    </view>
 
+  </view>
+
+  <view class="{{selected?'show':'hidden'}}">
+    <view style="margin-top: 180rpx;">
+      <view class='contract'>
+        <view class='contract-1' bindtap='detailed' data-id='{{item.busscatID}}' style="height: 350rpx;" wx:for="{{arr}}" wx:key="busscatID">
+          <view style='margin-top: 30rpx;'>
+            <view class='contract-2'>
+              <h1>调拨编号</h1> ： {{item.allocationSerial}}</view>
+            <view class='contract-2'>
+              <h1>调出项目</h1> ： {{item.outProjectName}}</view>
+            <view class='contract-2'>
+              <h1>调入项目</h1> ： {{item.inProjectName}}</view>
+            <view class='contract-2'>
+              <h1>调拨时间</h1> ： {{item.allocationDate}}</view>
+            <view class='contract-2' wx:if="{{item.businessState=='0'}}">
+              <h1>调拨状态</h1> ： 就绪</view>
+            <view class='contract-2' wx:if="{{item.businessState=='1'}}">
+              <h1>调拨状态</h1> ： 待确认</view>
+            <view class='contract-2' wx:if="{{item.businessState=='2'}}">
+              <h1>调拨状态</h1> ： 已确认</view>
+            <view class='contract-2' wx:if="{{item.businessState=='3'}}">
+              <h1>调拨状态</h1> ： 待审核</view>
+            <view class='contract-2' wx:if="{{item.businessState=='4'}}">
+              <h1>调拨状态</h1> ： 审核通过</view>
+          </view>
+        </view>
+
+        <view class='tips'>
+          <block class='tips' wx:if="{{arr==''}}">---没有找到数据---</block>
+          <block class='tips' wx:if="{{request==true}}">---没有数据了---</block>
+        </view>
+
+      </view>
+    </view>
+
+
+  </view>
+  <view class="{{selected1?'show':'hidden'}}">
+    <view style="margin-top: 180rpx;">
+      <view class='contract'>
+        <view class='contract-1' bindtap='detailed' style="height: 350rpx;" data-id='{{item.busscatID}}' wx:for="{{arr}}" wx:key="id">
+          <view style='margin-top: 30rpx;'>
+            <view class='contract-2'>
+              <h1>调拨编号</h1> ： {{item.allocationSerial}}</view>
+            <view class='contract-2'>
+              <h1>调出项目</h1> ： {{item.outProjectName}}</view>
+            <view class='contract-2'>
+              <h1>调入项目</h1> ： {{item.inProjectName}}</view>
+            <view class='contract-2'>
+              <h1>调拨时间</h1> ： {{item.allocationDate}}</view>
+            <view class='contract-2' wx:if="{{item.businessState=='0'}}">
+              <h1>调拨状态</h1> ： 就绪</view>
+            <view class='contract-2' wx:if="{{item.businessState=='1'}}">
+              <h1>调拨状态</h1> ： 待确认</view>
+            <view class='contract-2' wx:if="{{item.businessState=='2'}}">
+              <h1>调拨状态</h1> ： 已确认</view>
+            <view class='contract-2' wx:if="{{item.businessState=='3'}}">
+              <h1>调拨状态</h1> ： 待审核</view>
+            <view class='contract-2' wx:if="{{item.businessState=='4'}}">
+              <h1>调拨状态</h1> ： 审核通过</view>
+          </view>
+
+
+        </view>
+        <view class='tips'>
+          <block class='tips' wx:if="{{arr==''}}">---没有找到数据---</block>
+          <block class='tips' wx:if="{{request==true}}">---没有数据了---</block>
+        </view>
+
+      </view>
     </view>
   </view>
 
-  <view class='bottom' bindtap='camera'>
+  <view class='bottom' bindtap='purchaseApproval'>
     <text>扫码确认</text>
   </view>
+  <mp-actionSheet bindactiontap="btnClick" show="{{showActionsheet}}" actions="{{groups}}" title="请选择功能">
+  </mp-actionSheet>
+
 </view>

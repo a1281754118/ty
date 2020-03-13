@@ -21,7 +21,7 @@
         
     <view class="details-3">
     <view bindtap="location">项目定位</view>
-        <view bindtap="monomer">单体管理</view>
+        <!-- <view bindtap="monomer">项目进度管理</view> -->
     </view>
 
   </view>
@@ -33,6 +33,21 @@
         <image src='/pages/img/swzlht.png'></image>
       </view>
       <view class='wx-botton-1-2'>商务租赁合同</view>
+      <!-- <view class='wx-botton-1-3 '>
+        <image src='/pages/img/jiantou.png'></image>
+      </view> -->
+    </view>
+    <view class='wx-botton-1' bindtap="monomer">
+      <view class='wx-botton-1-1' >
+        <image src='/pages/img/jindusvg.png'></image>
+      </view>
+      <view class='wx-botton-1-2'>项目进度管理</view>
+    </view>
+    <view class='wx-botton-1' bindtap='supply'>
+      <view class='wx-botton-1-1'>
+        <image src='/pages/img/ziyuan.png'></image>
+      </view>
+      <view class='wx-botton-1-2'>项目供需管理</view>
       <view class='wx-botton-1-3 '>
         <image src='/pages/img/jiantou.png'></image>
       </view>
@@ -73,5 +88,22 @@
         <image src='/pages/img/jiantou.png'></image>
       </view>
     </view>
+    
+    <view class='wx-botton-1' >
+      <view class='wx-botton-1-1'>
+        <image src='/pages/img/chaxun.png'></image>
+      </view>
+      <view class='wx-botton-1-2'>项目库存查询</view>
+    </view>
+    <view class='wx-botton-1' >
+      <view class='wx-botton-1-1'>
+        <image src='/pages/img/jiesuanshenpi.png '></image>
+      </view>
+      <view class='wx-botton-1-2'>项目结算明细</view>
+    </view>
+    
+    
+
+
   </view>
 </view>

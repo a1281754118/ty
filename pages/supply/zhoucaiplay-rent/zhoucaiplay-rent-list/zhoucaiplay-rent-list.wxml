@@ -1,0 +1,129 @@
+<view class="approvalresult-view">
+  <view class="approvalresult-view-1" bindtap="jieguo" >
+  <text>项目名称 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.projectName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>工程区域 :</text>
+ <text class="approvalresult-view-1-text1">{{equipmentdelt.belongToAreaName ? equipmentdelt.belongToAreaName:'暂无工程区域'}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>外租单位 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.rentName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>联系方式 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.rentTel}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>单位地址 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.projectName}}</text>
+  </view>
+
+
+</view>
+
+<view class="approvalresult-view2">
+<view style="padding:10rpx">价格信息:</view>
+<view style="background:#F2F2F2;width:100%;margin-top:10rpx" wx:for="{{equipmentdelt.bussMaterialsFeeSet}}" wx:key="id">
+  <view class="approvalresult-view-1">
+  <text>品名 :</text>
+  <text class="approvalresult-view-1-text1">{{item.commodity}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>单位 :</text>
+  <text class="approvalresult-view-1-text1">{{item.unit}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>日租金 :</text>
+  <text class="approvalresult-view-1-text1">{{item.dailyRent}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>备注 :</text>
+  <text class="approvalresult-view-1-text1">{{item.remark}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>预计进场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.startDate}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>预计退场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.endDate}}</text>
+  </view>
+  </view>
+
+</view>
+ 
+</view>
+
+
+<view class="approvalresult-view2">
+<view style="padding:10rpx">需求明细:</view>
+<view style="height:400rpx;overflow-y: scroll;" wx:if="{{arr!=''}}">
+<view style="background:#F2F2F2;width:100%;margin-top:10rpx" wx:for="{{equipmentdelt.bussMaterialsDemandSet}}">
+  <view class="approvalresult-view-1">
+  <text>品名 :</text>
+  <text class="approvalresult-view-1-text1">{{item.commodity}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>规格 :</text>
+  <text class="approvalresult-view-1-text1">{{item.specifications}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>日租金 :</text>
+  <text class="approvalresult-view-1-text1">{{item.dailyRent}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>需求数量 :</text>
+  <text class="approvalresult-view-1-text1">{{item.demandNum}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>辅助数量 :</text>
+  <text class="approvalresult-view-1-text1">{{item.auxiliaryNum}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>预计进场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.startDate}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>预计退场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.endDate}}</text>
+  </view>
+</view>
+</view>
+ 
+</view>
+
+<!-- <view class="approvalresult-view2">
+<view style="background:#D7D7D7;width:100%" >
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>确认人 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.approver}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>核准人 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.confirmingPerson}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>确认日期 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.confirmationDate}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>核准日期 :</text>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.approvalDate}}</text>
+  </view>
+  </view>
+
+</view>
+ 
+</view> -->

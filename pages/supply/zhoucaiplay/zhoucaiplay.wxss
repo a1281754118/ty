@@ -1,0 +1,71 @@
+.search-viwew{
+  padding: 10rpx;
+  overflow: hidden;
+}
+.search-viwew-1{
+  width: 50%;
+  float: left;
+}
+.approvalresult-view-input{
+  width: 50%;
+  float: left;
+}
+.approvalresult-view-text{
+  float: left;
+  
+}
+.approvalresult-view-text1{
+  float: left;
+  width: 200rpx;
+  height: 50rpx;
+  overflow: hidden;
+  text-overflow :ellipsis;/* 文字隐藏后添加省略号 */
+  white-space : nowrap;/* 强制不换行 */
+  margin-left: 10rpx;
+  font-size: 26rpx;
+  color: rgb(112, 112, 112)
+}
+.approvalresult-view-input{
+  width: 50%;
+  font-size: 26rpx;
+}
+.picker{
+  overflow: hidden;
+  float: right;
+  border-radius: 10rpx;
+  
+}
+.picker text{
+  width: 80rpx;
+  border-radius: 10rpx;
+  padding: 15rpx;
+  font-size:30rpx; 
+  background: rgb(157, 161, 163);
+  
+}
+.approvalresult-view-1-input{
+  float: left;
+  width: 180rpx;
+  font-size: 26rpx;
+}
+.rollselection{
+  float: right;
+  width: 60%;
+  font-size: 26rpx;
+  overflow: hidden;
+  text-overflow :ellipsis;/* 文字隐藏后添加省略号 */
+  white-space : nowrap;/* 强制不换行 */
+  height: 50rpx;
+  margin-left: 0rpx;
+  display: block;
+  padding: 0rpx;
+}
+.approvalresult-view-1 {
+padding: 0rpx;
+margin: 0 auto;
+height: 45rpx;
+line-height: 45rpx;
+border-bottom: 0rpx rgb(218, 218, 218) solid;
+overflow: hidden;
+
+}

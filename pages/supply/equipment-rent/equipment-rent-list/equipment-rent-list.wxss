@@ -1,0 +1,65 @@
+.approvalresult-view-input{
+  width: 50%;
+  float: left;
+}
+.approvalresult-view-text{
+  float: left;
+  
+}
+.approvalresult-view-text1{
+  float: left;
+  width: 400rpx;
+  height: 50rpx;
+  overflow: hidden;
+  text-overflow :ellipsis;/* 文字隐藏后添加省略号 */
+  white-space : nowrap;/* 强制不换行 */
+  margin-left: 10rpx;
+  font-size: 26rpx;
+  color: rgb(112, 112, 112)
+}
+.approvalresult-view-input{
+  width: 50%;
+  font-size: 26rpx;
+}
+.picker{
+  overflow: hidden;
+  float: right;
+  border-radius: 10rpx;
+  
+}
+.picker text{
+  width: 80rpx;
+  border-radius: 10rpx;
+  padding: 15rpx;
+  font-size:30rpx; 
+  background: #169BD5;
+  
+}
+.approvalresult-view-1-input{
+  float: left;
+  width: 180rpx;
+  font-size: 26rpx;
+}
+.rollselection{
+  float: right;
+  width: 40%;
+  font-size: 26rpx;
+  overflow: hidden;
+  text-overflow :ellipsis;/* 文字隐藏后添加省略号 */
+  white-space : nowrap;/* 强制不换行 */
+  height: 50rpx;
+  margin-left: 0rpx;
+  display: block;
+  padding: 0rpx;
+}
+.approvalresult-view-text11{
+  float: left;
+height: 50rpx;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+margin-left: 10rpx;
+font-size: 26rpx;
+color: rgb(112, 112, 112);
+
+}

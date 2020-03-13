@@ -65,43 +65,49 @@
 }
 .details-3 view{
   
-  width: 50%;
-  float: left;
+  /* width: 50%;
+  float: left; */
   color: #fff;
 }
 .wx-botton {
+  overflow: hidden;
   width: 95%;
   margin: 0 auto;
 }
 
 .wx-botton-1 {
-  height: 90rpx;
+  font-size: 20rpx;
+  width: 32%;
+  margin-left: 1%;
+  height: 200rpx;
+  float: left;
   background: #fff;
-  margin-bottom: 25rpx;
+  margin-bottom: 10rpx;
   border-radius: 10rpx;
+  overflow: hidden;
 }
 
 .wx-botton-1-1 {
-  width: 15%;
-  height: 100%;
-  float: left;
+  width: 70rpx;
+  height: 90rpx;
+  margin: 0 auto;
+  /* float: left; */
   line-height: 90rpx;
 }
 
 .wx-botton-1-1 image {
-  width: 50rpx;
-  height: 50rpx;
+  width: 70rpx;
+  height: 70rpx;
   line-height: 90rpx;
-  margin-left: 30rpx;
   margin-top: 20rpx;
 }
 
 .wx-botton-1-2 {
-  width: 75%;
-  height: 100%;
-  float: left;
+  width: 100%;
+  /* float: left; */
   line-height: 90rpx;
-  font-size: 30rpx;
+  font-size: 25rpx;
+  text-align: center;
 }
 
 .wx-botton-1-3 {

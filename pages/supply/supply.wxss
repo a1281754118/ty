@@ -1,0 +1,95 @@
+page{
+background: #e4e7ec;
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.mine-boss{
+  margin: 0 auto;
+  
+}
+.product-list {
+ width: 100%;
+ box-sizing: border-box;
+  
+}
+  
+  
+.choice-bar {
+
+ width: 100%;
+ font-size: 28rpx;
+ background-color: #fff;
+ /**z-index: 0;**/
+}
+.chioce-item {
+ background-color: #fff;
+
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 20rpx;
+ width: 100%;
+ height: 80rpx;
+ line-height: 80rpx;
+ 
+ border-top: 1rpx solid #ddd;
+ border-bottom: 1rpx solid #ddd;
+}
+  
+.icon-chioce {
+  float: right;
+  right: 40rpx;
+  margin-top: 25rpx;
+  margin-right: 50rpx;
+ height: 30rpx;
+ width: 30rpx;
+}
+.icon-yonghu{
+  height: 40rpx;
+ width: 40rpx;
+ right: 10rpx;
+}
+.district-list,.sorting-list,.filter-list {
+ margin-top: 20rpx;
+ padding-bottom: 20rpx;
+ top: 100rpx;
+ width: 100%;
+ background-color: #fff;
+ z-index: 2;
+ font-size: 25rpx;
+ overflow: hidden;
+ /* border-bottom: 1rpx solid #ddd; */
+ 
+}
+.chioce-list-hide {
+ display: none !important;
+}
+.chioce-list-show {
+ /**top: 80rpx;**/
+ animation: slide 500ms;
+}
+  
+.sorting-item {
+  position: relative;
+  text-align: center;
+  width: 30%;
+  float: left;
+ height: 200rpx;
+ margin-left: 2%;
+ /* background: #fff; */
+ line-height: 80rpx;
+ /* padding: 10rpx; */
+ border: 1rpx solid #ddd;
+ border-radius: 10rpx;
+ background: #E3E6EB
+}
+.sorting-item image{
+  margin: 0 auto;
+  display: block;
+  right: 40rpx;
+  top: 50rpx;
+  width: 80rpx;
+  height:80rpx;
+  
+}

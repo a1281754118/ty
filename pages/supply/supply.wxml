@@ -1,0 +1,40 @@
+<!--pages/mine/mine.wxml-->
+<view class="mine-boss">
+
+<view class="product-list">
+ <!--条件选择-->
+ <view class="choice-bar">
+  <view bindtap="opens" data-item="1" class="chioce-item" hover-class="click-once-opaque">
+      需求管理
+   <image class="icon-chioce" src="{{!isstart?openimg: offimg}}"></image>
+  </view>
+  <view class="sorting-list{{!isstart?' chioce-list-hide':' chioce-list-show'}}">
+   <view  bindtap="equipment"  class="sorting-item" hover-class="click-once"  >
+   <text>设备计划</text>  <image src="../img/shebeiguanli.png"></image></view>
+   <view  bindtap="logout"  class="sorting-item" hover-class="click-once"  >
+   <text>周材计划</text> <image src="../img/cailiaohanshuaishezhi.png"></image></view>
+   <view    class="sorting-item" hover-class="click-once"  >
+   <text>泵车计划</text> <image src="../img/bengchefenlei.png"></image></view>
+  </view>
+  
+ </view>
+
+ <view class="choice-bar">
+  <view bindtap="opens1" data-item="1" class="chioce-item" hover-class="click-once-opaque">
+      外租计划
+   <image class="icon-chioce" src="{{!isstart1?openimg: offimg}}"></image>
+  </view>
+  <view class="sorting-list{{!isstart1?' chioce-list-hide':' chioce-list-show'}}">
+   <view  bindtap="switchUser"  class="sorting-item" hover-class="click-once"  >
+   <text>设备外租计划</text>  <image src="../img/bucaozulin.png"></image></view>
+   <view  bindtap="logout1"  class="sorting-item" hover-class="click-once"  >
+   <text>周材外租计划</text> <image src="../img/bucaozulin.png"></image></view>
+  </view>
+ </view>
+
+ 
+</view>
+
+
+
+</view>

@@ -1,0 +1,208 @@
+
+<view class="approvalresult-view">
+  <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">项目名称 : </text>
+  <text class="approvalresult-view-text1">{{text1 ? text1.projectName:'请关联项目名称'}}</text>
+  <picker class="picker" bindchange="bindPickerChange1" value="{{index}}" range="{{array1}}" range-key="projectName">
+    <text>查询</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">工程区域 :</text>
+  <text class="approvalresult-view-text1">{{text2 ? text2[1]:''}}</text>
+  </view>
+  <!-- <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">工程区域 : </text>
+  <text class="approvalresult-view-text1">{{text2 ? text2[1]:'请选择工程区域'}}</text>
+  <picker class="picker" bindchange="bindPickerChange2" value="{{index}}" range="{{array2}}" >
+    <text>选择</text>
+  </picker> 
+  </view> -->
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">计划类型 : </text>
+  <text class="approvalresult-view-text1">{{text3 ? text3[1]:'请选择计划类型'}}</text>
+  <picker class="picker" bindchange="bindPickerChange3" value="{{index}}" range="{{array3}}" >
+    <text>选择</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">需求数量 : </text>
+  <text class="approvalresult-view-text1">{{value1=='0' ? '请新增设备详情':value1}}</text>
+  </view>
+  <!-- <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">需求数量 :</text>
+  <input class="approvalresult-view-input" placeholder="请输入需求数量"
+  value="{{value1}}"  bindinput="value1" type="number"></input>
+  <text class="approvalresult-view-1-text1">{{equipmentdelt.quantity}}</text>
+  </view> -->
+   <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">工程类别 : </text>
+  <text class="approvalresult-view-text1">{{text4 ? text4[1]:'请选择工程类别'}}</text>
+  <picker class="picker" bindchange="bindPickerChange4" value="{{index}}" range="{{array4}}" >
+    <text>选择</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1">
+  <text class="approvalresult-view-text">工程地址 :</text>
+  <text class="approvalresult-view-text1">{{text1 ? text1.address:''}}</text>
+  </view>
+
+
+</view>
+
+<view class="approvalresult-view2">
+<view style="padding:10rpx">设备详情: <text class="xianqingxinzeng" bindtap="confirm">新增</text></view>
+<view style="background:#F2F2F2;width:100%;margin-top:10rpx" wx:for="{{arr}}">
+<view class="xiangqingshanchu"><text class="xiangqingshanchu-text" bindtap="delt" data-index="{{item.index}}">删除</text></view>
+   <view class="approvalresult-view-1">
+  <text>设备类别 :</text>
+  <text class="approvalresult-view-1-text1">{{item.equipGenericName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>设备型号 :</text>
+  <text class="approvalresult-view-1-text1">{{item.equipSpecificName}}</text>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>设备单位 :</text>
+  <text class="approvalresult-view-1-text1">{{item.unit}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>需求数量 :</text>
+  <text class="approvalresult-view-1-text1">{{item.number}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>预计进场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.startDate}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>预计退场 :</text>
+  <text class="approvalresult-view-1-text1">{{item.endDate}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <text>单体名称 :</text>
+  <text class="approvalresult-view-1-text1">{{item.singleName}}</text>
+  </view>
+ <view class='contract-detailed-2' style='margin-bottom:20rpx;' wx:if="{{item.attachName}}">
+        <h1 style="font-size:24rpx">上传图片</h1></view>
+      <view class="weui-uploader"  wx:if="{{item.attachName}}">
+        <view class="img-v weui-uploader__bd" style="width: 90%;margin: 0 auto;">
+          <!-- <view class='pic' wx:for="{{item.attachName}}" wx:for-item="item" wx:key="*this"> -->
+            <image class='weui-uploader__img ' src="{{item.attachName ? item.attachName:''}}" 
+            data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+              <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
+            </image>
+          <!-- </view> -->
+  
+        </view>
+      </view>
+</view>
+</view>
+
+
+
+
+<view class="approvalresult-view2">
+<view style="background:#D7D7D7;width:100%" wx:for="{{equipmentdelt.bussEquipDetailSet}}">
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>确认人 :</text>
+  <text class="approvalresult-view-1-text1">{{item.approver}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>核准人 :</text>
+  <text class="approvalresult-view-1-text1">{{item.confirmingPerson}}</text>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text>确认日期 :</text>
+  <text class="approvalresult-view-1-text1">{{item.confirmationDate}}</text>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text>核准日期 :</text>
+  <text class="approvalresult-view-1-text1">{{item.approvalDate}}</text>
+  </view>
+  </view>
+
+</view>
+ 
+</view>
+
+<button class="selectionlist-botton" bindtap="tijiao">提交</button>
+<mp-dialog wx:if="{{duang=='xinzeng'}}" title="新增设备计划" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view class="approvalresult-view2">
+<view style="background:#F2F2F2;width:100%;font-size:22rpx;">
+<view class="xiangqingshanchu" ></view>
+  <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">设备类别 : </text>
+  <text class="approvalresult-view-text11">{{text5 ? text5[1]:'请关联设备类型'}}</text>
+  <picker class="picker" bindchange="bindPickerChange5" value="{{index}}" range="{{array5}}">
+    <text>选择</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">设备型号 : </text>
+  <text class="approvalresult-view-text11">{{text6 ? text6[1]:'请关联设备型号'}}</text>
+  <picker class="picker" bindchange="bindPickerChange6" value="{{index}}" range="{{array6}}">
+    <text>选择</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text class="approvalresult-view-text">设备单位 :</text>
+  <input class="approvalresult-view-1-input11" placeholder="请输入设备单位"
+  value="{{value2}}"  bindinput="value2">{{item.unit}}</input>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text class="approvalresult-view-text">需求数量 :</text>
+  <input class="approvalresult-view-1-input11" placeholder="请输入需求数量" type="number"
+  value="{{value3}}"  bindinput="value3">{{item.unit}}</input>
+  </view>
+  </view>
+  <view class="approvalresult-view-1">
+  <view class="approvalresult-view-1-1">
+   <text class="approvalresult-view-text">预计进场 :</text>
+  <picker class="rollselection" style="width: 55%;font-size:22rpx" mode="date" value="{{startdate}}"  bindchange="bindDateChange">
+    <view>{{startdate}}</view>
+  </picker>
+  </view>
+  <view class="approvalresult-view-1-1">
+   <text class="approvalresult-view-text">预计退场 :</text>
+ <picker class="rollselection" style="width: 55%;font-size:22rpx" mode="date" value="{{enddate}}"  bindchange="bindDateChangeEnd">
+    {{enddate}}
+  </picker>
+  </view>
+  </view>
+    <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">单体名称 : </text>
+  <text class="approvalresult-view-text11">{{text7 ? text7.singleName:'请关联单体名称'}}</text>
+  <picker class="picker" bindchange="bindPickerChange7" value="{{index}}" range="{{array7}}" wx:if="{{text1!=''}}" range-key="singleName">
+    <text>选择</text>
+  </picker>
+  </view>
+   <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+        <h1 style="font-size:24rpx">上传图片</h1></view>
+      <view class="weui-uploader">
+        <view class="img-v weui-uploader__bd" style="width: 90%;margin: 0 auto;">
+          <view class='pic' wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+            <image class='weui-uploader__img ' src="{{item}}" 
+            data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+              <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
+            </image>
+          </view>
+          <view wx:if="{{imgs.length<1}}" class="weui-uploader__input-box pic" bindtap="chooseImg"> </view>
+        </view>
+      </view>
+
+</view>
+ 
+</view>
+</mp-dialog>
+
+<mp-dialog wx:if="{{duang=='tijiao'}}" title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+      <view>请仔细核对信息无误！</view>
+</mp-dialog>

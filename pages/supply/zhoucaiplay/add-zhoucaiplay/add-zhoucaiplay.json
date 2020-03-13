@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "mp-dialog": "../../../components/dialog/dialog"
+  },
+  "navigationBarTitleText": "新增周材需求计划"
+}

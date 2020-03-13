@@ -13,14 +13,16 @@
         </picker>
 
  </view>
- <view class="location-view" bindtap="ditu">项目位置 <text>{{locationposition}}</text> </view>
-
+  <view wx:if="{{arr.positionState=='1'}}" class="location-view">项目位置 <text>{{arr.address}}</text> </view>
+ <view wx:else 
+ class="location-view" bindtap="ditu">项目位置 <text>{{locationposition}}</text> </view>
+<view wx:if="{{arr.positionState=='1'}}" style="font-size:30rpx;text-align:center;color: rgb(158, 158, 158);">定位时间:{{arr.positionDate}}</view>
 
 
 
 
 <view class="location-view2">
-  <view class="location-bottom" bindtap="yes">确 认</view>
+  <view class="location-bottom" wx:if="{{arr.positionState!='1'}}" bindtap="yes">确 认</view>
  
 </view>
 

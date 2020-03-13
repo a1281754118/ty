@@ -1,6 +1,26 @@
 <view class="detailed-page">
   <view class='contract-detailed-1'>
     <view style='margin-top: 30rpx;'>
+    <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">工程节点 : </text>
+  <text class="approvalresult-view-text1">{{text1 ? text1[1]:'请选择工程节点'}}</text>
+  <picker class="picker" bindchange="bindPickerChange1" value="{{index}}" range="{{array1}}">
+    <text>查询</text>
+  </picker> 
+  </view>
+  <view class="approvalresult-view-1" >
+  <text class="approvalresult-view-text">节点时间 : </text>
+  <text class="approvalresult-view-text1">{{startdate ? startdate:'选择节点时间'}}</text>
+  <picker class="picker" bindchange="bindDateChange" value="{{startdate}}" mode="date" >
+    <text>选择</text>
+  </picker> 
+  </view>
+  <!-- <view class="approvalresult-view-1-1">
+   <text class="approvalresult-view-text">时间 :</text>
+  <picker class="rollselection" style="width: 55%;font-size:22rpx" mode="date" value="{{startdate}}"  bindchange="bindDateChange">
+    <view>{{startdate ? startdate:'选择时间'}}</view>
+  </picker>
+  </view> -->
       <view class='contract-detailed-2' style="height:100%">
         <h1>进度描述</h1> ：
        
@@ -14,7 +34,8 @@
       <view class="weui-uploader">
         <view class="img-v weui-uploader__bd" style="width: 90%;margin: 0 auto;">
           <view class='pic' wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
-            <image class='weui-uploader__img ' src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+            <image class='weui-uploader__img ' src="{{item}}" 
+            data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
               <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
             </image>
           </view>
@@ -29,3 +50,4 @@
   </view>
 
 </view>
+ <canvas class='canvas' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;" canvas-id="firstCanvas"></canvas>

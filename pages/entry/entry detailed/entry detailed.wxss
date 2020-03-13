@@ -1,0 +1,19 @@
+.pattern-view{
+  position: absolute;
+  margin-top: 90rpx;
+  background: #F2F6FF;
+  z-index: 999;
+  padding: 10rpx;
+}
+.pattern-view view{
+  padding: 5rpx;
+  height: 40rpx;
+  font-size: 25rpx;
+  display: flex;
+  line-height: 40rpx;
+  border-bottom: 1px solid #ccc;
+}
+.pattern-input{
+  margin-top: 25rpx;
+  font-size: 25rpx;
+}

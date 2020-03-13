@@ -1,0 +1,40 @@
+<view class=" search" style="background: #fff">
+    <view style='margin-top: 20rpx;'>
+      <view class='searchItem'>
+        <image src='/pages/img/weibiaoti-.png' />
+        <input type='text' placeholder='请输入项目名称' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
+        <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="planlist">
+    <view class="planlist-1" wx:for="{{arr}}" wx:key="materialsRentId" bindtap="equipmentdelt" data-id="{{item.materialsRentId}}">
+    <view class="planlist-1-1" style="font-size: 40rpx;">
+    <h1 class="planlist-h1">项目名称：{{item.projectName}}</h1> 
+    <text wx:if="{{item.applyforState=='0'}}" style="color:red;margin-left:10rpx;"  catchtap="deltt" data-item="{{item}}">删除</text>
+    <text wx:if="{{item.applyforState=='0'}}" style=""  catchtap="modify" data-item="{{item}}">修改</text>
+    <text wx:if="{{item.applyforState=='1'}}"  style="margin-right:20rpx;" catchtap="examine" data-item="{{item}}">审核</text>
+    <text wx:if="{{item.applyforState=='2'}}"  style="margin-right:20rpx;" catchtap="approval" data-item="{{item}}">审批</text>
+    </view>
+    <view class="planlist-1-1">申请日期：{{item.reportingTime}} 
+    <text wx:if="{{item.applyforState==0}}">状态:待提交</text>
+    <text wx:if="{{item.applyforState==1}}">状态:待审核</text>
+    <text wx:if="{{item.applyforState==2}}">状态:待审批</text>
+    <text wx:if="{{item.applyforState==3}}">状态:待确认</text>
+    <text wx:if="{{item.applyforState==4}}">状态:已确认</text>
+    <text wx:if="{{item.applyforState==5}}">状态:驳回</text>
+    </view>
+    </view>
+    <view wx:if="{{qingqiu==false}}" style="padding:10rpx;text-align:center;">---没有更多数据了---</view>
+  </view>
+
+
+  <view class='wx-fixed'>
+  <button bindtap='increase'>新增</button>
+</view>
+  
+  <mp-dialog  title="确认信息" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view>请仔细核对信息无误！</view>
+</mp-dialog>

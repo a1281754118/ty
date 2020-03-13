@@ -7,7 +7,38 @@ Page({
     adTitle: '',//搜索内容
     display: 'none',
     url: 'terminal/bussAllocationListAppProject.do?',//接口url路径
+    showActionsheet: false,
+    selected: true,
+    selected1: false,
+    groups: [{
+      text: '施工项目二维码',
+      value: 1
+    },
+    {
+      text: '周材调拨二维码',
+      value: 2
+    }
+    ],
+    state:'1',//判断调出或者调入
     cookies: decodeURIComponent(wx.getStorageSync('cookies'))//解码cookie
+  },
+  //tap切换
+  selected: function (e) {
+    this.setData({
+      selected1: false,
+      selected: true,
+      state: '1',
+    })
+    this.search()
+  },
+
+  selected1: function (e) {
+    this.setData({
+      selected: false,
+      selected1: true,
+      state: '2',
+    })
+    this.search()
   },
 
   /**
@@ -97,7 +128,7 @@ Page({
   detailed(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: './allocation detailed/allocation detailed?id=' + id
+      url: './allocation detailed/allocation detailed?id=' + id + '&state=' + this.data.state
     })
 
   },
@@ -122,21 +153,101 @@ Page({
   },
   //获取数据
   load() {
-    var that = this
-    getApp().globalData.utils.projectget(that)//获取项目管理刷新函数
+    // var that = this
+    // getApp().globalData.utils.projectget(that)//获取项目管理刷新函数
+    wx.showLoading({
+      title: '数据加载中',
+      mask: true,
+    })
+    wx.request({
+      url: getApp().globalData.utils.baseUrl + this.data.url,
+      data: {
+        tmessage: {
+          "query": {
+            "start": this.data.start,
+            "pageSize": this.data.pageSize,
+            "keyword": this.data.adTitle,
+            "state": this.data.state,
+          }
+        }
+      },
+      header: {
+        cookie: this.data.cookies
+      },
+      method: 'get',
+      success: (result) => {
+        console.log(result)
+        if (result.data.success) {
+          this.setData({
+            arr: result.data.info.result
+          })
+          // console.log(this.data.arr)
+        }
+        else if (res.data.msg == "抱歉，数据处理异常! 请稍后再试或与管理员联系！") {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 3000,
+          })
+        }
+        else {
+          wx.showLoading({
+            title: '登录超时',
+            duration: 2000,
+            mask: true,
+            success: () => {
+              setTimeout(() => {
+                wx.redirectTo({
+                  url: '/pages/login/login'
+                })
+              }, 2000)
+            }
+          })
+        }
+      },
+      complete: () => {
+        wx.hideLoading()
+      }
+    })
   },
-  camera() {
-    var manage = "BUSS_ALLOCATION_PROJECT"
+  camera(manage) {
+    
     var that = this
-    const load = (e) => {
+    const load = (e,x) => {
+      console.log(e)
+      console.log(x)
       this.setData({
         code: e
       })
+
       wx.navigateTo({
-        url: './allocation detailed/allocation detailed?arr=' + JSON.stringify(e) + '&display=' + 'block' + '&relateId=' + this.data.relateId
+        url: './allocation detailed/allocation detailed?arr=' + JSON.stringify(e) +
+         '&display=' + 'block' + '&relateId=' + this.data.relateId+'&zcdb='+x
       })
-      console.log(e)
     };
     getApp().globalData.camera(manage, load, that) //获取扫描结果
+  },
+  purchaseApproval() {
+    this.setData({
+      showActionsheet: true
+    })
+  },
+  btnClick(e) {
+    console.log(e.detail.value)
+    //审批
+    if (e.detail.value == '2') {
+      var manage = "ALLOCATION_PROJECT"//周材调拨二维码
+      this.camera(manage)
+    } else if (e.detail.value == '1') {
+      var manage = "BUSS_ALLOCATION_PROJECT"//项目施工二维码
+      this.camera(manage)
+    }
+
+    this.close()
+  },
+  close: function () {
+    this.setData({
+      showActionsheet: false
+    })
   },
 })

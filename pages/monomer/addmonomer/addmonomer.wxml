@@ -3,11 +3,12 @@
       <view style='margin-top: 30rpx;'>
         <view class='contract-detailed-2' >
           <h1>项目名称 ：</h1>
-          <picker bindchange="bindPickerSale" value="{{pickerListIdx}}" range="{{pickerList}}" range-key="projectName" >
+          <picker bindchange="bindPickerSale" value="{{pickerListIdx}}" style="float: left;"
+          range="{{pickerList}}" range-key="projectName" >
 
            <view class="picker">
 
-            <text class="monomer-input" style="margin-top:0">{{addname}}</text>
+            <h2 class="monomer-input" style="margin-top:0;width: 400rpx">{{addname}}</h2>
  
            </view>
           

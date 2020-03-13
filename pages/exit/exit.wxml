@@ -1,6 +1,13 @@
-<view class='boss'>
-  <view class=" search">
-    <view style='margin-top: 20rpx;'>
+
+
+<view class="boss">
+<view class="dingwei">
+  <view class="nav bc_white">
+    <view class="{{selected?'red':'default'}}" bindtap="selected">退场计划单</view>
+    <view class="{{selected1?'red':'default'}}" bindtap="selected1">退场实际单</view>
+  </view>
+  <view class=" search" style="margin-bottom: 0rpx;position:relative ;padding-top:15rpx;height:80rpx;">
+    <view >
       <view class='searchItem'>
         <image src='/pages/img/weibiaoti-.png' />
         <input type='text' placeholder='回收编号/项目名称/合同编号' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
@@ -9,9 +16,12 @@
     </view>
 
   </view>
-  <view style='margin-top: 90rpx;'>
-    <view class='contract'>
 
+</view>
+  
+  <view class="{{selected?'show':'hidden'}}">
+  <view style="margin-top: 180rpx;">
+    <view class='contract'>
       <view class='contract-1' bindtap='detailed' data-id='{{item.bussreId}}' wx:for="{{arr}}" wx:key="{{item.bussreId}}">
         <view style='margin-top: 30rpx;'>
           <view class='contract-2'>
@@ -33,7 +43,35 @@
     </view>
   </view>
 
-  <view class='bottom' bindtap='camera'>
+  
+  </view>  
+  <view class="{{selected1?'show':'hidden'}}">
+  <view style="margin-top: 180rpx;">
+    <view class='contract'>
+      <view class='contract-1' bindtap='detailed' data-id='{{item.bussreId}}' wx:for="{{arr}}" wx:key="{{item.bussreId}}">
+        <view style='margin-top: 30rpx;'>
+          <view class='contract-2'>
+            <h1>回收编号</h1> ： {{item.recycleSerial}}</view>
+          <view class='contract-2'>
+            <h1>项目名称</h1> ： {{item.projectName}}</view>
+          <view class='contract-2'>
+            <h1>合同编号</h1> ： {{item.commercialNo}}</view>
+          <view class='contract-2'>
+            <h1>回收时间</h1> ： {{item.recycleDate}}</view>
+        </view>
+      </view>
+    <view class='tips'>
+        <block class='tips' wx:if="{{arr==''}}">---没有找到数据---</block>
+        <block class='tips' wx:if="{{request==true}}">---没有数据了---</block>
+      </view>
+
+ </view>
+  </view>
+  </view>
+
+  <view wx:if="{{selected1==true}}" class='bottom' bindtap='camera'>
     <text>扫码确认</text>
   </view>
+  
+
 </view>

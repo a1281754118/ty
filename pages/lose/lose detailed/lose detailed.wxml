@@ -10,15 +10,15 @@
           <h1>赔偿单编号</h1> ： {{arr.lostCompensation.lostSerial}}</view>
         <view class='contract-detailed-2'>
           <h1>丢失时间</h1> ： {{arr.lostCompensation.compensationDate}}</view>
-        <view class='contract-detailed-2'>
-          <h1>车牌编号</h1> ： {{arr.lostCompensation.taxModeName}}</view>
+        <!-- <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.lostCompensation.taxModeName}}</view> -->
         <view class='contract-detailed-2'>
           <h1>赔偿金额</h1> ： {{arr.lostCompensation.totalCompensation}}</view>
         <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
           <h1>丢失清单</h1> ： </view>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th">设备名称</view>
+            <view class="th">品名</view>
             <view class="th">规格</view>
             <view class="th">丢失数量</view>
             <view class="th">赔偿单价</view>
@@ -83,15 +83,15 @@
           <h1>赔偿单编号</h1> ： {{arr.lostSerial}}</view>
         <view class='contract-detailed-2'>
           <h1>丢失时间</h1> ： {{arr.compensationDate}}</view>
-        <view class='contract-detailed-2'>
-          <h1>车牌编号</h1> ： {{arr.taxModeName}}</view>
+        <!-- <view class='contract-detailed-2'>
+          <h1>车牌编号</h1> ： {{arr.taxModeName}}</view> -->
         <view class='contract-detailed-2'>
           <h1>赔偿金额</h1> ： {{arr.totalCompensation}}</view>
         <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
           <h1>丢失清单</h1> ： </view>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th">设备名称</view>
+            <view class="th">品名</view>
             <view class="th">规格</view>
             <view class="th">丢失数量</view>
             <view class="th">赔偿单价</view>

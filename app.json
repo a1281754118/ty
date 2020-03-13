@@ -18,8 +18,30 @@
     "pages/monomer/monomer",
     "pages/monomer/addmonomer/addmonomer",
     "pages/monomer/monomer-details/monomer-details",
-    "pages/monomer/monomer-details/monomer-update/monomer-update"
+    "pages/monomer/monomer-details/monomer-update/monomer-update",
+    "pages/supply/supply",
+    "pages/supply/equipment/equipment",
+    "pages/supply/equipment/equipmentdelt/equipmentdelt",
+    "pages/supply/equipment/add-equipment/add-equipment",
+    "pages/supply/zhoucaiplay/zhoucaiplay",
+    "pages/supply/zhoucaiplay/add-zhoucaiplay/add-zhoucaiplay",
+    "pages/supply/zhoucaiplay/zhoucaiplaydelt/zhoucaiplaydelt",
+    "pages/supply/equipment-rent/equipment-rent",
+    "pages/supply/zhoucaiplay-rent/zhoucaiplay-rent",
+    "pages/supply/equipment-rent/equipment-rent-list/equipment-rent-list",
+    "pages/supply/zhoucaiplay-rent/zhoucaiplay-rent-list/zhoucaiplay-rent-list",
+    "pages/supply/equipment-rent/add-equipment-rent-list/add-equipment-rent-list",
+    "pages/supply/zhoucaiplay-rent/add-zhoucaiplay-rent/add-zhoucaiplay-rent",
+    "pages/supply/equipment/equipment-up/equipment-up",
+    "pages/supply/equipment-rent/equipment-rent-up/equipment-rent-up",
+    "pages/supply/zhoucaiplay/zhoucaiplay-up/zhoucaiplay-up",
+    "pages/supply/zhoucaiplay-rent/zhoucaiplay-rent-up/zhoucaiplay-rent-up"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "是否允许获取您的位置"
+    }
+  },
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#5781ED",
@@ -44,6 +66,10 @@
         "text": "个人中心"
       }
     ]
+  },
+  "usingComponents": {
+    "mp-actionSheet": "./components/actionsheet/actionsheet",
+    "mp-dialog": "./pages/components/dialog/dialog"
   },
   "sitemapLocation": "sitemap.json"
 }

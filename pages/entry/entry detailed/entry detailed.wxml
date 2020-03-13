@@ -24,52 +24,135 @@
           <h1>进场清单</h1> ： </view>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th">设备名称</view>
+            <view class="th">品名</view>
             <view class="th">规格型号</view>
+            <view class="th">计量单位</view>
             <view class="th">进场数量</view>
           </view>
           <view class="scrollTbody" style="height:{{arr.materialsPackage.packageDetailSet.length>5 ? '400rpx' : '100%'}}">
-          <block wx:for="{{arr.materialsPackage.packageDetailSet}}" wx:key="{{code}}">
-            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
-              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
-            </view>
-            <view class="tr" wx:else>
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
-              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
-            </view>
-          </block>
+            <block wx:for="{{arr.materialsPackage.packageDetailSet}}" wx:key="code">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+                <view class="td">{{item.measurementUnit ? item.measurementUnit:'-'}}</view>
+                <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+                <view class="td">{{item.measurementUnit ? item.measurementUnit:'-'}}</view>
+                <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+              </view>
+            </block>
           </view>
-          
+
         </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>过磅称重</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">皮重</view>
+            <view class="th">毛重</view>
+            <view class="th">净重</view>
+            <view class="th">理论重量</view>
+            <view class="th">重量偏差</view>
+            <view class="th">偏差率</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.materialsPackage.packageWeighSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.materialsPackage.packageWeighSet}}" wx:key="code">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.tareWeight}}</view>
+                <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+                <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+                <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+                <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+                <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.tareWeight}}</view>
+                <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+                <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+                <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+                <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+                <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+              </view>
+            </block>
+          </view>
+
+        </view>
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>运输费用</h1> ： </view>
+        <view class="table">
+          <view class="pattern-view" wx:if="{{patternup==true}}">
+            <view wx:for="{{slist}}" catchtap="choicemode" data-item="{{item}}">{{item.name}}</view>
+          </view>
+          <view class="tr bg-w">
+            <view class="th" >
+              <text >收费模式</text>
+            </view>
+            <view class="th">吨位</view>
+            <view class="th">单价</view>
+            <view class="th">运输金额</view>
+          </view>
+          <view class="scrollTbody">
+            <view class="tr bg-g">
+              <view class="td" bindtap="pattern">{{patternlist.name? patternlist.name:'-'}}</view>
+              <view class="td" wx:if="{{patternlist.chargeModel=='0'}}">{{arr.materialsPackage.packageWeighSet[0].netWeight/1000}}</view>
+              <view class="td" wx:elif="{{patternlist.chargeModel=='1'}}">{{arr.materialsPackage.packageWeighSet[0].theoryWeight/1000}}</view>
+              <view class="td" wx:else>-</view>
+              <view class="td" wx:if="{{patternlist.chargeModel=='0'||patternlist.chargeModel=='1'}}">
+              <input class="pattern-input" placeholder="请输入单价" bindinput="patterninput" value="{{patterninput}}" type="digit"></input>
+              </view>
+              <view class="td" wx:else>-</view>
+              <view class="td" wx:if="{{patternlist.chargeModel=='0'||patternlist.chargeModel=='1'}}">
+              {{money}}
+              </view>
+              <view class="td" wx:elif="{{patternlist.chargeModel=='2'}}">
+              <input class="pattern-input" placeholder="请输入金额" bindinput="patterninput" value="{{patterninput}}" type="digit"></input>
+              </view>
+              <view class="td" wx:else>-</view>
+            </view>
+          </view>
+
+        </view>
+
         <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
           <h1>费用清单</h1> ： </view>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th">设备名称</view>
+            <view class="th">品名</view>
             <view class="th">收费类型</view>
             <view class="th">收费单位</view>
+            <view class="th">收费数量</view>
             <view class="th">收费金额</view>
+            <view class="th">收费方式</view>
           </view>
-          <view  class="scrollTbody" style="height:{{arr.materialsPackage.costDetailSet.length>5 ? '100%' : '400rpx'}}">
-          <block wx:for="{{arr.materialsPackage.costDetailSet}}" wx:key="{{code}}">
-            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
-              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
-              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
-            </view>
-            <view class="tr" wx:else>
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
-              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
-              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
-            </view>
-          </block>
+          <view class="scrollTbody" style="height:{{arr.materialsPackage.costDetailSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.materialsPackage.costDetailSet}}" wx:key="code">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.feesTypeName ? item.feesTypeName:'-'}}</view>
+                <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+                <view class="td">{{item.chargeQuantity ? item.chargeQuantity:'-'}}</view>
+                <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+                <view class="td" wx:if="{{item.chargeMode=='1'}}">现金</view>
+                <view class="td" wx:if="{{item.chargeMode=='2'}}">转账</view>
+                <view class="td" wx:if="{{item.chargeMode=='3'}}">支票</view>
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.feesTypeName ? item.feesTypeName:'-'}}</view>
+                <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+                <view class="td">{{item.chargeQuantity ? item.chargeQuantity:'-'}}</view>
+                <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+                <view class="td" wx:if="{{item.chargeMode=='1'}}">现金</view>
+                <view class="td" wx:if="{{item.chargeMode=='2'}}">转账</view>
+                <view class="td" wx:if="{{item.chargeMode=='3'}}">支票</view>
+              </view>
+            </block>
           </view>
-          
+
         </view>
       </view>
     </view>
@@ -115,52 +198,125 @@
           <h1>进场清单</h1> ： </view>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th">设备名称</view>
+            <view class="th">品名</view>
             <view class="th">规格型号</view>
+            <view class="th">计量单位</view>
             <view class="th">进场数量</view>
           </view>
           <view class="scrollTbody" style="height:{{arr.bussPackDetailSet.length>5 ? '400rpx' : '100%'}}">
-            <block wx:for="{{arr.bussPackDetailSet}}" wx:key="{{code}}">
-            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
-              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
-            </view>
-            <view class="tr" wx:else>
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
-              <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
-            </view>
-          </block>
+            <block wx:for="{{arr.bussPackDetailSet}}" wx:key="code">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+                <view class="td">{{item.measurementUnit ? item.measurementUnit:'-'}}</view>
+                <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.specifications ? item.specifications:'-'}}</view>
+                <view class="td">{{item.measurementUnit ? item.measurementUnit:'-'}}</view>
+                <view class="td">{{item.loadQuantity ? item.loadQuantity:'-'}}</view>
+              </view>
+            </block>
           </view>
-          
+
         </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>过磅称重</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">皮重</view>
+            <view class="th">毛重</view>
+            <view class="th">净重</view>
+            <view class="th">理论重量</view>
+            <view class="th">重量偏差</view>
+            <view class="th">偏差率</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussPackWeighSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.bussPackWeighSet}}" wx:key="code">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.tareWeight}}</view>
+                <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+                <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+                <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+                <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+                <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.tareWeight}}</view>
+                <view class="td">{{item.roughWeight ? item.roughWeight:'-'}}</view>
+                <view class="td">{{item.netWeight ? item.netWeight:'-'}}</view>
+                <view class="td">{{item.theoryWeight ? item.theoryWeight:'-'}}</view>
+                <view class="td">{{item.weightBias ? item.weightBias:'-'}}</view>
+                <view class="td">{{item.biasRate ? item.biasRate:'-'}}</view>
+              </view>
+            </block>
+          </view>
+
+        </view>
+
+        <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+          <h1>运输费用</h1> ： </view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">收费模式</view>
+            <view class="th">吨位</view>
+            <view class="th">单价</view>
+            <view class="th">运输金额</view>
+          </view>
+          <view class="scrollTbody" style="height:{{arr.bussPackChargeSet.length>5 ? '400rpx' : '100%'}}">
+            <block wx:for="{{arr.bussPackChargeSet}}" wx:key="code">
+              <view class="tr bg-g">
+                <view class="td" wx:if="{{item.chargeModel=='0'}}">按照过磅吨位</view>
+                <view class="td" wx:if="{{item.chargeModel=='1'}}">按照理论吨位</view>
+                <view class="td" wx:if="{{item.chargeModel=='2'}}">按照整车包运</view>
+                <view class="td">{{item.tonnage ? item.tonnage:'-'}}</view>
+                <view class="td">{{item.unitPrice ? item.unitPrice:'-'}}</view>
+                <view class="td">{{item.freight ? item.freight:'-'}}</view>
+              </view>
+        
+            </block>
+          </view>
+
+        </view>
+
         <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
           <h1>费用清单</h1> ： </view>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th">设备名称</view>
+            <view class="th">品名</view>
             <view class="th">收费类型</view>
             <view class="th">收费单位</view>
+            <view class="th">收费数量</view>
             <view class="th">收费金额</view>
+            <view class="th">收费方式</view>
           </view>
           <view class="scrollTbody" style="height:{{arr.bussCostDetailSet.length>5 ? '400rpx' : '100%'}}">
-          <block wx:for="{{arr.bussCostDetailSet}}" wx:key="{{code}}">
-            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
-              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
-              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
-            </view>
-            <view class="tr" wx:else>
-              <view class="td">{{item.commodity}}</view>
-              <view class="td">{{item.feeCategory ? item.feeCategory:'-'}}</view>
-              <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
-              <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
-            </view>
-          </block>
+            <block wx:for="{{arr.bussCostDetailSet}}" wx:key="code">
+              <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.feesTypeName ? item.feesTypeName:'-'}}</view>
+                <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+                <view class="td">{{item.chargeQuantity ? item.chargeQuantity:'-'}}</view>
+                <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+                <view class="td" wx:if="{{item.chargeMode=='1'}}">现金</view>
+                <view class="td" wx:if="{{item.chargeMode=='2'}}">转账</view>
+                <view class="td" wx:if="{{item.chargeMode=='3'}}">支票</view>
+              </view>
+              <view class="tr" wx:else>
+                <view class="td">{{item.commodity}}</view>
+                <view class="td">{{item.feesTypeName ? item.feesTypeName:'-'}}</view>
+                <view class="td">{{item.chargeUnitPrice ? item.chargeUnitPrice:'-'}}</view>
+                <view class="td">{{item.chargeQuantity ? item.chargeQuantity:'-'}}</view>
+                <view class="td">{{item.chargeAmount ? item.chargeAmount:'-'}}</view>
+                <view class="td" wx:if="{{item.chargeMode=='1'}}">现金</view>
+                <view class="td" wx:if="{{item.chargeMode=='2'}}">转账</view>
+                <view class="td" wx:if="{{item.chargeMode=='3'}}">支票</view>
+              </view>
+            </block>
           </view>
-          
+
         </view>
       </view>
     </view>
