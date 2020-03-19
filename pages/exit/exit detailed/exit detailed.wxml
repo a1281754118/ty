@@ -191,17 +191,17 @@
           <view class="scrollTbody">
             <view class="tr bg-g">
               <view class="td" bindtap="pattern">{{patternlist.name? patternlist.name:'-'}}</view>
-              <view class="td" wx:if="{{patternlist.chargeModel=='0'}}">{{arr.recycleManage.recycleWeighSet[0].netWeight/1000}}</view>
-              <view class="td" wx:elif="{{patternlist.chargeModel=='1'}}">{{arr.recycleManage.recycleWeighSet[0].theoryWeight/1000}}</view>
+              <view class="td" wx:if="{{patternlist.chargeModel=='1'}}">{{arr.recycleManage.recycleWeighSet[0].netWeight}}</view>
+              <view class="td" wx:elif="{{patternlist.chargeModel=='2'}}">{{arr.recycleManage.recycleWeighSet[0].theoryWeight}}</view>
               <view class="td" wx:else>-</view>
-              <view class="td" wx:if="{{patternlist.chargeModel=='0'||patternlist.chargeModel=='1'}}">
+              <view class="td" wx:if="{{patternlist.chargeModel=='1'||patternlist.chargeModel=='2'}}">
                 <input class="pattern-input" placeholder="请输入金额" bindinput="patterninput" value="{{patterninput}}" type="digit"></input>
               </view>
               <view class="td" wx:else>-</view>
-              <view class="td" wx:if="{{patternlist.chargeModel=='0'||patternlist.chargeModel=='1'}}">
+              <view class="td" wx:if="{{patternlist.chargeModel=='1'||patternlist.chargeModel=='2'}}">
                 {{money}}
               </view>
-              <view class="td" wx:elif="{{patternlist.chargeModel=='2'}}">
+              <view class="td" wx:elif="{{patternlist.chargeModel=='0'}}">
                 <input class="pattern-input" placeholder="请输入金额" bindinput="patterninput" value="{{patterninput}}" type="digit"></input>
               </view>
               <view class="td" wx:else>-</view>
@@ -458,9 +458,9 @@
           <view class="scrollTbody" style="height:{{arr.bussRecycleChargeSet.length>5 ? '400rpx' : '100%'}}">
             <block wx:for="{{arr.bussRecycleChargeSet}}" wx:key="{{code}}">
               <view class="tr bg-g">
-                <view class="td" wx:if="{{item.chargeModel=='0'}}">按照过磅吨位</view>
-                <view class="td" wx:if="{{item.chargeModel=='1'}}">按照理论吨位</view>
-                <view class="td" wx:if="{{item.chargeModel=='2'}}">按照整车包运</view>
+                <view class="td" wx:if="{{item.chargeModel=='1'}}">按照过磅吨位</view>
+                <view class="td" wx:if="{{item.chargeModel=='2'}}">按照理论吨位</view>
+                <view class="td" wx:if="{{item.chargeModel=='0'}}">按照整车包运</view>
                 <view class="td">{{item.tonnage ? item.tonnage:'-'}}</view>
                 <view class="td">{{item.unitPrice ? item.unitPrice:'-'}}</view>
                 <view class="td">{{item.freight ? item.freight:'-'}}</view>

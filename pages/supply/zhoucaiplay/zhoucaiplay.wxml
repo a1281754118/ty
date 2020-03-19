@@ -1,4 +1,4 @@
-<view class=" search" style="background: #fff;height:150rpx;">
+<view class=" search" style="background: #fff;height:170rpx;">
     <view style='margin-top: 20rpx;'>
       <view class='searchItem'>
         <image src='/pages/img/weibiaoti-.png' />
@@ -7,26 +7,20 @@
       </view>
     </view>
     <view class="search-viwew">
-    <view class="search-viwew-1">
-    <view class="approvalresult-view-1" >
-  <text class="approvalresult-view-text1">{{text2 ? text2[1]:'请选择工程区域'}}</text>
-  <picker class="picker" bindchange="bindPickerChange2" value="{{index}}" range="{{array2}}" >
-    <text>选择</text>
-  </picker> 
-  </view>
-  </view>
-    <view class="search-viwew-1">
-    <view class="approvalresult-view-1" >
-  <text class="approvalresult-view-text1">{{text3 ? text3[1]:'请选择计划类型'}}</text>
-  <picker class="picker" bindchange="bindPickerChange3" value="{{index}}" range="{{array3}}" >
-    <text>选择</text>
-  </picker> 
-  </view>
+    <view class="page__bd">
+        <view class="section section_gap">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <radio color="#59C1FF" class="radio" wx:for-items="{{items}}" wx:key="applyforStateid" bindtap="items"
+                value="{{item.applyforStateid}}" checked="{{item.checked}}">
+                    <text>{{item.value}}</text>
+                </radio>
+            </radio-group>
+        </view>
     </view>
     </view>
   </view>
 
-  <view class="planlist" style="margin-top:160rpx">
+  <view class="planlist" style="margin-top:170rpx">
     <view class="planlist-1" wx:for="{{arr}}" wx:key="materialsPlanId" bindtap="equipmentdelt" data-id="{{item.materialsPlanId}}">
     <view class="planlist-1-1" >
     <h1 class="planlist-h1">项目名称：{{item.projectName}}</h1> 

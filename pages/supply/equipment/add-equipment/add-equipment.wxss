@@ -1,0 +1,6 @@
+.picker{
+  overflow: hidden;
+  float: right;
+  border-radius: 10rpx;
+  
+}

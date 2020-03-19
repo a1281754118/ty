@@ -12,36 +12,49 @@ Page({
     start: '0',//起始条数（从第几条开始显示）
     pageSize: '15',//显示条数
     cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookies
-    array2: [
-      ['14', '济南片区'],
-      ['15', '青岛片区'],
-      ['16', '郯城'],
-      ['17', '市外区域'],
-      ['18', '省外区域'],
-      ['19', '兰陵县'],
-      ['20', '临港区'],
-      ['21', '莒南县'],
-      ['22', '费县'],
-      ['23', '沂南县'],
-      ['24', '沂水县'],
-      ['25', '临沭县'],
-      ['26', '平邑县'],
-      ['27', '蒙阴县'],
-      ['28', '兰山区'],
-      ['29', '河东区'],
-      ['30', '罗庄区'],
-      ['31', '南坊'],
-      ['32', '京津冀']
-    ],
-    array3: [
-      ['1', '阶段性需求'],
-      ['2', '需求总计划']
-    ], //计划类型
+    
     text2:"",
     text3:'',
     qingqiu: true,
     dialogShow: false,
     id: '',
+    items: [
+      { applyforStateid: '0', value: '待提交', checked: false},
+      { applyforStateid: '1', value: '待审核', checked: false},
+      { applyforStateid: '2', value: '待审批', checked: false},
+      { applyforStateid: '3', value: '待确认', checked: false},
+    ],
+    applyforStateid:''
+  },
+  //点击切换状态
+  items(e){
+    var items = this.data.items;
+    console.log(items)
+    console.log(this.data.applyforStateid)
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].applyforStateid == this.data.applyforStateid) {
+        for (var j = 0; j < items.length; j++) {
+          // console.log("items[j].checked = ", items[j].checked);
+          if (items[j].checked && j != i) {
+            items[j].checked = false;
+          }
+        }
+        items[i].checked = !(items[i].checked);
+        console.log("-----:", items[i]);
+        if (items[i].checked==false){
+          this.data.applyforStateid = ''
+          console.log(this.data.applyforStateid)
+        }
+        this.load()
+      }
+    }
+    this.setData({
+      items: items
+    });
+  },
+  radioChange (e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    this.data.applyforStateid = e.detail.value
   },
   //点击修改时跳转
   modify(e) {
@@ -261,35 +274,6 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  bindPickerChange2(e) {
-
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    for (var i = 0; i < this.data.array2.length; i++) {
-      this.data.array2[i].index = i
-      if (this.data.array2[i].index == e.detail.value) {
-        console.log(this.data.array2[i])
-        this.setData({
-          text2: this.data.array2[i]
-        })
-        
-      }
-    }
-    this.load()
-  },
-  bindPickerChange3(e) {
-    console.log('picker发送选择改变，携带值为', e.detail)
-    for (var i = 0; i < this.data.array3.length; i++) {
-      this.data.array3[i].index = i
-      if (this.data.array3[i].index == e.detail.value) {
-        console.log(this.data.array3[i])
-        this.setData({
-          text3: this.data.array3[i]
-        })
-
-      }
-    }
-    this.load()
-  },
   onLoad: function (options) {
     //工程区域
     wx.request({
@@ -376,8 +360,7 @@ Page({
             "start": this.data.start, 
             "pageSize": this.data.pageSize, 
             "projectName": this.data.adTitle,
-            "belongToArea":this.data.text2[0],
-            "planType":this.data.text3[0]
+            "state":this.data.applyforStateid
             } 
           }
       },
@@ -387,6 +370,11 @@ Page({
       method: 'get',
       success: (res) => {
         console.log(res)
+        if (res.data.data.length == 0) {
+          this.setData({
+            qingqiu: false
+          })
+        }
         this.setData({
           arr: res.data.data
         })

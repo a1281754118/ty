@@ -5,7 +5,6 @@ Page({
     duang: '', //判断是确定还是修改
     receivingQuantity: '', //接收数量
     specificationsId: '', //修改id
-    // id:'',//判断修改成什么型号
     equipment: {}, //得到选中的设备
     modificationitem: '', //一开始修改的项
     relateId: '',
@@ -22,15 +21,6 @@ Page({
     }],
     adTitle: '', //搜索内容
     start: 0,
-    multiIndex: [0, 0],
-    multiArray: [
-      [],
-      []
-    ],
-    multiArray1: [
-      [],
-      []
-    ],
     objectMultiArray: [],
     pageSize: 999,
     addvalue: '',
@@ -40,19 +30,21 @@ Page({
     addurl: 'terminal/bussAllocationCreateAppProject.do?', //扫描新增加接口
     slist: [{
         chargeModel: 0,
-        name: "过磅吨位"
+        name: "整车包运"
       },
       {
         chargeModel: 1,
-        name: "理论吨位"
+        name: "过磅吨位"
       },
       {
         chargeModel: 2,
-        name: "整车包运"
+        name: "理论吨位"
       },
     ],
     patternup: false,
-    patternlist: {},
+    patternlist: {
+      chargeModel: 0,
+      name: "整车包运"},
     patterninput: '', //输入单价
     tonnage: '', //吨位
     proportion: '', //比例
@@ -61,54 +53,8 @@ Page({
     arry2: [], //规格数组
     text1: '', //选择的品名
     text2: '', //选择的规格
-    state:''//判断调出的还是调入
-  },
-  bindPickerChange1(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    for (var i = 0; i < this.data.arry1.length; i++) {
-      this.data.arry1[i].index = i
-      if (this.data.arry1[i].index == e.detail.value) {
-        console.log(this.data.arry1[i])
-        this.setData({
-          text1: this.data.arry1[i]
-        })
-        wx.request({
-          url: this.data.baseUrl + 'terminal/newListMaterials.do?',
-          data: {
-            tmessage: {
-              "query": {
-                "start": this.data.start,
-                "pageSize": this.data.pageSize,
-                "commodityIds": this.data.arry1[i].commodityId,
-              }
-            }
-          },
-          header: {
-            cookie: this.data.cookies
-          },
-          method: 'get',
-          success: (res) => {
-            console.log(res)
-            this.setData({
-              arry2: res.data.data
-            })
-
-          }
-        })
-      }
-    }
-  },
-  bindPickerChange2(e) {
-    for (var i = 0; i < this.data.arry2.length; i++) {
-      this.data.arry2[i].index = i
-      if (this.data.arry2[i].index == e.detail.value) {
-        console.log(this.data.arry2[i])
-        this.setData({
-          text2: this.data.arry2[i]
-        })
-
-      }
-    }
+    state:'',//判断调出的还是调入
+    showDialogtype:'',//判断是修改品名还是修改规格
   },
   //输入的单价
   patterninput(e) {
@@ -164,31 +110,106 @@ Page({
   //判断点击修改第几个数据
   click: function(e) {
     console.log(e)
-    var id = e.currentTarget.dataset.id
-    for (var i = 0; i < this.data.pickerList.length; i++) {
-      this.data.pickerList[i].index = i
-      if (this.data.pickerList[i].index == id) {
-        //得到选中的设备规格
-        this.setData({
-          equipment: this.data.pickerList[i]
-        })
-        console.log(this.data.pickerList[i])
+    var idi = e.currentTarget.dataset.index
+    if (this.data.showDialogtype==0){
+      var id = e.currentTarget.dataset.id
+      var arr = this.data.arry1
+      for (var i = 0; i < arr.length; i++) {
+        arr[i].index = i
+        if (arr[i].commodityId == id) {
+          //得到选中的品名
+          var list = this.data.arr
+          console.log(list)
+          var listarr = list.bussAllocationProject.bussAllocationDetailSet
+          for (var a = 0; a < listarr.length; a++) {
+            listarr[a].index = a
+            
+            if (listarr[a].index == this.data.modificationitem) {
+              console.log(listarr[a])
+              //修改选中的品名
+              listarr[a].commodity = arr[i].commodity
+              listarr[a].commodityId = arr[i].commodityId
+              listarr[a].specfications = ''
+              listarr[a].allocationCounts = ''
+              //给修改的数据赋值渲染
+              this.setData({
+                arr: list,
+                
+              })
+              console.log(list)
+              console.log('你修改了品名规格清空')
+            }
+          }
+          console.log(arr[i])
+        }
+      }
+    } else if (this.data.showDialogtype == 1){
+      console.log('你正在修改规格')
+      var id = e.currentTarget.dataset.id
+      var arr = this.data.arry2
+      for (var i = 0; i < arr.length; i++) {
+        arr[i].index = i
+        if (arr[i].specificationsId == id) {
+          console.log(arr[i])
+          //得到选中的规格
+          var list = this.data.arr
+          var listarr = list.bussAllocationProject.bussAllocationDetailSet
+          for (var a = 0; a < listarr.length; a++) {
+            listarr[a].index = a
+            if (listarr[a].index == this.data.modificationitem) {
+              console.log(listarr[a])
+              //修改选中的规格
+              listarr[a].specfications = arr[i].specifications //规格
+              listarr[a].specficationsId = arr[i].specificationsId //规格id
+              listarr[a].secondConvertedQuantity = arr[i].secondConvertedQuantity 
+              listarr[a].secondUnitConversion = arr[i].secondUnitConversion //单位
+              listarr[a].measurementUnit = arr[i].firstUnitConversion  //辅助单位
+              listarr[a].mnemonicCode = arr[i].mnemonics 
+              listarr[a].allocationCounts=''              //清空接收数量重新输入
+              this.setData({
+                arr: list
+              })
+              console.log(list)
+              console.log('你修改了品名规格清空')
+            }
+          }
+          
+        }
+      }
+    } else if (this.data.showDialogtype==2){
+      var index = e.currentTarget.dataset.index
+      var arr = this.data.arry1
+      for (var i = 0; i < arr.length; i++) {
+        arr[i].index = i
+        if (arr[i].index == index) {
+          //得到选中的品名
+          console.log(arr[i])
+          this.setData({
+            text1:arr[i],
+            text2:''
+          })
+        }
+      }
+    } else if (this.data.showDialogtype == 3) {
+      var index = e.currentTarget.dataset.index
+      var arr = this.data.arry2
+      for (var i = 0; i < arr.length; i++) {
+        arr[i].index = i
+        if (arr[i].index == index) {
+          //得到选中的品名
+          console.log(arr[i])
+          this.setData({
+            text2: arr[i],
+          })
+        }
       }
     }
-    if (this.data.duang == 'xinzheng') {
-      console.log(this.data.equipment)
-      this.setData({
-        showDialog: false,
-      })
-
-    } else if (this.data.duang == 'xiugai') {
-      this.setData({
-        id: id,
-        duang: 'xiugai',
-        dialogShow: true,
-        showDialog: false,
-      })
-    }
+    
+    this.setData({
+      id:idi,
+      showDialog: false,
+      adTitle:'',
+    })
 
 
   },
@@ -201,22 +222,48 @@ Page({
     })
 
   },
-  //选择品名与规格
-  togg() {
+  // //选择品名与规格
+  // togg() {
+  //   this.setData({
+  //     duang: 'xinzheng',
+  //     showDialog: true
+  //   })
+  // },
+  //新增品名
+  addCommodity(){
     this.setData({
-      duang: 'xinzheng',
-      showDialog: true
+      showDialogtype: 2,
+      showDialog: !this.data.showDialog,
     })
   },
-  //修改
-  updelt(e) {
-    console.log(e)
+  //新增规格
+  addSpecfications() {
     this.setData({
-      duang: 'xiugai',
-      dialogShow: !this.data.showDialog,
-      // showDialog: !this.data.showDialog,
-      modificationitem: e.currentTarget.dataset.index
-    });
+      showDialogtype: 3,
+      showDialog: !this.data.showDialog,
+    })
+    wx.request({
+      url: getApp().globalData.utils.baseUrl + 'terminal/newListMaterials.do?',
+      data: {
+        tmessage: {
+          "query": {
+            "start": this.data.start,
+            "pageSize": this.data.pageSize,
+            "commodityIds": this.data.text1.commodityId,
+          }
+        }
+      },
+      header: {
+        cookie: this.data.cookies
+      },
+      method: 'get',
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          arry2: res.data.data,
+        })
+      }
+    })
   },
   //修改接收数量
   upinput(e) {
@@ -225,6 +272,47 @@ Page({
       dialogShow: !this.data.showDialog,
       modificationitem: e.currentTarget.dataset.index
     })
+  },
+  //修改品名
+  upCommodity(e){
+    console.log(e)
+    this.setData({
+      showDialogtype: 0,
+      showDialog: !this.data.showDialog,
+      modificationitem: e.currentTarget.dataset.index
+    })
+  },
+  //修改规格
+  upSpecfications(e) {
+    console.log(e)
+    this.setData({
+      showDialogtype: 1,
+      showDialog: !this.data.showDialog,
+      modificationitem: e.currentTarget.dataset.index
+    })
+    wx.request({
+      url: getApp().globalData.utils.baseUrl + 'terminal/newListMaterials.do?',
+      data: {
+        tmessage: {
+          "query": {
+            "start": this.data.start,
+            "pageSize": this.data.pageSize,
+            "commodityIds": e.currentTarget.dataset.id,
+          }
+        }
+      },
+      header: {
+        cookie: this.data.cookies
+      },
+      method: 'get',
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          arry2: res.data.data,
+        })
+      }
+    })
+    
   },
   //一开始点击修改的项
   toggleDialog(e) {
@@ -303,34 +391,6 @@ Page({
   },
   load() {
     wx.request({
-      url: getApp().globalData.utils.baseUrl + 'terminal/newListMaterials.do?',
-      data: {
-        tmessage: {
-          "query": {
-            "start": this.data.start,
-            "pageSize": this.data.pageSize,
-            "keyword": this.data.adTitle,
-          }
-        }
-      },
-      header: {
-        cookie: this.data.cookies
-      },
-      method: 'get',
-      success: (res) => {
-        console.log(res)
-        // var listData = []
-        // for (var i = 0; i < res.data.data.length; i++) {
-        //   listData[i] = res.data.data[i]
-        // }
-        this.setData({
-          pickerList: res.data.data,
-        })
-
-        console.log(this.data.zcdb)
-      }
-    })
-    wx.request({
       url: this.data.baseUrl + 'terminal/newCommodityListMaterials.do?',
       data: {
         tmessage: {
@@ -354,31 +414,7 @@ Page({
           listData1.push(res.data.data[i])
         }
         this.setData({
-          "multiArray[0]": listData, //显示的内容
-          "multiArray1[0]": listData1, //我要取的内容
           arry1: res.data.data
-        })
-      }
-    })
-    wx.request({
-      url: getApp().globalData.utils.baseUrl + 'terminal/newListMaterials.do?',
-      data: {
-        tmessage: {
-          "query": {
-            "start": this.data.start,
-            "pageSize": this.data.pageSize,
-            "keyword": this.data.adTitle,
-          }
-        }
-      },
-      header: {
-        cookie: this.data.cookies
-      },
-      method: 'get',
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          objectMultiArray: res.data.data
         })
       }
     })
@@ -423,20 +459,20 @@ Page({
         if (this.data.arr.bussAllocationProject.bussAllocationChargeSet[0].chargeModel == '0') {
           var obj = {
             chargeModel: 0,
-            name: "过磅吨位"
+            name: "整车包运"
           }
         }
         if (this.data.arr.bussAllocationProject.bussAllocationChargeSet[0].chargeModel == '1') {
           var obj = {
             chargeModel: 1,
-            name: "理论吨位"
+            name: "过磅吨位"
           }
 
         }
         if (this.data.arr.bussAllocationProject.bussAllocationChargeSet[0].chargeModel == '2') {
           var obj = {
             chargeModel: 2,
-            name: "整车包运"
+            name: "理论吨位"
           }
         }
         
@@ -584,48 +620,7 @@ Page({
           })
         }
 
-      } else if (this.data.duang == 'xiugai') {
-        if (this.data.addvalue != '' && this.data.text2 != '') {
-          var list = this.data.arr
-          console.log(list)
-          var listarr = list.bussAllocationProject.bussAllocationDetailSet
-          for (var i = 0; i < listarr.length; i++) {
-            listarr[i].index = i
-            if (listarr[i].index == this.data.modificationitem) {
-              console.log(listarr[i])
-              //修改选中的设备规格
-              listarr[i].commodity = this.data.text2.materialsCommodity.commodity
-              listarr[i].specfications = this.data.text2.specifications
-              listarr[i].allocationCounts = this.data.addvalue
-              listarr[i].secondConvertedQuantity = this.data.text2.secondConvertedQuantity
-              listarr[i].auxiliaryQuantity =
-                parseInt(listarr[i].allocationCounts) *
-                listarr[i].secondConvertedQuantity
-              listarr[i].auxiliaryQuantity = listarr[i].auxiliaryQuantity.toString()
-              listarr[i].specificationsId = this.data.text2.specificationsId
-              list.bussAllocationProject.bussAllocationDetailSet = listarr
-              //给修改的数据赋值渲染
-              this.setData({
-                arr: list
-              })
-              console.log(list)
-              console.log('你修改了接收数量')
-            }
-          }
-          this.setData({
-            dialogShow: false,
-            showDialog: false,
-            receivingQuantity: '',
-            text1: '',
-            text2: '',
-            arry2: '',
-            addvalue: '',
-            adTitle: '', //搜索内容
-            equipment: {}
-          })
-        }
-
-      } else if (this.data.duang == 'xinzheng') {
+      }  else if (this.data.duang == 'xinzheng') {
         if (this.data.addvalue != '' && this.data.equipment != "{}") {
           console.log(111111111)
           var equipment = this.data.text2
@@ -679,7 +674,7 @@ Page({
               listarr[i].auxiliaryQuantity =
                 parseInt(listarr[i].allocationCounts) *
                 listarr[i].secondConvertedQuantity
-              listarr[i].auxiliaryQuantity = listarr[i].auxiliaryQuantity.toString()
+              listarr[i].auxiliaryQuantity = listarr[i].auxiliaryQuantity.toFixed(2)
               list.bussAllocationProject.bussAllocationDetailSet = listarr
               //给修改的数据赋值渲染
               this.setData({

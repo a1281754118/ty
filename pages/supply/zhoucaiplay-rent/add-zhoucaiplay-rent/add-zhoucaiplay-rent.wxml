@@ -81,7 +81,7 @@
     <view class="xiangqingshanchu">
     
       <text class="xiangqingshanchu-text" style="font-size:30rpx;" bindtap="deltarr" data-index="{{item.index}}">删除</text>
-      <text class="xiangqingshanchu-text1" bindtap="updata" data-index="{{item}}">修改</text>
+      <text class="xiangqingshanchu-text1"  bindtap="updata" data-index="{{item}}">修改</text>
     </view>
     <view class="approvalresult-view-1">
       <text>品名 :</text>
@@ -130,10 +130,7 @@
       <view class="xiangqingshanchu"></view>
       <view class="approvalresult-view-1">
         <text class="approvalresult-view-text">品名 : </text>
-        <text class="approvalresult-view-text11" bindtap="togg">{{text5 ? text5.commodity:'请选择品名'}}</text>
-        <!-- <picker class="picker" bindchange="bindPickerChange5" value="{{index}}" range="{{pickerList}}">
-    <text>选择</text>
-  </picker>  -->
+        <text class="approvalresult-view-text11" bindtap="productName">{{text5 ? text5.commodity:'请选择品名'}}</text>
       </view>
       <view class="approvalresult-view-1">
        
@@ -144,7 +141,7 @@
         <view class="approvalresult-view-1-1">
           <text class="approvalresult-view-text">日租金 : </text>
           <input class="approvalresult-view-1-input11" placeholder="日租金" 
-          value="{{value7}}" bindinput="value7"></input>
+          value="{{value7}}" bindinput="value7" type="digit"></input>
         <!-- <text class="approvalresult-view-text11">{{text5 ? text5.dailyRent:'请选择品名'}}</text> -->
         </view>
       </view>
@@ -187,30 +184,44 @@
         </view>
 </mp-dialog>
 
-<!-- 弹窗选择 -->
+<!-- 弹窗选择品名 -->
 <view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
   <view class="free-dialog__mask" bindtap="toggleDialog" />
   <view class="free-dialog__container">
-  <view class=" search" >
-          <view style='margin-top: 10rpx;margin-bottom: 10rpx;'>
-            <view class='searchItem'>
-              <image src='/pages/img/weibiaoti-.png' />
-              <input type='text' placeholder='输入品名' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
-              <image style='display: {{display1}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
-            </view>
-          </view>
-        
-        <view bindtap='freetoBack' class="free-button free-dialog-reset">品名</view>
+    <view class=" search" >
+      <view style='margin-top: 10rpx;margin-bottom: 10rpx;' wx:if="{{showDialogtype==0||showDialogtype==2}}">
+        <view class='searchItem'>
+          <image src='/pages/img/weibiaoti-.png' />
+          <input type='text' placeholder='输入品名' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
+          <image style='display: {{display1}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
         </view>
+      </view>
+
+      <view wx:if="{{showDialogtype==2}}"  class="free-button free-dialog-reset">品名</view>
+      <view wx:if="{{showDialogtype==3}}"  class="free-button free-dialog-reset">规格型号</view>
+    </view>
     <view style="padding: 5% 5% 15%;">
       <form bindsubmit='submit' bindreset="reset">
-        
+
         <view class="free-gunlun">
           <radio-group class='free-radios' bindchange="radioChange">
-            <label class="free-radio" bindtap="click" wx:for="{{pickerList}}" wx:key="{{pickerList}}" data-id="{{index}}" style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}">
+            <label class="free-radio" bindtap="click" wx:for="{{pickerList}}" wx:key="pickerList"
+             data-id="{{item.commodityId}}" data-index="{{index}}"
+            style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}" wx:if="{{showDialogtype==2}}">
               <radio value="{{item}}" name="{{item}}"></radio>
               <label class="free-text">
-                <text>{{item.commodity}}</text>
+                <text>{{item.commodityId+'.'+item.commodity}}</text>
+                <!-- <text>{{item.specifications}}</text> -->
+              </label>
+
+            </label>
+            <label class="free-radio" bindtap="click" wx:for="{{array6}}" wx:key="pickerList"
+             data-id="{{item.specificationsId}}" data-index="{{index}}"
+            style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}" wx:if="{{showDialogtype==3}}">
+              <radio value="{{item}}" name="{{item}}"></radio>
+              <label class="free-text">
+                <text>{{index+1+'.'+item.specifications}}</text>
+                <!-- <text>{{item.specifications}}</text> -->
               </label>
 
             </label>

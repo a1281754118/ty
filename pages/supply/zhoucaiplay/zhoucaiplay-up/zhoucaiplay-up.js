@@ -233,15 +233,75 @@ Page({
 
   //提交修改
   confirm() {
-    this.setData({
-      duang: 'confirm',
-      dialogShow: true
+    
+    var equipmentdelt = this.data.equipmentdelt
+    console.log(equipmentdelt)
+    if (equipmentdelt.customerId) {
+      var data = {
+        "materialsPlanId": equipmentdelt.materialsPlanId, //项目Id
+        "projectId": equipmentdelt.projectId,//主id
+        "projectAddress": equipmentdelt.projectAddress,
+        "projectName": equipmentdelt.projectName, //项目名称
+        "customerId": equipmentdelt.customerId, //施工单位Id(选择项目时带过来  unCustomId)
+        "customerName": equipmentdelt.customerName, //施工单位名称(选择项目时带过来  unCustomName)
+        "address": equipmentdelt.address, //项目地址
+        "belongToArea": equipmentdelt.belongToArea, //工程区域
+        "projectType": equipmentdelt.projectType, //工程类型
+        "planType": equipmentdelt.planType, //计划类型
+        "bussDemandDetailSet": JSON.stringify(equipmentdelt.bussDemandDetailSet)
+      }
+    } else {
+      var data = {
+        "materialsPlanId": equipmentdelt.materialsPlanId, //项目Id
+        "projectId": equipmentdelt.projectId,//主id
+        "projectAddress": equipmentdelt.projectAddress,
+        "projectName": equipmentdelt.projectName, //项目名称
+        "customerId": '', //施工单位Id(选择项目时带过来  unCustomId)
+        "customerName": '', //施工单位名称(选择项目时带过来  unCustomName)
+        "address": equipmentdelt.address, //项目地址
+        "belongToArea": equipmentdelt.belongToArea, //工程区域
+        "projectType": equipmentdelt.projectType, //工程类型
+        "planType": equipmentdelt.planType, //计划类型
+        "bussDemandDetailSet": JSON.stringify(equipmentdelt.bussDemandDetailSet)
+      }
+    }
+
+    wx.request({
+      url: this.data.baseUrl + 'terminal/bussMaterialsPlanModifyAppProject.do?',
+      data: data,
+      header: {
+        cookie: this.data.cookies,
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      method: 'post',
+      success: (res) => {
+        console.log(res)
+        if(res.data.success==true){
+          this.setData({
+            duang: 'confirm',
+            dialogShow: true,
+            buttons: [{
+              text: '返回菜单'
+            }, {
+              text: '确定提交'
+            }],
+          })
+        }else{
+          wx.showToast({
+          title: res.data.msg,
+          icon:'none',
+          duration: 2000
+        })
+        }
+        
+      }
     })
+    
   },
   //新增
   added() {
     this.setData({
-      value3:'请选择规格',
+      value3:'',
       duang: 'added',
       text1: '', //品名
       text2: '', //设备型号
@@ -307,7 +367,7 @@ Page({
     })
   },
   tapDialogButton(e) {
-    if (e.detail.item.text == '确定') {
+    if (e.detail.item.text == '确定' || e.detail.item.text == '确定提交' ) {
       if (this.data.duang == 'added') {
         if (this.data.text1 != '' && this.data.text2 != '' && this.data.value4 != '' &&
           this.data.value3 != '' && this.data.startdate != '') {
@@ -384,67 +444,55 @@ Page({
             console.log(arrr[i])
             this.setData({
               value1: y,
-              equipmentdelt: equipmentdelt
+              equipmentdelt: equipmentdelt,
             })
           }
         }
       } else if (this.data.duang == 'confirm') {
-        var equipmentdelt = this.data.equipmentdelt
-        console.log(equipmentdelt)
-        if (equipmentdelt.customerId) {
-          var data = {
-            "materialsPlanId": equipmentdelt.materialsPlanId, //项目Id
-            "projectId": equipmentdelt.projectId,//主id
-            "projectAddress": equipmentdelt.projectAddress,
-            "projectName": equipmentdelt.projectName, //项目名称
-            "customerId": equipmentdelt.customerId, //施工单位Id(选择项目时带过来  unCustomId)
-            "customerName": equipmentdelt.customerName, //施工单位名称(选择项目时带过来  unCustomName)
-            "address": equipmentdelt.address, //项目地址
-            "belongToArea": equipmentdelt.belongToArea, //工程区域
-            "projectType": equipmentdelt.projectType, //工程类型
-            "planType": equipmentdelt.planType, //计划类型
-            "bussDemandDetailSet": JSON.stringify(equipmentdelt.bussDemandDetailSet)
-          }
-        } else {
-          var data = {
-            "materialsPlanId": equipmentdelt.materialsPlanId, //项目Id
-            "projectId": equipmentdelt.projectId,//主id
-            "projectAddress": equipmentdelt.projectAddress,
-            "projectName": equipmentdelt.projectName, //项目名称
-            "customerId": '', //施工单位Id(选择项目时带过来  unCustomId)
-            "customerName": '', //施工单位名称(选择项目时带过来  unCustomName)
-            "address": equipmentdelt.address, //项目地址
-            "belongToArea": equipmentdelt.belongToArea, //工程区域
-            "projectType": equipmentdelt.projectType, //工程类型
-            "planType": equipmentdelt.planType, //计划类型
-            "bussDemandDetailSet": JSON.stringify(equipmentdelt.bussDemandDetailSet)
-          }
-        }
-
+        console.log(111111111)
+        var equipmentdelt=this.data.equipmentdelt
         wx.request({
-          url: this.data.baseUrl + 'terminal/bussMaterialsPlanModifyAppProject.do?',
-          data: data,
+          url: this.data.baseUrl + 'terminal/bussPlanSubmitAppProject.do?',
+          data: {
+            tmessage: {
+              "query": {
+                "relateId": equipmentdelt.materialsPlanId,
+                "relateModule": 'BUSS_MATERIALS_PLAN',
+              }
+              }
+          },
           header: {
             cookie: this.data.cookies,
-            'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
           },
-          method: 'post',
+          method: 'get',
           success: (res) => {
             console.log(res)
             wx.showToast({
               title: res.data.msg,
+              icon: 'none',
               duration: 2000
             })
             setTimeout(() => {
-              wx.redirectTo({
-                url: '../zhoucaiplay'
+              wx.navigateBack({
+                delta: 1 //向上返回一级
               })
             }, 2000)
-
+            
           }
         })
       }
     } else {
+      if (this.data.duang == 'confirm'){
+        // wx.showToast({
+        //   title: '信息错误',
+        //   duration: 2000
+        // })
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1 //向上返回一级
+          })
+        }, 2000)
+      }
       console.log('清除')
       this.setData({
         dialogShow: false,
@@ -741,46 +789,62 @@ Page({
   //判断点击修改第几个数据
   click: function (e) {
     console.log(e)
-    var id = e.currentTarget.dataset.id
-    for (var i = 0; i < this.data.pickerList.length; i++) {
-      this.data.pickerList[i].index = i
-      if (this.data.pickerList[i].index == id) {
-        console.log(this.data.pickerList[i])
-        //得到选中的设备规格
-        this.setData({
-          text1: this.data.pickerList[i],
-          text2:'请选择规格',
-          value2: this.data.pickerList[i].rentUnit,
-          value3:'请选择规格',
-          value4: '请选择规格'
-        })
-        wx.request({
-          url: this.data.baseUrl + 'terminal/newListMaterials.do?',
-          data: {
-            tmessage: {
-              "query": {
-                "start": this.data.start,
-                "pageSize": this.data.pageSize,
-                "commodityIds": this.data.pickerList[i].commodityId,
+    var id = e.currentTarget.dataset.index
+    if (this.data.showDialogtype==2){
+      var index = e.currentTarget.dataset.index
+      for (var i = 0; i < this.data.pickerList.length; i++) {
+        this.data.pickerList[i].index = i
+        if (this.data.pickerList[i].index == index) {
+          console.log(this.data.pickerList[i])
+          //得到选中的设备规格
+          this.setData({
+            text1: this.data.pickerList[i],
+            text2: '',
+            value2: this.data.pickerList[i].rentUnit,
+            value3: '',
+            value4: '自动换算'
+          })
+          wx.request({
+            url: this.data.baseUrl + 'terminal/newListMaterials.do?',
+            data: {
+              tmessage: {
+                "query": {
+                  "start": this.data.start,
+                  "pageSize": this.data.pageSize,
+                  "commodityIds": this.data.pickerList[i].commodityId,
+                }
               }
+            },
+            header: {
+              cookie: this.data.cookies
+            },
+            method: 'get',
+            success: (res) => {
+              console.log(res)
+              this.setData({
+                array6: res.data.data,
+
+              })
+
             }
-          },
-          header: {
-            cookie: this.data.cookies
-          },
-          method: 'get',
-          success: (res) => {
-            console.log(res)
-            this.setData({
-              array6: res.data.data,
-              
-            })
+          })
 
-          }
-        })
-
+        }
+      }
+    } else if (this.data.showDialogtype==3){
+      var index = e.currentTarget.dataset.index
+      var arr =this.data.array6
+      for(var i=0;i<arr.length;i++){
+        arr[i].index=i
+        if(arr[i].index==index){
+          console.log(arr[i])
+          this.setData({
+            text2:arr[i]
+          })
+        }
       }
     }
+    
     if (this.data.duang == 'xinzeng') {
       console.log(this.data.text1)
       this.setData({
@@ -838,5 +902,20 @@ Page({
       scrollTop: 0
     })
     this.load()
+  },
+  //选择品名与规格
+  togg() {
+    this.setData({
+      showDialogtype: 2,
+      showDialog: true,
+
+    })
+  },
+  upgg() {
+    this.setData({
+      showDialogtype: 3,
+      showDialog: true,
+
+    })
   },
 })

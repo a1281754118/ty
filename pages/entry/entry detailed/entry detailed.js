@@ -15,9 +15,9 @@ Page({
     url: 'terminal/bussMaterialsDetailAppProject.do?', //进场明细url
     addurl: 'terminal/bussMaterialsCreateAppProject.do?', //扫描新增加url
     slist: [
-      { chargeModel: 0, name: "按照过磅吨位" },
-      { chargeModel: 1, name: "按照理论吨位" },
-      { chargeModel: 2, name: "按照整车包运" },
+      { chargeModel: 1, name: "按照过磅吨位" },
+      { chargeModel: 2, name: "按照理论吨位" },
+      { chargeModel: 0, name: "按照整车包运" },
     ],
     patternup:false,
     patternlist:{},
@@ -26,17 +26,17 @@ Page({
   },
   //输入的单价
   patterninput(e){
-    if (this.data.patternlist.chargeModel=='0'){
+    if (this.data.patternlist.chargeModel=='1'){
       this.setData({
         patterninput: e.detail.value,
-        money: ((this.data.arr.materialsPackage.packageWeighSet[0].netWeight * e.detail.value) /1000).toFixed(2)
+        money: (this.data.arr.materialsPackage.packageWeighSet[0].netWeight * e.detail.value).toFixed(2)
       })
-    } else if (this.data.patternlist.chargeModel == '1'){
+    } else if (this.data.patternlist.chargeModel == '2'){
       this.setData({
         patterninput: e.detail.value,
-        money: ((this.data.arr.materialsPackage.packageWeighSet[0].theoryWeight * e.detail.value) /1000).toFixed(2)
+        money: (this.data.arr.materialsPackage.packageWeighSet[0].theoryWeight * e.detail.value).toFixed(2)
       })
-    } else if (this.data.patternlist.chargeModel == '2') {
+    } else if (this.data.patternlist.chargeModel == '0') {
       this.setData({
         patterninput: e.detail.value,
       })
@@ -63,8 +63,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(JSON.parse(options.arr))
     this.setData({
-      patternlist: { chargeModel: 2, name: "按照整车包运" },
+      patternlist: { chargeModel: 0, name: "按照整车包运" },
       cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
     })
     if (options.id) {
@@ -75,9 +76,12 @@ Page({
     }
 
     if (options.display) {
+      var arrr = JSON.parse(options.arr)
+      arrr.materialsPackage.packageWeighSet[0].netWeight=(arrr.materialsPackage.packageWeighSet[0].netWeight / 1000).toFixed(2)
+      arrr.materialsPackage.packageWeighSet[0].theoryWeight=(arrr.materialsPackage.packageWeighSet[0].theoryWeight/1000).toFixed(2)
       this.setData({
         display: options.display,
-        arr: JSON.parse(options.arr),
+        arr: arrr,
         relateId: options.relateId,
       })
 
@@ -141,21 +145,21 @@ Page({
   tapDialogButton(e) {
     if (e.detail.item.text == '确定') {
       if(this.data.patterninput!=''){
-        if (this.data.patternlist.chargeModel == '0') {
+        if (this.data.patternlist.chargeModel == '1') {
           var obj = [{
             "chargeModel": this.data.patternlist.chargeModel,
             "tonnage": this.data.arr.materialsPackage.packageWeighSet[0].netWeight/1000,
             "unitPrice": this.data.patterninput,
             "freight": this.data.money
           }]
-        } else if (this.data.patternlist.chargeModel == '1') {
+        } else if (this.data.patternlist.chargeModel == '2') {
           var obj = [{
             "chargeModel": this.data.patternlist.chargeModel,
             "tonnage": this.data.arr.materialsPackage.packageWeighSet[0].theoryWeight/1000,
             "unitPrice": this.data.patterninput,
             "freight": this.data.money
           }]
-        } else if (this.data.patternlist.chargeModel == '2') {
+        } else if (this.data.patternlist.chargeModel == '0') {
           var obj = [{
             "chargeModel": this.data.patternlist.chargeModel,
             "tonnage": 0,

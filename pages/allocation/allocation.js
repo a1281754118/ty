@@ -27,7 +27,10 @@ Page({
     this.setData({
       selected1: false,
       selected: true,
+      request: false,
       state: '1',
+      start: '0',//起始条数（从第几条开始显示）
+      pageSize: '15',//显示条数
     })
     this.search()
   },
@@ -35,8 +38,11 @@ Page({
   selected1: function (e) {
     this.setData({
       selected: false,
+      request: false,
       selected1: true,
       state: '2',
+      start: '0',//起始条数（从第几条开始显示）
+      pageSize: '15',//显示条数
     })
     this.search()
   },
@@ -98,8 +104,82 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function (e) {
-    var that = this
-    getApp().globalData.touchbottom(that)//调用上拉触底事件
+    if(this.data.request==false){
+      console.log(1111)
+      wx.showLoading({
+        title: '数据加载中',
+        mask: true,
+      })
+      var start = parseInt(this.data.start) + parseInt(this.data.pageSize)
+      this.setData({
+        start: start,
+      })
+
+      wx.request({
+        url: getApp().globalData.utils.baseUrl + this.data.url,
+        data: {
+          tmessage: {
+            "query": {
+              "start": start,
+              "pageSize": this.data.pageSize,
+              "keyword": this.data.adTitle,
+              "state": this.data.state,
+            }
+          }
+        },
+        header: {
+          cookie: this.data.cookies
+        },
+        method: 'get',
+        success: (result) => {
+          console.log(result)
+          if (result.data.success) {
+            if (result.data.info.result.length != 0) {
+              var arr = this.data.arr
+              var arrr = result.data.info.result
+              for (var i = 0; i < arrr.length; i++) {
+                arr.push(arrr[i])
+              }
+              this.setData({
+                arr: arr
+              })
+            } else {
+              this.setData({
+                request: true
+              })
+
+            }
+
+            // console.log(this.data.arr)
+          }
+          else if (res.data.msg == "抱歉，数据处理异常! 请稍后再试或与管理员联系！") {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 3000,
+            })
+          }
+          else {
+            wx.showLoading({
+              title: '登录超时',
+              duration: 2000,
+              mask: true,
+              success: () => {
+                setTimeout(() => {
+                  wx.redirectTo({
+                    url: '/pages/login/login'
+                  })
+                }, 2000)
+              }
+            })
+          }
+        },
+        complete: () => {
+          wx.hideLoading()
+        }
+      })
+    }
+
   },
 
   /**

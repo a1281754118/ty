@@ -1,1 +1,6 @@
-/* pages/supply/zhoucaiplay-rent/zhoucaiplay-rent-up/zhoucaiplay-rent-up.wxss */
+.picker{
+  overflow: hidden;
+  float: right;
+  border-radius: 10rpx;
+  
+}

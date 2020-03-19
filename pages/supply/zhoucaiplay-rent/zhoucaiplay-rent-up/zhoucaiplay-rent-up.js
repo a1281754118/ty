@@ -55,7 +55,7 @@ Page({
     value2: '', //日租金
     value3: '', //备注
     value4: '',//辅助数量
-    display: 'none',
+    display1: 'none',
     text1: {}, //品名
     text2: '', //规格
     title: '新增设备计划',
@@ -234,9 +234,70 @@ Page({
 
   //提交修改
   confirm1() {
-    this.setData({
-      duang: 'confirm',
-      dialogShow: true
+    var equipmentdelt = this.data.equipmentdelt
+    console.log(equipmentdelt)
+    if (equipmentdelt.customerId) {
+      var data = {
+        "materialsRentId": equipmentdelt.materialsRentId, //项目Id
+        "projectId": equipmentdelt.projectId,//主id
+        "projectAddress": equipmentdelt.projectAddress,
+        "projectName": equipmentdelt.projectName, //项目名称
+        "customerId": equipmentdelt.customerId, //施工单位Id(选择项目时带过来  unCustomId)
+        "customerName": equipmentdelt.customerName, //施工单位名称(选择项目时带过来  unCustomName)
+        "rentName": equipmentdelt.rentName, //外租单位
+        "rentAddress": equipmentdelt.rentAddress, //单位地址
+        "rentTel": equipmentdelt.rentTel, //单位电话
+        "address": equipmentdelt.address, //项目地址
+        "belongToArea": equipmentdelt.belongToArea, //工程区域
+        "bussMaterialsDemandSet": JSON.stringify(equipmentdelt.bussMaterialsDemandSet),
+        "bussMaterialsFeeSet": JSON.stringify(equipmentdelt.bussMaterialsFeeSet)
+      }
+    } else {
+      var data = {
+        "materialsRentId": equipmentdelt.materialsRentId, //项目Id
+        "projectId": equipmentdelt.projectId,//主id
+        "projectAddress": equipmentdelt.projectAddress,
+        "projectName": equipmentdelt.projectName, //项目名称
+        "customerId": '', //施工单位Id(选择项目时带过来  unCustomId)
+        "customerName": '', //施工单位名称(选择项目时带过来  unCustomName)
+        "rentName": equipmentdelt.rentName, //外租单位
+        "rentAddress": equipmentdelt.rentAddress, //单位地址
+        "rentTel": equipmentdelt.rentTel, //单位电话
+        "address": equipmentdelt.address, //项目地址
+        "belongToArea": equipmentdelt.belongToArea, //工程区域
+        "bussMaterialsDemandSet": JSON.stringify(equipmentdelt.bussMaterialsDemandSet),
+        "bussMaterialsFeeSet": JSON.stringify(equipmentdelt.bussMaterialsFeeSet)
+      }
+    }
+
+    wx.request({
+      url: this.data.baseUrl + 'terminal/bussMaterialsRentModifyAppProject.do?',
+      data: data,
+      header: {
+        cookie: this.data.cookies,
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      method: 'post',
+      success: (res) => {
+        if (res.data.success == true) {
+          this.setData({
+            duang: 'confirm',
+            dialogShow: true,
+            buttons: [{
+              text: '返回菜单'
+            }, {
+              text: '确定提交'
+            }],
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+
+      }
     })
   },
   //新增
@@ -308,7 +369,7 @@ Page({
     })
   },
   tapDialogButton(e) {
-    if (e.detail.item.text == '确定') {
+    if (e.detail.item.text == '确定' || e.detail.item.text == '确定提交') {
       if (this.data.duang == 'added') {
         if (this.data.text1 != '' && this.data.text2 != '' && this.data.value2 != '' &&
           this.data.enddate != '' && this.data.startdate != '') {
@@ -391,58 +452,30 @@ Page({
         }
       } else if (this.data.duang == 'confirm') {
         var equipmentdelt = this.data.equipmentdelt
-        console.log(equipmentdelt)
-        if (equipmentdelt.customerId) {
-          var data = {
-            "materialsRentId": equipmentdelt.materialsRentId, //项目Id
-            "projectId": equipmentdelt.projectId,//主id
-            "projectAddress": equipmentdelt.projectAddress,
-            "projectName": equipmentdelt.projectName, //项目名称
-            "customerId": equipmentdelt.customerId, //施工单位Id(选择项目时带过来  unCustomId)
-            "customerName": equipmentdelt.customerName, //施工单位名称(选择项目时带过来  unCustomName)
-            "rentName": equipmentdelt.rentName, //外租单位
-            "rentAddress": equipmentdelt.rentAddress, //单位地址
-            "rentTel": equipmentdelt.rentTel, //单位电话
-            "address": equipmentdelt.address, //项目地址
-            "belongToArea": equipmentdelt.belongToArea, //工程区域
-            "bussMaterialsDemandSet": JSON.stringify(equipmentdelt.bussMaterialsDemandSet),
-            "bussMaterialsFeeSet": JSON.stringify(equipmentdelt.bussMaterialsFeeSet)
-          }
-        } else {
-          var data = {
-            "materialsRentId": equipmentdelt.materialsRentId, //项目Id
-            "projectId": equipmentdelt.projectId,//主id
-            "projectAddress": equipmentdelt.projectAddress,
-            "projectName": equipmentdelt.projectName, //项目名称
-            "customerId": '', //施工单位Id(选择项目时带过来  unCustomId)
-            "customerName": '', //施工单位名称(选择项目时带过来  unCustomName)
-            "rentName": equipmentdelt.rentName, //外租单位
-            "rentAddress": equipmentdelt.rentAddress, //单位地址
-            "rentTel": equipmentdelt.rentTel, //单位电话
-            "address": equipmentdelt.address, //项目地址
-            "belongToArea": equipmentdelt.belongToArea, //工程区域
-            "bussMaterialsDemandSet": JSON.stringify(equipmentdelt.bussMaterialsDemandSet),
-            "bussMaterialsFeeSet": JSON.stringify(equipmentdelt.bussMaterialsFeeSet)
-          }
-        }
-
         wx.request({
-          url: this.data.baseUrl + 'terminal/bussMaterialsRentModifyAppProject.do?',
-          data: data,
+          url: this.data.baseUrl + 'terminal/bussPlanSubmitAppProject.do?',
+          data: {
+            tmessage: {
+              "query": {
+                "relateId": equipmentdelt.materialsRentId,
+                "relateModule": 'BUSS_MATERIALS_RENT',
+              }
+            }
+          },
           header: {
             cookie: this.data.cookies,
-            'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
           },
-          method: 'post',
+          method: 'get',
           success: (res) => {
             console.log(res)
             wx.showToast({
               title: res.data.msg,
+              icon: 'none',
               duration: 2000
             })
             setTimeout(() => {
-              wx.redirectTo({
-                url: '../zhoucaiplay-rent'
+              wx.navigateBack({
+                delta: 1 //向上返回一级
               })
             }, 2000)
 
@@ -466,6 +499,14 @@ Page({
         console.log(equipmentdelt)
       }
     } else {
+      if (this.data.duang == 'confirm') {
+  
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1 //向上返回一级
+          })
+        }, 2000)
+      }
       console.log('清除')
       this.setData({
         dialogShow: false,
@@ -851,13 +892,14 @@ Page({
     if (e.detail.value.length < 1) {
       that.setData({
         adTitle: '',
-        display: 'none',
+        display1: 'none',
       })
       this.search()
     } else {
+      
       that.setData({
         adTitle: e.detail.value,
-        display: 'block'
+        display1: 'block'
       })
     }
   },

@@ -253,9 +253,69 @@ Page({
  
   //提交修改
   confirm() {
-    this.setData({
-      duang: 'confirm',
-      dialogShow: true
+    var equipmentdelt = this.data.equipmentdelt
+    console.log(equipmentdelt)
+    if (equipmentdelt.customerId) {
+      var data = {
+        "projectId": equipmentdelt.projectId, //项目Id
+        "arrangeId": equipmentdelt.arrangeId,//主id
+        "projectAddress": equipmentdelt.projectAddress,
+        "projectName": equipmentdelt.projectName, //项目名称
+        "customerId": equipmentdelt.customerId, //施工单位Id(选择项目时带过来  unCustomId)
+        "customerName": equipmentdelt.customerName, //施工单位名称(选择项目时带过来  unCustomName)
+        "address": equipmentdelt.address, //项目地址
+        "quantity": this.data.value1, // 需求数量
+        "belongToArea": equipmentdelt.belongToArea, //工程区域
+        "projectType": equipmentdelt.projectType, //工程类型
+        "planType": equipmentdelt.planType, //计划类型
+        "bussEquipDetailSet": JSON.stringify(equipmentdelt.bussEquipDetailSet)
+      }
+    } else {
+      var data = {
+        "projectId": equipmentdelt.projectId, //项目Id
+        "arrangeId": equipmentdelt.arrangeId,//主id
+        "projectAddress": equipmentdelt.projectAddress,
+        "projectName": equipmentdelt.projectName, //项目名称
+        "customerId": '', //施工单位Id(选择项目时带过来  unCustomId)
+        "customerName": '', //施工单位名称(选择项目时带过来  unCustomName)
+        "address": equipmentdelt.address, //项目地址
+        "quantity": this.data.value1, // 需求数量
+        "belongToArea": equipmentdelt.belongToArea, //工程区域
+        "projectType": equipmentdelt.projectType, //工程类型
+        "planType": equipmentdelt.planType, //计划类型
+        "bussEquipDetailSet": JSON.stringify(equipmentdelt.bussEquipDetailSet)
+      }
+    }
+
+    wx.request({
+      url: this.data.baseUrl + 'terminal/bussEquipPlanModifyAppProject.do?',
+      data: data,
+      header: {
+        cookie: this.data.cookies,
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      method: 'post',
+      success: (res) => {
+        console.log(res)
+        if (res.data.success == true) {
+          this.setData({
+            duang: 'confirm',
+            dialogShow: true,
+            buttons: [{
+              text: '返回菜单'
+            }, {
+              text: '确定提交'
+            }],
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+
+      }
     })
   },
   //新增
@@ -299,7 +359,7 @@ Page({
     })
   },
   tapDialogButton(e) {
-    if (e.detail.item.text == '确定') {
+    if (e.detail.item.text == '确定' || e.detail.item.text == '确定提交') {
       if (this.data.duang == 'added') {
         if (this.data.text1 != '' && this.data.text2 != '' && this.data.value2 != '' &&
           this.data.value3 != '' && this.data.startdate != '' && this.data.enddate != '') {
@@ -340,7 +400,7 @@ Page({
               "endDate": this.data.enddate, //预计退场时间
               "singleId": '', //单体ID
               "singleName": '', // 单体名称
-              "attachId": this.data.attachId, //上传文件ID
+              "attachId": attachId, //上传文件ID
               "attachName": attachName, //文件名称
               "index": index
             }
@@ -380,6 +440,7 @@ Page({
       } else if (this.data.duang == 'modify') {
         var equipmentdelt = this.data.equipmentdelt
         var arrr = equipmentdelt.bussEquipDetailSet
+        console.log(arrr)
         for (var i = 0; i < arrr.length; i++) {
           arrr[i].index = i
           if (arrr[i].index == this.data.equipmentdeltindex) {
@@ -409,49 +470,23 @@ Page({
             })
           }
         }
-      } else if (this.data.duang == 'confirm'){
+      } else if (this.data.duang == 'confirm') {
+        console.log(111111111)
         var equipmentdelt = this.data.equipmentdelt
-        console.log(equipmentdelt)
-        if (equipmentdelt.customerId){
-          var data = {
-            "projectId": equipmentdelt.projectId, //项目Id
-            "arrangeId": equipmentdelt.arrangeId,//主id
-            "projectAddress": equipmentdelt.projectAddress,
-            "projectName": equipmentdelt.projectName, //项目名称
-            "customerId": equipmentdelt.customerId, //施工单位Id(选择项目时带过来  unCustomId)
-            "customerName": equipmentdelt.customerName, //施工单位名称(选择项目时带过来  unCustomName)
-            "address": equipmentdelt.address, //项目地址
-            "quantity": this.data.value1, // 需求数量
-            "belongToArea": equipmentdelt.belongToArea, //工程区域
-            "projectType": equipmentdelt.projectType, //工程类型
-            "planType": equipmentdelt.planType, //计划类型
-            "bussEquipDetailSet": JSON.stringify(equipmentdelt.bussEquipDetailSet)
-          }
-        }else{
-          var data = {
-            "projectId": equipmentdelt.projectId, //项目Id
-            "arrangeId": equipmentdelt.arrangeId,//主id
-            "projectAddress": equipmentdelt.projectAddress,
-            "projectName": equipmentdelt.projectName, //项目名称
-            "customerId": '', //施工单位Id(选择项目时带过来  unCustomId)
-            "customerName": '', //施工单位名称(选择项目时带过来  unCustomName)
-            "address": equipmentdelt.address, //项目地址
-            "quantity": this.data.value1, // 需求数量
-            "belongToArea": equipmentdelt.belongToArea, //工程区域
-            "projectType": equipmentdelt.projectType, //工程类型
-            "planType": equipmentdelt.planType, //计划类型
-            "bussEquipDetailSet": JSON.stringify(equipmentdelt.bussEquipDetailSet)
-          }
-        }
-        
         wx.request({
-          url: this.data.baseUrl + 'terminal/bussEquipPlanModifyAppProject.do?',
-          data: data,
+          url: this.data.baseUrl + 'terminal/bussPlanSubmitAppProject.do?',
+          data: {
+            tmessage: {
+              "query": {
+                "relateId": equipmentdelt.arrangeId,
+                "relateModule": 'BUSS_EQUIP_PLAN',
+              }
+            }
+          },
           header: {
             cookie: this.data.cookies,
-            'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
           },
-          method: 'post',
+          method: 'get',
           success: (res) => {
             console.log(res)
             wx.showToast({
@@ -459,8 +494,8 @@ Page({
               duration: 2000
             })
             setTimeout(() => {
-              wx.redirectTo({
-                url: '../equipment'
+              wx.navigateBack({
+                delta: 1 //向上返回一级
               })
             }, 2000)
 
@@ -468,6 +503,13 @@ Page({
         })
       }
     } else {
+      if (this.data.duang == 'confirm') {
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1 //向上返回一级
+          })
+        }, 2000)
+      }
       this.setData({
         dialogShow: false,
         text1: ["10", "起重运输机械"], //设备类别

@@ -1,4 +1,4 @@
-<view class=" search" style="background: #fff">
+<view class=" search" style="background: #fff;height:170rpx;">
     <view style='margin-top: 20rpx;'>
       <view class='searchItem'>
         <image src='/pages/img/weibiaoti-.png' />
@@ -6,10 +6,21 @@
         <image style='display: {{display}}; height: 35rpx;width: 35rpx;' src='/pages/img/cuowu1.png' bindtap='delt'></image>
       </view>
     </view>
-
+  <view class="search-viwew">
+    <view class="page__bd">
+        <view class="section section_gap">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <radio color="#59C1FF" class="radio" wx:for-items="{{items}}" wx:key="applyforStateid" bindtap="items"
+                value="{{item.applyforStateid}}" checked="{{item.checked}}">
+                    <text>{{item.value}}</text>
+                </radio>
+            </radio-group>
+        </view>
+    </view>
+    </view>
   </view>
 
-  <view class="planlist">
+  <view class="planlist" style="margin-top:170rpx">
     <view class="planlist-1" wx:for="{{arr}}" bindtap="equipmentdelt" data-id="{{item.equipRentId}}" wx:key="equipRentId">
     <view class="planlist-1-1" style="font-size: 40rpx;">
     <h1 class="planlist-h1">项目名称：{{item.projectName}}</h1> 

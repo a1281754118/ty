@@ -9,10 +9,10 @@
     </view>
 
   </view>
-  <view style='margin-top: 90rpx;'>
+  <view style='margin-top: 110rpx;'>
     <view class='contract'>
 
-      <view class='contract-1' bindtap='detailed' data-id='{{item.buslostId}}' wx:for="{{arr}}" wx:key="{{item.commercialId}}">
+      <view class='contract-1' bindtap='detailed' data-id='{{item.buslostId}}' wx:for="{{arr}}" wx:key="commercialId">
         <view style='margin-top: 30rpx;'>
           <view class='contract-2'>
             <h1>丢失编号</h1> ： {{item.lostSerial}}</view>

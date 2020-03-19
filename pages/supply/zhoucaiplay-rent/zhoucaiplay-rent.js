@@ -1,4 +1,3 @@
-
 Page({
 
   /**
@@ -7,10 +6,10 @@ Page({
   data: {
     adTitle: '',
     display: 'none',
-    baseUrl: getApp().globalData.utils.baseUrl,//获取公用url路径
+    baseUrl: getApp().globalData.utils.baseUrl, //获取公用url路径
     arr: [],
-    start: '0',//起始条数（从第几条开始显示）
-    pageSize: '15',//显示条数
+    start: '0', //起始条数（从第几条开始显示）
+    pageSize: '15', //显示条数
     url: 'terminal/bussEquipRentListAppProject.do?',
     qingqiu: true,
     buttons: [{
@@ -20,7 +19,44 @@ Page({
     }],
     dialogShow: false,
     id: '',
+    items: [
+      { applyforStateid: '0', value: '待提交', checked: false },
+      { applyforStateid: '1', value: '待审核', checked: false },
+      { applyforStateid: '2', value: '待审批', checked: false },
+      { applyforStateid: '3', value: '待确认', checked: false },
+    ],
+    applyforStateid: '',
     cookies: decodeURIComponent(wx.getStorageSync('cookies')) //解码cookies
+  },
+  //点击切换状态
+  items(e) {
+    var items = this.data.items;
+    console.log(items)
+    console.log(this.data.applyforStateid)
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].applyforStateid == this.data.applyforStateid) {
+        for (var j = 0; j < items.length; j++) {
+          // console.log("items[j].checked = ", items[j].checked);
+          if (items[j].checked && j != i) {
+            items[j].checked = false;
+          }
+        }
+        items[i].checked = !(items[i].checked);
+        console.log("-----:", items[i]);
+        if (items[i].checked == false) {
+          this.data.applyforStateid = ''
+          console.log(this.data.applyforStateid)
+        }
+        this.load()
+      }
+    }
+    this.setData({
+      items: items
+    });
+  },
+  radioChange(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    this.data.applyforStateid = e.detail.value
   },
   //点击修改时跳转
   modify(e) {
@@ -239,7 +275,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       request: false,
       cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookie
@@ -288,7 +324,14 @@ Page({
     wx.request({
       url: this.data.baseUrl + 'terminal/bussMaterialsRentListAppProject.do?',
       data: {
-        tmessage: { "query": { "start": this.data.start, "pageSize": this.data.pageSize, "projectName": this.data.adTitle } }
+        tmessage: {
+          "query": {
+            "start": this.data.start,
+            "pageSize": this.data.pageSize,
+            "projectName": this.data.adTitle,
+            "state": this.data.applyforStateid
+          }
+        }
       },
       header: {
         cookie: this.data.cookies
@@ -296,6 +339,11 @@ Page({
       method: 'get',
       success: (res) => {
         console.log(res)
+        if (res.data.data.length == 0) {
+          this.setData({
+            qingqiu: false
+          })
+        }
         this.setData({
           arr: res.data.data
         })
@@ -317,35 +365,35 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     setTimeout(() => {
       wx.showToast({
         title: '刷新成功',
@@ -359,7 +407,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     // var that = this
     // getApp().globalData.touchbottom(that) //调用上拉触底事件
     // this.setData({
@@ -368,7 +416,7 @@ Page({
     // this.load()
     if (this.data.qingqiu == true) {
       this.setData({
-        'start': parseInt(this.data.start) + 15,//起始记录
+        'start': parseInt(this.data.start) + 15, //起始记录
         'pageSize': parseInt(this.data.pageSize) + 15, //获取记录数量
       })
       wx.showLoading({
@@ -380,7 +428,7 @@ Page({
           tmessage: {
             'query': {
               'projectName': this.data.adTitle, //项目名称
-              'start': this.data.start,//起始记录
+              'start': this.data.start, //起始记录
               'pageSize': this.data.pageSize, //获取记录数量
             }
 
@@ -421,7 +469,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   increase() {

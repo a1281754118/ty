@@ -110,8 +110,9 @@
   <view bindtap="goback">返回</view>
   <view style="border-left: 1rpx  solid;" bindtap="confirm">确认</view>
 </view>
-<mp-dialog wx:if="{{duang=='confirm'}}" title="确认修改" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-  <view>请仔细核对修改信息无误！</view>
+<mp-dialog wx:if="{{duang=='confirm'}}" title="确认提交" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view>修改成功！</view>
+  <view>请确认是否提交提交</view>
 </mp-dialog>
 
 <mp-dialog wx:else title="{{title}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">

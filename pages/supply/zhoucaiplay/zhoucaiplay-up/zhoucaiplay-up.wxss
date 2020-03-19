@@ -1,1 +1,6 @@
-/* pages/supply/zhoucaiplay/zhoucaiplay-up/zhoucaiplay-up.wxss */
+.picker{
+  overflow: hidden;
+  float: right;
+  border-radius: 10rpx;
+  
+}

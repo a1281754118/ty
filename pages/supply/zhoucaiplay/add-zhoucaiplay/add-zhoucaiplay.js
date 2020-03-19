@@ -51,7 +51,7 @@ Page({
     text4: '', //工程类别
     dizhi: '', //工程地址
     text5: '', //pm品名
-    text6: [], //规格
+    text6: '', //规格
     text7: '', //资产属性
     projectId: '', //项目名称id
     value1: '',
@@ -621,6 +621,15 @@ Page({
   //选择品名与规格
   togg() {
     this.setData({
+      showDialogtype: 2,
+      duang: 'xinzeng',
+      showDialog: true,
+
+    })
+  },
+  upgg() {
+    this.setData({
+      showDialogtype: 3,
       duang: 'xinzeng',
       showDialog: true,
 
@@ -652,41 +661,58 @@ Page({
   },
   //判断点击修改第几个数据
   click: function(e) {
-    console.log(e)
-    var id = e.currentTarget.dataset.id
-    for (var i = 0; i < this.data.pickerList.length; i++) {
-      this.data.pickerList[i].index = i
-      if (this.data.pickerList[i].index == id) {
-        //得到选中的设备规格
-        this.setData({
-          text5: this.data.pickerList[i]
-        })
-        wx.request({
-          url: this.data.baseUrl + 'terminal/newListMaterials.do?',
-          data: {
-            tmessage: {
-              "query": {
-                "start": this.data.start,
-                "pageSize": this.data.pageSize,
-                "commodityIds": this.data.pickerList[i].commodityId,
-              }
-            }
-          },
-          header: {
-            cookie: this.data.cookies
-          },
-          method: 'get',
-          success: (res) => {
-            console.log(res)
-            this.setData({
-              array6: res.data.data
-            })
+    var id = e.currentTarget.dataset.index
+   if(this.data.showDialogtype== 2){
+     console.log(e)
+     var index = e.currentTarget.dataset.index
+     for (var i = 0; i < this.data.pickerList.length; i++) {
+       this.data.pickerList[i].index = i
+       if (this.data.pickerList[i].index == index) {
+         //得到选中的设备规格
+         this.setData({
+           text5: this.data.pickerList[i]
+         })
+         wx.request({
+           url: this.data.baseUrl + 'terminal/newListMaterials.do?',
+           data: {
+             tmessage: {
+               "query": {
+                 "start": this.data.start,
+                 "pageSize": this.data.pageSize,
+                 "commodityIds": this.data.pickerList[i].commodityId,
+               }
+             }
+           },
+           header: {
+             cookie: this.data.cookies
+           },
+           method: 'get',
+           success: (res) => {
+             console.log(res)
+             this.setData({
+               array6: res.data.data,
+               text6:''
+             })
 
-          }
-        })
-        
-      }
+           }
+         })
+
+       }
+     }
+} else if (this.data.showDialogtype == 3) {
+  var index = e.currentTarget.dataset.index
+     var arr = this.data.array6
+  for (var i = 0; i < arr.length; i++) {
+    arr[i].index = i
+    if (arr[i].index == index) {
+      //得到选中的品名
+      console.log(arr[i])
+      this.setData({
+        text6: arr[i]
+      })
     }
+  }
+}
     if (this.data.duang == 'xinzeng') {
       console.log(this.data.text5)
       this.setData({

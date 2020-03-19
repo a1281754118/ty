@@ -136,8 +136,9 @@
 </view>
 
 
-<mp-dialog wx:if="{{duang=='confirm'}}" title="确认修改" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-  <view>请仔细核对修改信息无误！</view>
+<mp-dialog wx:if="{{duang=='confirm'}}" title="确认提交" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view>修改成功！</view>
+  <view>请确认是否提交提交</view>
 </mp-dialog>
 
 <mp-dialog wx:elif="{{duang=='xiugai'}}" title="请输入需求数量" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
@@ -165,7 +166,7 @@
         </view>
         <view class="approvalresult-view-1-1">
           <text class="approvalresult-view-text">日租金 :</text>
-          <input class="approvalresult-view-1-input11" placeholder="备注信息" value="{{value2}}" bindinput="value2">{{item.unit}}</input>
+          <input class="approvalresult-view-1-input11" placeholder="日租金" value="{{value2}}" type="digit" bindinput="value2">{{item.unit}}</input>
         </view>
       </view>
       <view class="approvalresult-view-1">

@@ -1,4 +1,3 @@
-
 Page({
 
   /**
@@ -7,10 +6,10 @@ Page({
   data: {
     adTitle: '',
     display: 'none',
-    baseUrl: getApp().globalData.utils.baseUrl,//获取公用url路径
+    baseUrl: getApp().globalData.utils.baseUrl, //获取公用url路径
     arr: [],
-    start: '0',//起始条数（从第几条开始显示）
-    pageSize: '15',//显示条数
+    start: '0', //起始条数（从第几条开始显示）
+    pageSize: '15', //显示条数
     qingqiu: true,
     buttons: [{
       text: '驳回'
@@ -18,11 +17,62 @@ Page({
       text: '确定'
     }],
     dialogShow: false,
-    id:'',
-    cookies: decodeURIComponent(wx.getStorageSync('cookies')) //解码cookies
+    id: '',
+    cookies: decodeURIComponent(wx.getStorageSync('cookies')), //解码cookies
+    items: [{
+        applyforStateid: '0',
+        value: '待提交',
+        checked: false
+      },
+      {
+        applyforStateid: '1',
+        value: '待审核',
+        checked: false
+      },
+      {
+        applyforStateid: '2',
+        value: '待审批',
+        checked: false
+      },
+      {
+        applyforStateid: '3',
+        value: '待确认',
+        checked: false
+      },
+    ],
+    applyforStateid: '',
+  },
+  items(e) {
+    var items = this.data.items;
+    console.log(items)
+    console.log(this.data.applyforStateid)
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].applyforStateid == this.data.applyforStateid) {
+        for (var j = 0; j < items.length; j++) {
+          // console.log("items[j].checked = ", items[j].checked);
+          if (items[j].checked && j != i) {
+            items[j].checked = false;
+          }
+        }
+        items[i].checked = !(items[i].checked);
+        console.log("-----:", items[i]);
+        if (items[i].checked == false) {
+          this.data.applyforStateid = ''
+          console.log(this.data.applyforStateid)
+        }
+        this.load()
+      }
+    }
+    this.setData({
+      items: items
+    });
+  },
+  radioChange(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    this.data.applyforStateid = e.detail.value
   },
   //点击修改时跳转
-  modify(e){
+  modify(e) {
     wx.showLoading({
       title: '加载中',
     })
@@ -34,7 +84,7 @@ Page({
   tapDialogButton(e) {
     console.log(e.detail.item.text)
     if (e.detail.item.text == '确定') {
-      if (this.data.duang =='examine'){
+      if (this.data.duang == 'examine') {
         wx.request({
           url: this.data.baseUrl + 'terminal/bussPlanAcceptAppProject.do?',
           data: {
@@ -42,7 +92,7 @@ Page({
               "query": {
                 "relateId": this.data.id,
                 "relateModule": 'BUSS_EQUIP_PLAN',
-                "state":'1'
+                "state": '1'
               }
             }
           },
@@ -56,7 +106,7 @@ Page({
               title: res.data.msg,
               duration: 2000
             })
-            
+
           }
 
         })
@@ -84,13 +134,13 @@ Page({
               title: res.data.msg,
               duration: 2000
             })
-           
+
           }
 
         })
       }
       //判断是不是删除
-      else if (this.data.duang == 'deltt'){
+      else if (this.data.duang == 'deltt') {
         wx.request({
           url: this.data.baseUrl + 'terminal/bussPlanDelAppProject.do?',
           data: {
@@ -146,7 +196,7 @@ Page({
               title: res.data.msg,
               duration: 2000
             })
-            
+
             this.load()
           }
 
@@ -154,7 +204,7 @@ Page({
       }
       //删除点击取消
       else if (this.data.duang == 'deltt') {
-        
+
       }
       //审批点击取消
       else if (this.data.duang == 'approval') {
@@ -181,19 +231,19 @@ Page({
             })
             this.load()
           }
-          
+
         })
       }
       this.setData({
         dialogShow: false,
         id: ''
       })
-      
+
     }
 
   },
   //审批
-  approval(e){
+  approval(e) {
     this.setData({
       buttons: [{
         text: '驳回'
@@ -206,23 +256,23 @@ Page({
     })
   },
   //审核
-  examine(e){
+  examine(e) {
     this.setData({
       buttons: [{
         text: '驳回'
       }, {
         text: '确定'
       }],
-      duang:'examine',
-      dialogShow:true,
+      duang: 'examine',
+      dialogShow: true,
       id: e.currentTarget.dataset.item.arrangeId
     })
     console.log(e)
-    
-    
+
+
   },
   //删除
-  deltt(e){
+  deltt(e) {
     this.setData({
       buttons: [{
         text: '取消'
@@ -233,7 +283,7 @@ Page({
       dialogShow: true,
       id: e.currentTarget.dataset.item.arrangeId
     })
-    
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -285,9 +335,16 @@ Page({
   //获取数据
   load() {
     wx.request({
-      url: this.data.baseUrl+'terminal/bussEquipPlanListAppProject.do?',
+      url: this.data.baseUrl + 'terminal/bussEquipPlanListAppProject.do?',
       data: {
-        tmessage: { "query": { "start": this.data.start, "pageSize": this.data.pageSize, "projectName": this.data.adTitle } }
+        tmessage: {
+          "query": {
+            "start": this.data.start,
+            "pageSize": this.data.pageSize,
+            "projectName": this.data.adTitle,
+            "state": this.data.applyforStateid
+          }
+        }
       },
       header: {
         cookie: this.data.cookies
@@ -295,8 +352,13 @@ Page({
       method: 'get',
       success: (res) => {
         console.log(res)
+        if(res.data.data.length==0){
+          this.setData({
+            qingqiu:false
+          })
+        }
         this.setData({
-          arr:res.data.data
+          arr: res.data.data
         })
       }
 
@@ -304,7 +366,7 @@ Page({
 
   },
   //需求计划明细
-  equipmentdelt(e){
+  equipmentdelt(e) {
     wx.showLoading({
       title: '加载中',
     })
@@ -361,7 +423,7 @@ Page({
   onReachBottom: function() {
     if (this.data.qingqiu == true) {
       this.setData({
-        'start': parseInt(this.data.start) + 15,//起始记录
+        'start': parseInt(this.data.start) + 15, //起始记录
         'pageSize': parseInt(this.data.pageSize) + 15, //获取记录数量
       })
       wx.showLoading({
@@ -373,7 +435,7 @@ Page({
           tmessage: {
             'query': {
               'projectName': this.data.adTitle, //项目名称
-              'start': this.data.start,//起始记录
+              'start': this.data.start, //起始记录
               'pageSize': this.data.pageSize, //获取记录数量
             }
 
@@ -417,7 +479,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  increase(){
+  increase() {
     wx.navigateTo({
       url: './add-equipment/add-equipment',
     })

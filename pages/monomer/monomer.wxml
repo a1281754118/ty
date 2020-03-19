@@ -9,7 +9,7 @@
     </view>
 
   </view>
-  <view style='margin-top: 90rpx;'>
+  <view style='margin-top: 110rpx;'>
     <view class='contract'>
 
       <view class='contract-1' bindtap='detailed' style="height:200rpx;"

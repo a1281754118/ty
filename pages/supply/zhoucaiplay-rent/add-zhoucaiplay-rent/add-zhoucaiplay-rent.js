@@ -278,13 +278,13 @@ Page({
     if (e.detail.value.length < 1) {
       that.setData({
         adTitle: '',
-        display: 'none',
+        display1: 'none',
       })
       this.search()
     } else {
       that.setData({
         adTitle: e.detail.value,
-        display: 'block'
+        display1: 'block'
       })
     }
   },
@@ -600,10 +600,12 @@ Page({
         if (this.data.value4 != '') {
           var arr = this.data.choiceitem
           var arry = this.data.arr //整个数组
-          var auxiliaryNum = parseInt(this.data.value4) * parseInt(arry[i].secondConvertedQuantity)
+          console.log(arry)
+          
           for (var i = 0; i < arry.length; i++) {
             if (arry[i].specificationsId == arr.specificationsId) {
               arry[i].demandNum = this.data.value4
+              var auxiliaryNum = parseInt(this.data.value4) * parseInt(arry[i].secondConvertedQuantity)
               arry[i].auxiliaryNum = auxiliaryNum.toFixed(2)
             }
           }
@@ -702,13 +704,23 @@ Page({
       checked: false,
     })
   },
+  //选择品名与规格
+
+  productName() {
+    this.setData({
+      showDialogtype: 2,
+      showDialog: true,
+
+    })
+  },
   //判断点击修改第几个数据
   click: function(e) {
     console.log(e)
-    var id = e.currentTarget.dataset.id
+    var id = e.currentTarget.dataset.index
+    var index = e.currentTarget.dataset.index
     for (var i = 0; i < this.data.pickerList.length; i++) {
       this.data.pickerList[i].index = i
-      if (this.data.pickerList[i].index == id) {
+      if (this.data.pickerList[i].index == index) {
         //得到选中的设备规格
         this.setData({
           text5: this.data.pickerList[i]

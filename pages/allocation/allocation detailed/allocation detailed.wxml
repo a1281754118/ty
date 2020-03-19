@@ -21,33 +21,26 @@
             <view class="th">品名</view>
             <view class="th">规格型号</view>
             <view class="th">接收数量</view>
-            <view class="th">操作</view>
           </view>
           <view class="scrollTbody" style="height:{{arr.bussAllocationProject.bussAllocationDetailSet.length>5 ? '400rpx' : '100%'}}">
             <block wx:for="{{arr.bussAllocationProject.bussAllocationDetailSet}}" wx:key="id">
               <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-                <view class="td">
+                <view class="td"bindtap="upCommodity" data-index="{{index}}">
                   {{item.commodity}}
                 </view>
-                <view class="td">
-                  {{item.specfications ? item.specfications:'-'}}
+                <view class="td" bindtap="upSpecfications" data-index="{{index}}" data-id="{{item.commodityId}}">
+                  {{item.specfications ? item.specfications:'选择型号'}}
                 </view>
                 <view class="td" bindtap="upinput" data-index="{{index}}">
-                  {{item.allocationCounts ? item.allocationCounts:'-'}}
+                  {{item.allocationCounts ? item.allocationCounts:'输入接收数量'}}
                 </view>
-                <view class="td" data-index="{{index}}" bindtap="updelt">
-                  修改
-                </view>
-
               </view>
               <view class="tr" wx:else>
-                <view class="td">{{item.commodity}}</view>
-                <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
+                <view class="td" bindtap="upCommodity" data-index="{{index}}">{{item.commodity}}</view>
+                <view class="td"  bindtap="upSpecfications" data-index="{{index}}" 
+                data-id="{{item.commodityId}}">{{item.specfications ? item.specfications:'-'}}</view>
                 <view class="td" bindtap="upinput" data-index="{{index}}">
                   {{item.allocationCounts ? item.allocationCounts:'-'}}
-                </view>
-                <view class="td" data-index="{{index}}" bindtap="updelt">
-                  修改
                 </view>
               </view>
             </block>
@@ -91,9 +84,10 @@
 
           </view>
         </block>
-        <block wx:elif="{{arr.bussAllocationProject.bussAllocationChargeSet[0].chargeBear=='2'}}">
+        
+        <block wx:if="{{arr.bussAllocationProject.bussAllocationChargeSet[0].chargeBear=='2'}}">
           <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
-            <h1>运输费用</h1> ： </view>
+            <h1>运输费用(调出方)</h1> ： </view>
           <view class="table">
             <view class="tr bg-w">
               <view class="th">收费模式</view>
@@ -102,13 +96,14 @@
               <view class="th">运输金额</view>
               <view class="th">运费承担</view>
               <view class="th">比例</view>
+              <view class="th">分摊金额</view>
             </view>
             <view class="scrollTbody" style="height:{{arr.bussAllocationProject.bussAllocationChargeSet.length>5 ? '400rpx' : '100%'}}">
               <block wx:for="{{arr.bussAllocationProject.bussAllocationChargeSet}}" wx:key="chargeId">
                 <view class="tr bg-g">
-                  <view class="td" wx:if="{{item.chargeModel=='0'}}">按照过磅吨位</view>
-                  <view class="td" wx:if="{{item.chargeModel=='1'}}">按照理论吨位</view>
-                  <view class="td" wx:if="{{item.chargeModel=='2'}}">按照整车包运</view>
+                  <view class="td" wx:if="{{item.chargeModel=='1'}}">按照过磅吨位</view>
+                  <view class="td" wx:if="{{item.chargeModel=='2'}}">按照理论吨位</view>
+                  <view class="td" wx:if="{{item.chargeModel=='0'}}">按照整车包运</view>
                   <view class="td">{{item.tonnage ? item.tonnage:'-'}}</view>
                   <view class="td">{{item.unitPrice ? item.unitPrice:'-'}}</view>
                   <view class="td">{{item.freight ? item.freight:'-'}}</view>
@@ -116,6 +111,40 @@
                   <view class="td" wx:if="{{item.chargeBear=='1'}}">调入项目</view>
                   <view class="td" wx:if="{{item.chargeBear=='2'}}">比例</view>
                   <view class="td">{{item.scale ? item.scale:'-'}}</view>
+                  <view class="td">{{item.scale ? ((item.scale)/100)*item.freight:'-'}}</view>
+                </view>
+
+              </block>
+            </view>
+
+          </view>
+
+          <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
+            <h1>运输费用(调入方)</h1> ： </view>
+          <view class="table">
+            <view class="tr bg-w">
+              <view class="th">收费模式</view>
+              <view class="th">吨位</view>
+              <view class="th">单价</view>
+              <view class="th">运输金额</view>
+              <view class="th">运费承担</view>
+              <view class="th">比例</view>
+              <view class="th">分摊金额</view>
+            </view>
+            <view class="scrollTbody" style="height:{{arr.bussAllocationProject.bussAllocationChargeSet.length>5 ? '400rpx' : '100%'}}">
+              <block wx:for="{{arr.bussAllocationProject.bussAllocationChargeSet}}" wx:key="chargeId">
+                <view class="tr bg-g">
+                  <view class="td" wx:if="{{item.chargeModel=='1'}}">按照过磅吨位</view>
+                  <view class="td" wx:if="{{item.chargeModel=='2'}}">按照理论吨位</view>
+                  <view class="td" wx:if="{{item.chargeModel=='0'}}">按照整车包运</view>
+                  <view class="td">{{item.tonnage ? item.tonnage:'-'}}</view>
+                  <view class="td">{{item.unitPrice ? item.unitPrice:'-'}}</view>
+                  <view class="td">{{item.freight ? item.freight:'-'}}</view>
+                  <view class="td" wx:if="{{item.chargeBear=='0'}}">调出项目</view>
+                  <view class="td" wx:if="{{item.chargeBear=='1'}}">调入项目</view>
+                  <view class="td" wx:if="{{item.chargeBear=='2'}}">比例</view>
+                  <view class="td">{{item.scale ? 100-item.scale:'-'}}</view>
+                  <view class="td">{{item.scale ? ((100-item.scale)/100)*item.freight:'-'}}</view>
                 </view>
 
               </block>
@@ -148,39 +177,16 @@
     <mp-dialog wx:if="{{duang=='xinzheng'}}" title="新增订单" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
       <view>
         <view style="margin-bottom:40rpx;">
-          <picker class="picker" bindchange="bindPickerChange1" value="{{index}}" range="{{arry1}}" range-key="commodity">
-            <text>-{{text1.commodity ? text1.commodity:'选择品名'}}- </text>
-          </picker>
+            <text bindtap="addCommodity">-{{text1.commodity ? text1.commodity:'选择品名'}}- </text>
         </view>
-        <view style="margin-bottom:40rpx;" wx:if="{{arry2!=''}}">
-          <picker class="picker" bindchange="bindPickerChange2" value="{{index}}" range="{{arry2}}" range-key="specifications">
-            <text>-{{text2.specifications ? text2.specifications:'选择规格'}}-</text>
-          </picker>
+        <view style="margin-bottom:40rpx;" wx:if="{{text1!=''}}">
+            <text bindtap="addSpecfications">-{{text2.specifications ? text2.specifications:'选择规格'}}-</text>
         </view>
       </view>
       <view>
         <input placeholder="请输入接收数量" value="{{addvalue}}" bindinput="addvalue" type="number"></input>
       </view>
     </mp-dialog>
-    <mp-dialog wx:if="{{duang=='xiugai'}}" title="修改订单" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-      <view>
-        <view style="margin-bottom:40rpx;">
-          <picker class="picker" bindchange="bindPickerChange1" value="{{index}}" range="{{arry1}}" range-key="commodity">
-            <text>-{{text1.commodity ? text1.commodity:'选择品名'}}- </text>
-          </picker>
-        </view>
-        <view style="margin-bottom:40rpx;" wx:if="{{arry2!=''}}">
-          <picker class="picker" bindchange="bindPickerChange2" value="{{index}}" range="{{arry2}}" range-key="specifications">
-            <text>-{{text2.specifications ? text2.specifications:'选择规格'}}-</text>
-          </picker>
-        </view>
-      </view>
-      <!-- <view bindtap="togg" style="height:60rpx;" else if="{{!equipment.materialsCommodity}}"><text>-选择品名- -选择规格-</text></view> -->
-      <view>
-        <input placeholder="请输入接收数量" value="{{addvalue}}" bindinput="addvalue" type="number"></input>
-      </view>
-    </mp-dialog>
-
 
 
 
@@ -235,7 +241,7 @@
           </view>
 
         </view>
-        <block wx:if="{{arr.bussAllocationChargeSet[0].chargeBear=='1'||arr.bussAllocationChargeSet[0].chargeBear=='2'}}">
+        <block wx:if="{{arr.bussAllocationChargeSet[0].chargeBear=='1'||arr.bussAllocationChargeSet[0].chargeBear=='2'||arr.bussAllocationChargeSet[0].chargeBear=='0'}}">
         <view class='contract-detailed-2' style='margin-bottom:20rpx;'>
           <h1>运输费用</h1> ： </view>
         <view class="table">
@@ -246,13 +252,14 @@
             <view class="th">运输金额</view>
             <view class="th">运费承担</view>
             <view class="th">比例</view>
+            <view class="th">分摊金额</view>
           </view>
           <view class="scrollTbody" style="height:{{arr.bussAllocationChargeSet.length>5 ? '400rpx' : '100%'}}">
             <block wx:for="{{arr.bussAllocationChargeSet}}" wx:key="chargeId">
               <view class="tr bg-g">
-                <view class="td" wx:if="{{item.chargeModel=='0'}}">按照过磅吨位</view>
-                <view class="td" wx:if="{{item.chargeModel=='1'}}">按照理论吨位</view>
-                <view class="td" wx:if="{{item.chargeModel=='2'}}">按照整车包运</view>
+                <view class="td" wx:if="{{item.chargeModel=='1'}}">按照过磅吨位</view>
+                  <view class="td" wx:if="{{item.chargeModel=='2'}}">按照理论吨位</view>
+                  <view class="td" wx:if="{{item.chargeModel=='0'}}">按照整车包运</view>
                 <view class="td">{{item.tonnage ? item.tonnage:'-'}}</view>
                 <view class="td">{{item.unitPrice ? item.unitPrice:'-'}}</view>
                 <view class="td">{{item.freight ? item.freight:'-'}}</view>
@@ -261,6 +268,8 @@
                 <view class="td" wx:if="{{item.chargeBear=='2'}}">比例</view>
                 <view class="td" wx:if="{{state=='2'&&item.chargeBear=='2'}}">{{item.scale ? 100-item.scale:'-'}}</view>
                 <view class="td" wx:else>{{item.scale ? item.scale:'-'}}</view>
+                <view class="td" wx:if="{{state=='2'&&item.chargeBear=='2'}}">{{item.scale ? ((100-item.scale)/100)*item.freight:'-'}}</view>
+                <view class="td" wx:else>{{item.scale ? (item.scale/100)*item.freight:'-'}}</view>
               </view>
 
             </block>
@@ -275,27 +284,19 @@
           <view class="tr bg-w">
             <view class="th">品名</view>
             <view class="th">规格型号</view>
-            <!-- <view class="th">项目库存</view> -->
             <view class="th">签收数量</view>
-            <!-- <view class="th">操作</view> -->
           </view>
           <view class="scrollTbody" style="height:{{arr.bussSignDetailSet.length>5 ? '400rpx' : '100%'}}">
             <block wx:for="{{arr.bussSignDetailSet}}" wx:key="index">
               <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
                 <view class="td">{{item.commodity}}</view>
                 <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
-                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
                 <view class="td">{{item.acceptAmount ? item.acceptAmount:'-'}}</view>
-                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
-                <!-- <view class="td">修改</view> -->
               </view>
               <view class="tr" wx:else>
                 <view class="td">{{item.commodity}}</view>
                 <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
-                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
                 <view class="td">{{item.acceptAmount ? item.acceptAmount:'-'}}</view>
-                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
-                <!-- <view class="td">修改</view> -->
               </view>
             </block>
           </view>
@@ -340,27 +341,19 @@
           <view class="tr bg-w">
             <view class="th">品名</view>
             <view class="th">规格型号</view>
-            <!-- <view class="th">项目库存</view> -->
             <view class="th">调拨数量</view>
-            <!-- <view class="th">操作</view> -->
           </view>
           <view class="scrollTbody" style="height:{{arr.allocationProject.allocationDetailSet.length>5 ? '400rpx' : '100%'}}">
             <block wx:for="{{arr.allocationProject.allocationDetailSet}}" wx:key="index">
               <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
                 <view class="td">{{item.commodity}}</view>
                 <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
-                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
                 <view class="td">{{item.allocationCounts ? item.allocationCounts:'-'}}</view>
-                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
-                <!-- <view class="td">修改</view> -->
               </view>
               <view class="tr" wx:else>
                 <view class="td">{{item.commodity}}</view>
                 <view class="td">{{item.specfications ? item.specfications:'-'}}</view>
-                <!-- <view class="td">{{item.projectTotal ? item.projectTotal:'-'}}</view> -->
                 <view class="td">{{item.allocationCounts ? item.allocationCounts:'-'}}</view>
-                <!-- <view class="td">{{item.surplusCounts ? item.surplusCounts:'-'}}</view> -->
-                <!-- <view class="td">修改</view> -->
               </view>
             </block>
           </view>
@@ -391,8 +384,8 @@
 <view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
   <view class="free-dialog__mask" bindtap="toggleDialog" />
   <view class="free-dialog__container">
-    <view class=" search">
-      <view style='margin-top: 10rpx;margin-bottom: 10rpx;'>
+    <view class=" search" >
+      <view style='margin-top: 10rpx;margin-bottom: 10rpx;' wx:if="{{showDialogtype==0||showDialogtype==2}}">
         <view class='searchItem'>
           <image src='/pages/img/weibiaoti-.png' />
           <input type='text' placeholder='输入品名' bindinput='input' value='{{adTitle}}' bindconfirm='search'></input>
@@ -400,19 +393,31 @@
         </view>
       </view>
 
-      <view bindtap='freetoBack' class="free-button free-dialog-reset">品名</view>
-      <view bindtap='freeBack' class="free-button free-dialog-submit">规格型号</view>
+      <view wx:if="{{showDialogtype==0||showDialogtype==2}}"  class="free-button free-dialog-reset">品名</view>
+      <view wx:if="{{showDialogtype==1||showDialogtype==3}}"  class="free-button free-dialog-reset">规格型号</view>
     </view>
     <view style="padding: 5% 5% 15%;">
       <form bindsubmit='submit' bindreset="reset">
 
         <view class="free-gunlun">
           <radio-group class='free-radios' bindchange="radioChange">
-            <label class="free-radio" bindtap="click" wx:for="{{pickerList}}" wx:key="pickerList" data-id="{{index}}" style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}">
+            <label class="free-radio" bindtap="click" wx:for="{{arry1}}" wx:key="pickerList"
+             data-id="{{item.commodityId}}" data-index="{{index}}"
+            style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}" wx:if="{{showDialogtype==0||showDialogtype==2}}">
               <radio value="{{item}}" name="{{item}}"></radio>
               <label class="free-text">
-                <text>{{item.materialsCommodity.commodity}}</text>
+                <text>{{item.commodityId+'.'+item.commodity}}</text>
+                <!-- <text>{{item.specifications}}</text> -->
+              </label>
+
+            </label>
+            <label class="free-radio" bindtap="click" wx:for="{{arry2}}" wx:key="pickerList"
+             data-id="{{item.specificationsId}}" data-index="{{index}}"
+            style="{{index==id?'background:#E5F2F8;color:#fff;':'background:#fff;color:#000;'}}" wx:if="{{showDialogtype==1||showDialogtype==3}}">
+              <radio value="{{item}}" name="{{item}}"></radio>
+              <label class="free-text">
                 <text>{{item.specifications}}</text>
+                <!-- <text>{{item.specifications}}</text> -->
               </label>
 
             </label>
